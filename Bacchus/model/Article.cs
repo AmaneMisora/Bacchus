@@ -8,12 +8,12 @@ namespace Bacchus.model
 {
     class Article
     { 
+        private String RefArticle;
         private String Description;
-        private String Ref;
-        private Brand ArticleBrand;
-        private Family ArticleFamily;
-        private SubFamily ArcticleSubFamily;
-        private double PrixHT;
+        private SubFamily RefSubFamily;
+        private Brand RefBrand;
+        private double PriceHT;
+        private double Quantity;
 
         public Article()
         {

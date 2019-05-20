@@ -39,16 +39,66 @@ namespace Bacchus
 
         private void OverwriteButton_Click(object sender, EventArgs e)
         {
-            String CSVPath = CSVNameTextBox.Text.ToString();
-            SqlConnection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;");
-            SqlConnection.Open();
 
-            SqlCommand = SqlConnection.CreateCommand();
-            SqlCommand.CommandText = " SELECT name FROM sqlite_temp_master WHERE type='table'; ";
-            int NbLine = SqlCommand.ExecuteNonQuery();
-            SqlConnection.Close();
-            MessageBox.Show("Importation réussie\nNombre de lignes créées : " + NbLine.ToString(), "Importation réussie",
-            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("PRAGMA table_info( Articles );"))
+                {
+                    var table = new DataTable();
+
+                    Command.Connection = con;
+                    Command.Connection.Open();
+
+                    SQLiteDataAdapter adp = null;
+                    try
+                    {
+                        adp = new SQLiteDataAdapter(Command);
+                        adp.Fill(table);
+                        con.Close();
+                    }
+                    catch (Exception ex)
+                    { }
+                    
+                }
+            }
+            
+            /*
+            string Cs = "Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;";
+            
+            using (SQLiteConnection Connection = new SQLiteConnection(Cs))
+            {
+                Connection.Open();
+
+                string stm = " SELECT name FROM sqlite_master WHERE type='table'; ";
+
+                using (SQLiteCommand Command = new SQLiteCommand(stm, Connection))
+                {
+
+                    using (SQLiteDataReader Reader = Command.ExecuteReader())
+                    {
+                        while(Reader.Read())
+                        {
+                            //MessageBox.Show(Reader.GetString(0), Reader.GetString(0), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
+                        }
+                    }
+                }
+
+                stm = "SELECT * FROM table_info(Marques); ";
+                using (SQLiteCommand Command = new SQLiteCommand(stm, Connection))
+                {
+                    using (SQLiteDataReader Reader = Command.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            MessageBox.Show(Reader.GetString(0), Reader.GetString(0), MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        }
+                    }
+
+                }
+            }
+            */
         }
     }
 }
