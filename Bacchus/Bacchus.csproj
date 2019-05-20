@@ -82,6 +82,10 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="model\Article.cs" />
+    <Compile Include="model\Brand.cs" />
+    <Compile Include="model\Family.cs" />
+    <Compile Include="model\SubFamily.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">
