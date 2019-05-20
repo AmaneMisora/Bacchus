@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using System.Collections;
 
 namespace Bacchus
 {
     public partial class FormMain : Form
     {
         private int SortedColumn;
+
+        // Declare a Hashtable array in which to store the groups.
+        private Hashtable[] groupTables;
 
         public FormMain()
         {
@@ -47,18 +51,18 @@ namespace Bacchus
 
         }
 
-        private void MainTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void MainTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs Event)
         {
 
             MainListView.Columns.Clear();
             MainListView.Items.Clear();
 
 
-            String nodeCliked = e.Node.Text;
+            String nodeCliked = Event.Node.Text;
             switch (nodeCliked)
             {
-                case "Articles":    
-                    int ColumnsWidth = MainListView.Width / 6; //faire en sorte que cela sadapte a chaque changment de taille de la fenetre
+                case "Articles":
+                    int ColumnsWidth = MainListView.Width / 6; //faire en sorte que cela sadapte a chaque changment de taille de la fenetre (optionnel)
                     MainListView.Columns.Add("Description", ColumnsWidth);
                     MainListView.Columns.Add("Ref", ColumnsWidth);
                     MainListView.Columns.Add("Marque", ColumnsWidth);
@@ -113,57 +117,102 @@ namespace Bacchus
                 default:
                     break;
             }
-           
+
         }
 
-        private void MainListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void MainListView_ColumnClick(object sender, ColumnClickEventArgs Event)
         {
-          
-            int NumColumn = e.Column;
-            if (NumColumn == SortedColumn)
+
+            SortColumn(Event);
+
+            //creer les groupes en fonction de si il a cliquer sur la bonne colonne 
+            //factoriser le code plus bas car il se repete
+            switch (Event.Column)
             {
-                //trier pas ordre ascendant 
-                //trier utiliser icompare
-                //creer les groupes en fonction de si il a cliquer sur la bonne colonne 
-                //factoriser le code plus bas car il se repete
-                SortedColumn = NumColumn;
-                switch (NumColumn)
+                case 0: //Description
+                    MainListView.Groups.Clear();
+                    break;
+                case 1: //Ref
+                    MainListView.Groups.Clear();
+                    break;
+                case 2: //Marques
+                    MainListView.Groups.Clear();
+                    SetGroups(2);
+                    break;
+                case 3: //Famille
+                    MainListView.Groups.Clear();
+                    SetGroups(3);
+                    break;
+                case 4: //Sous-Famille
+                    MainListView.Groups.Clear();
+                    SetGroups(4);
+                    break;
+                case 5: //Prix H.T.
+                    MainListView.Groups.Clear();
+                    //faire un group par tranche de prix si j'ai le temps
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        // Sets myListView to the groups created for the specified column.
+        private void SetGroups(int column)
+        {
+            String LastGroup;
+            List<String> ListGroup = new List<String>();
+            LastGroup = MainListView.Items[0].SubItems[column].Text;
+            ListGroup.Add(MainListView.Items[0].SubItems[column].Text);
+            MainListView.Groups.Add(new ListViewGroup(LastGroup, HorizontalAlignment.Left));
+            foreach (ListViewItem item in MainListView.Items)
+            {
+                if (LastGroup != item.SubItems[column].Text)
                 {
-                    case 0:
-                        MainListView.Columns.Clear();
-                        MainListView.Items.Clear();
-                        MainListView.Columns.Add("Marques");
-                        break;
-                    case 1:
-                        MainListView.Columns.Clear();
-                        MainListView.Columns.Add("Familles");
-                        break;
-                    case 2:
-                        MainListView.Columns.Clear();
-                        MainListView.Columns.Add("Familles");
-                        break;
-                    case 3:
-                        MainListView.Columns.Clear();
-                        MainListView.Columns.Add("Familles");
-                        break;
-                    case 4:
-                        MainListView.Columns.Clear();
-                        MainListView.Columns.Add("Familles");
-                        break;
-                    case 5:
-                        MainListView.Columns.Clear();
-                        MainListView.Columns.Add("Familles");
-                        break;
-                    default:
-                        break;
+                    LastGroup = item.SubItems[column].Text;
+                    ListGroup.Add(item.SubItems[column].Text);
+                    MainListView.Groups.Add(new ListViewGroup(LastGroup, HorizontalAlignment.Left));
+                    MainListView.Columns.Add(MainListView.Groups[1].Header);
+                }
+                
+                foreach (ListViewGroup GroupCreated in MainListView.Groups)
+                {
+
+                    if (GroupCreated.Header == item.SubItems[column].Text)
+                    {
+                        item.Group = GroupCreated;
+                    }
                 }
 
             }
+
+        }
+
+
+
+        private void SortColumn(ColumnClickEventArgs Event)
+        {
+
+            // Verifie si la colonne cliquée est la meme que la derniere fois 
+            if (Event.Column != SortedColumn)
+            {
+                // mais a jour la derniere colonne cliquee
+                SortedColumn = Event.Column;
+                // puis mais le tri en ascendant
+                MainListView.Sorting = SortOrder.Ascending;
+            }
             else
             {
-                //trier pas ordre descendant 
+                // inverse le tri (ascendant si descendant et vice versa)
+                if (MainListView.Sorting == SortOrder.Ascending)
+                    MainListView.Sorting = SortOrder.Descending;
+                else
+                    MainListView.Sorting = SortOrder.Ascending;
             }
 
-        }   
+            MainListView.Sort();
+            // utilise ListViewItemComparer qui implemente ICompare pour trier
+            this.MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
+        }
     }
 }
