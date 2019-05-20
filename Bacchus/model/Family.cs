@@ -8,6 +8,7 @@ namespace Bacchus.model
 {
     class Family
     {
-        private String FamilyName;
+        private String RefFamily;
+        private String NameFamily;
     }
 }

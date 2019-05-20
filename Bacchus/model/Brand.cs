@@ -8,7 +8,7 @@ namespace Bacchus.model
 {
     class Brand
     {
-
-        private String BrandName;
+        private String RefBrand;
+        private String NameBrand;
     }
 }
