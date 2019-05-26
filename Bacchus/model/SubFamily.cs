@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bacchus.model
 {
     class SubFamily
     {
-        private String RefSubFamily;
-        private String RefFamily;
-        private String NameFamily;
+        public String RefSubFamily { get; set; }
+        public Family RefFamily { get; set; }
+        public String NameSubFamily { get; set; }
+
+        public SubFamily()
+        {
+
+        }
     }
 }

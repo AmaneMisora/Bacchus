@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bacchus.model
 {
     class Article
     { 
-        private String RefArticle;
-        private String Description;
-        private SubFamily RefSubFamily;
-        private Brand RefBrand;
-        private double PriceHT;
-        private double Quantity;
+        public String RefArticle { get; set; }
+        public String Description { get; set; }
+        public SubFamily RefSubFamily { get; set; }
+        public Brand RefBrand { get; set; }
+        public double PriceHT { get; set; }
+        public double Quantity { get; set; }
 
         public Article()
         {
