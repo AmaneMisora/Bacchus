@@ -70,6 +70,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dao\BrandDAO.cs" />
     <Compile Include="ListViewItemComparer.cs" />
     <Compile Include="ImportForm.cs">
       <SubType>Form</SubType>
