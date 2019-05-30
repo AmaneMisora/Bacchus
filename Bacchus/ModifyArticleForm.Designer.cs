@@ -196,6 +196,7 @@ namespace Bacchus
             this.Controls.Add(this.DescriptionTextBox);
             this.Controls.Add(this.ArticleNameLabel);
             this.Controls.Add(this.ArticleLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ModifyArticleForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Modifier un article";

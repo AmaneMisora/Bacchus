@@ -145,6 +145,7 @@
             this.ClientSize = new System.Drawing.Size(435, 148);
             this.Controls.Add(this.ExportProgressBar);
             this.Controls.Add(this.ExportGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ExportForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

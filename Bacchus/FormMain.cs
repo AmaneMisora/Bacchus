@@ -15,6 +15,7 @@ namespace Bacchus
     public partial class FormMain : Form
     {
         private int SortedColumn;
+        private String NodeSelected = ""; // enregistre sur quel noeud l'utilisateur à cliqué
 
         // Declare a Hashtable array in which to store the groups.
         private Hashtable[] groupTables;
@@ -57,68 +58,120 @@ namespace Bacchus
             MainListView.Columns.Clear();
             MainListView.Items.Clear();
 
-
-            String nodeCliked = Event.Node.Text;
-            switch (nodeCliked)
+            // affiche le bon tableau en fonction du noeud selectionné sur le treeview
+            String NodeCliked = Event.Node.Text;
+            int ColumnsWidth = 0;
+            switch (NodeCliked)
             {
-                case "Articles":
-                    int ColumnsWidth = MainListView.Width / 7;
+                case "Articles": // si on clique sur le noeud "Articles"
+                    NodeSelected = "Articles";
+                    ColumnsWidth = MainListView.Width / 7;
                     MainListView.Columns.Add("Quantité", ColumnsWidth);
                     MainListView.Columns.Add("Description", ColumnsWidth);
-                    MainListView.Columns.Add("Ref", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
                     MainListView.Columns.Add("Marque", ColumnsWidth);
                     MainListView.Columns.Add("Famille", ColumnsWidth);
                     MainListView.Columns.Add("Sous-Famille", ColumnsWidth);
                     MainListView.Columns.Add("Prix H.T.", ColumnsWidth);
-                    string[] arr = new string[7];
+                    string[] Article = new string[7];
                     //dao.ArticleDAO.getArticle();
                     // faire une boucle ou on ajoute chaque article de la list plus haut dans la listview
-                    ListViewItem itm;
-                    //add items to ListView
-                    arr[0] = "12";
-                    arr[1] = "Billes gel G1 Pilot Bleu";
-                    arr[2] = "F0010087";
-                    arr[3] = "Pilot";
-                    arr[4] = "Ecriture & Correction";
-                    arr[5] = "Stylos, feutres & rollers";
-                    arr[6] = "7,05";
-                    itm = new ListViewItem(arr);
-                    MainListView.Items.Add(itm);
+                    ListViewItem ArcticleItem;
+                    // ajoute les items a la ListView
+                    Article[0] = "12";
+                    Article[1] = "Billes gel G1 Pilot Bleu";
+                    Article[2] = "F0010087";
+                    Article[3] = "Pilot";
+                    Article[4] = "Ecriture & Correction";
+                    Article[5] = "Stylos, feutres & rollers";
+                    Article[6] = "7,05";
+                    ArcticleItem = new ListViewItem(Article);
+                    MainListView.Items.Add(ArcticleItem);
 
-                    arr[0] = "12";
-                    arr[1] = "Crayons à papier Tradition HB";
-                    arr[2] = "F0000019";
-                    arr[3] = "Conté";
-                    arr[4] = "Ecriture & Correction";
-                    arr[5] = "Crayons & Porte-mines";
-                    arr[6] = "5,09";
-                    itm = new ListViewItem(arr);
-                    MainListView.Items.Add(itm);
+                    Article[0] = "12";
+                    Article[1] = "Crayons à papier Tradition HB";
+                    Article[2] = "F0000019";
+                    Article[3] = "Conté";
+                    Article[4] = "Ecriture & Correction";
+                    Article[5] = "Crayons & Porte-mines";
+                    Article[6] = "5,09";
+                    ArcticleItem = new ListViewItem(Article);
+                    MainListView.Items.Add(ArcticleItem);
 
-                    arr[0] = "12";
-                    arr[1] = "Crayons graphite Foray HB";
-                    arr[2] = "F1646150";
-                    arr[3] = "Foray";
-                    arr[4] = "Ecriture & Correction";
-                    arr[5] = "Crayons & Porte-mines";
-                    arr[6] = "2,69";
-                    itm = new ListViewItem(arr);
-                    MainListView.Items.Add(itm);
-
-                    //ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
-
+                    Article[0] = "12";
+                    Article[1] = "Crayons graphite Foray HB";
+                    Article[2] = "F1646150";
+                    Article[3] = "Foray";
+                    Article[4] = "Ecriture & Correction";
+                    Article[5] = "Crayons & Porte-mines";
+                    Article[6] = "2,69";
+                    ArcticleItem = new ListViewItem(Article);
+                    MainListView.Items.Add(ArcticleItem);
 
 
                     break;
-                case "Marques":
-                    //faire un clear column avant
-                    MainListView.Columns.Add("Marques");
+                case "Marques": // si on clique sur le noeud "Marques"
+                    NodeSelected = "Marques";
+                    ColumnsWidth = MainListView.Width / 2;
+                    MainListView.Columns.Add("Marques", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
+                    
+                    string[] Brand = new string[7];
+
+                    ListViewItem BrandItem;
+                    // ajoute les items a la ListView
+                    Brand[0] = "Nike";
+                    Brand[1] = "123456789";
+                    BrandItem = new ListViewItem(Brand);
+                    MainListView.Items.Add(BrandItem);
+
+                    Brand[0] = "Bike";
+                    Brand[1] = "000001450";
+                    BrandItem = new ListViewItem(Brand);
+                    MainListView.Items.Add(BrandItem);
                     break;
-                case "Familles":
-                    MainListView.Columns.Add("Familles");
+                case "Familles": // si on clique sur le noeud "Familles"
+                    NodeSelected = "Familles";
+                    ColumnsWidth = MainListView.Width / 2;
+                    MainListView.Columns.Add("Familles", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
+
+                    string[] Family = new string[7];
+
+                    ListViewItem FamilyItem;
+                    // ajoute les items a la ListView
+                    Family[0] = "Retail";
+                    Family[1] = "beaucoup";
+                    FamilyItem = new ListViewItem(Family);
+                    MainListView.Items.Add(FamilyItem);
+
+                    Family[0] = "vallllaude";
+                    Family[1] = "moins";
+                    FamilyItem = new ListViewItem(Family);
+                    MainListView.Items.Add(FamilyItem);
                     break;
-                case "Sous familles":
-                    MainListView.Columns.Add("Sous familles");
+                case "Sous familles": // si on clique sur le noeud "Sous familles"
+                    NodeSelected = "Sous familles";
+                    ColumnsWidth = MainListView.Width / 3;
+                    MainListView.Columns.Add("Sous familles", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
+                    MainListView.Columns.Add("Familles", ColumnsWidth);
+
+                    string[] SubFamily = new string[7];
+
+                    ListViewItem SubFamilyItem;
+                    // ajoute les items a la ListView
+                    SubFamily[0] = "sousRetail";
+                    SubFamily[1] = "beaucoup";
+                    SubFamily[2] = "Retail";
+                    SubFamilyItem = new ListViewItem(SubFamily);
+                    MainListView.Items.Add(SubFamilyItem);
+
+                    SubFamily[0] = "sousvallllaude";
+                    SubFamily[1] = "moins";
+                    SubFamily[2] = "vallllaude";
+                    SubFamilyItem = new ListViewItem(SubFamily);
+                    MainListView.Items.Add(SubFamilyItem);
                     break;
                 default:
                     break;
@@ -164,6 +217,74 @@ namespace Bacchus
                     break;
             }
             
+        }
+
+        private void MainListView_MouseDoubleClick(object sender, MouseEventArgs Event)
+        {
+            ListViewItem SelectedItem = MainListView.SelectedItems[0];
+            // vérifie sur quel tableau on travaille
+            switch (NodeSelected)
+            {
+                case "Articles":
+                    ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
+                    NewModifyArticleForm.ShowDialog(this);
+                    break;
+                case "Marques":
+                    ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
+                    NewModifyBrandForm.ShowDialog(this);
+                    break;
+                case "Familles":
+                    ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
+                    NewModifyFamilyForm.ShowDialog(this);
+                    break;
+                case "Sous familles":
+                    ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
+                    NewModifySubFamilyForm.ShowDialog(this);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void MainListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            // si on appuie sur la touche entrer, ouvre la fenetre de modification de l'élément séléctionné
+            if (e.KeyCode == Keys.Enter)
+            {   
+                // vérifie si un item est bien séléctionné
+                if (MainListView.SelectedItems.Count > 0)
+                {
+                    ListViewItem SelectedItem = MainListView.SelectedItems[0];
+                    // vérifie sur quel tableau on travaille
+                    switch (NodeSelected)
+                    {
+                        case "Articles":
+                            ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
+                            NewModifyArticleForm.ShowDialog(this);
+                            break;
+                        case "Marques":
+                            ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
+                            NewModifyBrandForm.ShowDialog(this);
+                            break;
+                        case "Familles":
+                            ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
+                            NewModifyFamilyForm.ShowDialog(this);
+                            break;
+                        case "Sous familles":
+                            ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
+                            NewModifySubFamilyForm.ShowDialog(this);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            // si on appuie sur la touche F5, recharge la liste des éléments 
+            if (e.KeyCode == Keys.F5)
+            {
+                //TODO La touche F5 rechargera la liste des éléments tout comme le sous-menu « Actualiser ».
+                //faire un getall en fonction du noeud selectionné (factorise le code dans MainTreeView_NodeMouseClick dans une fonction a part)
+            }
         }
 
         // Sets myListView to the groups created for the specified column.
@@ -224,11 +345,39 @@ namespace Bacchus
             this.MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
         }
 
-        private void MainListView_MouseDoubleClick(object sender, MouseEventArgs Event)
+        private void ajouterÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListViewItem SelectedItem = MainListView.SelectedItems[0];
-            ModifyArticleForm f = new ModifyArticleForm(SelectedItem);
-            f.ShowDialog(this);
+
+        }
+
+        private void modifierÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainListView.SelectedItems.Count > 0)
+            {
+                ListViewItem SelectedItem = MainListView.SelectedItems[0];
+                // vérifie sur quel tableau on travaille
+                switch (NodeSelected)
+                {
+                    case "Articles":
+                        ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
+                        NewModifyArticleForm.ShowDialog(this);
+                        break;
+                    case "Marques": 
+                        ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
+                        NewModifyBrandForm.ShowDialog(this);
+                        break;
+                    case "Familles":
+                        ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
+                        NewModifyFamilyForm.ShowDialog(this);
+                        break;
+                    case "Sous familles":
+                        ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
+                        NewModifySubFamilyForm.ShowDialog(this);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
