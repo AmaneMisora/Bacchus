@@ -29,7 +29,7 @@ namespace Bacchus
 
         }
 
-        private void ImporterToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ImporterToolStripMenuItem_Click(object sender, EventArgs Event)
         {
             ImportForm f = new ImportForm();
             f.ShowDialog(this);
@@ -62,40 +62,46 @@ namespace Bacchus
             switch (nodeCliked)
             {
                 case "Articles":
-                    int ColumnsWidth = MainListView.Width / 6; //faire en sorte que cela sadapte a chaque changment de taille de la fenetre (optionnel)
+                    int ColumnsWidth = MainListView.Width / 7;
+                    MainListView.Columns.Add("Quantité", ColumnsWidth);
                     MainListView.Columns.Add("Description", ColumnsWidth);
                     MainListView.Columns.Add("Ref", ColumnsWidth);
                     MainListView.Columns.Add("Marque", ColumnsWidth);
                     MainListView.Columns.Add("Famille", ColumnsWidth);
                     MainListView.Columns.Add("Sous-Famille", ColumnsWidth);
                     MainListView.Columns.Add("Prix H.T.", ColumnsWidth);
-                    string[] arr = new string[6];
+                    string[] arr = new string[7];
+                    //dao.ArticleDAO.getArticle();
+                    // faire une boucle ou on ajoute chaque article de la list plus haut dans la listview
                     ListViewItem itm;
                     //add items to ListView
-                    arr[0] = "12 Billes gel G1 Pilot Bleu";
-                    arr[1] = "F0010087";
-                    arr[2] = "Pilot";
-                    arr[3] = "Ecriture & Correction";
-                    arr[4] = "Stylos, feutres & rollers";
-                    arr[5] = "7,05";
+                    arr[0] = "12";
+                    arr[1] = "Billes gel G1 Pilot Bleu";
+                    arr[2] = "F0010087";
+                    arr[3] = "Pilot";
+                    arr[4] = "Ecriture & Correction";
+                    arr[5] = "Stylos, feutres & rollers";
+                    arr[6] = "7,05";
                     itm = new ListViewItem(arr);
                     MainListView.Items.Add(itm);
 
-                    arr[0] = "12 Crayons à papier Tradition HB";
-                    arr[1] = "F0000019";
-                    arr[2] = "Conté";
-                    arr[3] = "Ecriture & Correction";
-                    arr[4] = "Crayons & Porte-mines";
-                    arr[5] = "5,09";
+                    arr[0] = "12";
+                    arr[1] = "Crayons à papier Tradition HB";
+                    arr[2] = "F0000019";
+                    arr[3] = "Conté";
+                    arr[4] = "Ecriture & Correction";
+                    arr[5] = "Crayons & Porte-mines";
+                    arr[6] = "5,09";
                     itm = new ListViewItem(arr);
                     MainListView.Items.Add(itm);
 
-                    arr[0] = "12 Crayons graphite Foray HB";
-                    arr[1] = "F1646150";
-                    arr[2] = "Foray";
-                    arr[3] = "Ecriture & Correction";
-                    arr[4] = "Crayons & Porte-mines";
-                    arr[5] = "2,69";
+                    arr[0] = "12";
+                    arr[1] = "Crayons graphite Foray HB";
+                    arr[2] = "F1646150";
+                    arr[3] = "Foray";
+                    arr[4] = "Ecriture & Correction";
+                    arr[5] = "Crayons & Porte-mines";
+                    arr[6] = "2,69";
                     itm = new ListViewItem(arr);
                     MainListView.Items.Add(itm);
 
@@ -129,25 +135,28 @@ namespace Bacchus
             //factoriser le code plus bas car il se repete
             switch (Event.Column)
             {
-                case 0: //Description
+                case 0: //Quantity
                     MainListView.Groups.Clear();
                     break;
-                case 1: //Ref
+                case 1: //Description
                     MainListView.Groups.Clear();
                     break;
-                case 2: //Marques
+                case 2: //Ref
+                    MainListView.Groups.Clear();
+                    break;
+                case 3: //Marques
                     MainListView.Groups.Clear();
                     SetGroups(2);
                     break;
-                case 3: //Famille
+                case 4: //Famille
                     MainListView.Groups.Clear();
                     SetGroups(3);
                     break;
-                case 4: //Sous-Famille
+                case 5: //Sous-Famille
                     MainListView.Groups.Clear();
                     SetGroups(4);
                     break;
-                case 5: //Prix H.T.
+                case 6: //Prix H.T.
                     MainListView.Groups.Clear();
                     //faire un group par tranche de prix si j'ai le temps
                     break;
@@ -213,6 +222,13 @@ namespace Bacchus
             MainListView.Sort();
             // utilise ListViewItemComparer qui implemente ICompare pour trier
             this.MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
+        }
+
+        private void MainListView_MouseDoubleClick(object sender, MouseEventArgs Event)
+        {
+            ListViewItem SelectedItem = MainListView.SelectedItems[0];
+            ModifyArticleForm f = new ModifyArticleForm(SelectedItem);
+            f.ShowDialog(this);
         }
     }
 }

@@ -128,7 +128,9 @@
             // MainListView
             // 
             this.MainListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainListView.FullRowSelect = true;
             this.MainListView.Location = new System.Drawing.Point(203, 24);
+            this.MainListView.MultiSelect = false;
             this.MainListView.Name = "MainListView";
             this.MainListView.Size = new System.Drawing.Size(597, 404);
             this.MainListView.TabIndex = 4;
@@ -136,6 +138,7 @@
             this.MainListView.View = System.Windows.Forms.View.Details;
             this.MainListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.MainListView_ColumnClick);
             this.MainListView.SelectedIndexChanged += new System.EventHandler(this.MainListView_SelectedIndexChanged);
+            this.MainListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainListView_MouseDoubleClick);
             // 
             // FormMain
             // 
@@ -147,8 +150,9 @@
             this.Controls.Add(this.MainTreeView);
             this.Controls.Add(this.MainStatusStrip);
             this.Controls.Add(this.MainMenuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormMain";
-            this.Text = "FormMain";
+            this.Text = "Fenetre principale";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();

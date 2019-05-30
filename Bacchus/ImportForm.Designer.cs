@@ -62,6 +62,7 @@
             this.CSVNameTextBox.Name = "CSVNameTextBox";
             this.CSVNameTextBox.Size = new System.Drawing.Size(245, 20);
             this.CSVNameTextBox.TabIndex = 0;
+            this.CSVNameTextBox.TextChanged += new System.EventHandler(this.CSVNameTextBox_TextChanged);
             // 
             // OverwriteButton
             // 

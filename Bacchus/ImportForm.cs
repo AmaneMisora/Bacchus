@@ -100,5 +100,10 @@ namespace Bacchus
             }
             */
         }
+
+        private void CSVNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
