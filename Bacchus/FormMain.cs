@@ -37,8 +37,8 @@ namespace Bacchus
 
         private void ExporterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //ExportForm f = new ExportForm();
-            //f.ShowDialog(this);
+            ExportForm f = new ExportForm();
+            f.ShowDialog(this);
         }
 
         private void MainTreeView_AfterSelect(object sender, TreeViewEventArgs e)
