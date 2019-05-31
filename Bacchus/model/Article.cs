@@ -14,7 +14,16 @@ namespace Bacchus.model
         public Article()
         {
         }
-        
+
+        public Article(String ParamRefArticle, String ParamDescription, SubFamily ParamRefSubFamily, Brand ParamRefBrand, double ParamPriceHT, double ParamQuantity)
+        {
+            this.RefArticle = ParamRefArticle;
+            this.Description = ParamDescription;
+            this.RefSubFamily = ParamRefSubFamily;
+            this.RefBrand = ParamRefBrand;
+            this.PriceHT = ParamPriceHT;
+            this.Quantity = ParamQuantity;
+        }
 
 
     }

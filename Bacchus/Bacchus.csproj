@@ -70,7 +70,37 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddArticleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddArticleForm.Designer.cs">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddBrandForm.Designer.cs">
+      <DependentUpon>AddBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddFamilyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFamilyForm.Designer.cs">
+      <DependentUpon>AddFamilyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSubFamilyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSubFamilyForm.Designer.cs">
+      <DependentUpon>AddSubFamilyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="dao\BrandDAO.cs" />
+    <Compile Include="ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListViewItemComparer.cs" />
     <Compile Include="ImportForm.cs">
       <SubType>Form</SubType>
@@ -88,13 +118,61 @@
     <Compile Include="model\Brand.cs" />
     <Compile Include="model\Family.cs" />
     <Compile Include="model\SubFamily.cs" />
+    <Compile Include="ModifyArticleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyArticleForm.Designer.cs">
+      <DependentUpon>ModifyArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyBrandForm.Designer.cs">
+      <DependentUpon>ModifyBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyFamilyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyFamilyForm.Designer.cs">
+      <DependentUpon>ModifyFamilyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModifySubFamilyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifySubFamilyForm.Designer.cs">
+      <DependentUpon>ModifySubFamilyForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddArticleForm.resx">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddBrandForm.resx">
+      <DependentUpon>AddBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddFamilyForm.resx">
+      <DependentUpon>AddFamilyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSubFamilyForm.resx">
+      <DependentUpon>AddSubFamilyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportForm.resx">
       <DependentUpon>ImportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyArticleForm.resx">
+      <DependentUpon>ModifyArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyBrandForm.resx">
+      <DependentUpon>ModifyBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyFamilyForm.resx">
+      <DependentUpon>ModifyFamilyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -105,6 +183,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ModifySubFamilyForm.resx">
+      <DependentUpon>ModifySubFamilyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Bacchus.SQLite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

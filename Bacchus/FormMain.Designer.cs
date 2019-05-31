@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Articles");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Marques");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Familles");
@@ -41,7 +42,12 @@
             this.MainTreeView = new System.Windows.Forms.TreeView();
             this.MainSplitter = new System.Windows.Forms.Splitter();
             this.MainListView = new System.Windows.Forms.ListView();
+            this.ListViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ajouterÉlémentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifierÉlémentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supprimerÉlémentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
+            this.ListViewContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuStrip
@@ -127,8 +133,11 @@
             // 
             // MainListView
             // 
+            this.MainListView.ContextMenuStrip = this.ListViewContextMenuStrip;
             this.MainListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainListView.FullRowSelect = true;
             this.MainListView.Location = new System.Drawing.Point(203, 24);
+            this.MainListView.MultiSelect = false;
             this.MainListView.Name = "MainListView";
             this.MainListView.Size = new System.Drawing.Size(597, 404);
             this.MainListView.TabIndex = 4;
@@ -136,6 +145,37 @@
             this.MainListView.View = System.Windows.Forms.View.Details;
             this.MainListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.MainListView_ColumnClick);
             this.MainListView.SelectedIndexChanged += new System.EventHandler(this.MainListView_SelectedIndexChanged);
+            this.MainListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainListView_KeyDown);
+            this.MainListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainListView_MouseDoubleClick);
+            // 
+            // ListViewContextMenuStrip
+            // 
+            this.ListViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ajouterÉlémentToolStripMenuItem,
+            this.modifierÉlémentToolStripMenuItem,
+            this.supprimerÉlémentToolStripMenuItem});
+            this.ListViewContextMenuStrip.Name = "ListViewContextMenuStrip";
+            this.ListViewContextMenuStrip.Size = new System.Drawing.Size(176, 70);
+            // 
+            // ajouterÉlémentToolStripMenuItem
+            // 
+            this.ajouterÉlémentToolStripMenuItem.Name = "ajouterÉlémentToolStripMenuItem";
+            this.ajouterÉlémentToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.ajouterÉlémentToolStripMenuItem.Text = "Ajouter élément";
+            this.ajouterÉlémentToolStripMenuItem.Click += new System.EventHandler(this.ajouterÉlémentToolStripMenuItem_Click);
+            // 
+            // modifierÉlémentToolStripMenuItem
+            // 
+            this.modifierÉlémentToolStripMenuItem.Name = "modifierÉlémentToolStripMenuItem";
+            this.modifierÉlémentToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.modifierÉlémentToolStripMenuItem.Text = "Modifier élément";
+            this.modifierÉlémentToolStripMenuItem.Click += new System.EventHandler(this.modifierÉlémentToolStripMenuItem_Click);
+            // 
+            // supprimerÉlémentToolStripMenuItem
+            // 
+            this.supprimerÉlémentToolStripMenuItem.Name = "supprimerÉlémentToolStripMenuItem";
+            this.supprimerÉlémentToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.supprimerÉlémentToolStripMenuItem.Text = "Supprimer élément";
             // 
             // FormMain
             // 
@@ -147,11 +187,13 @@
             this.Controls.Add(this.MainTreeView);
             this.Controls.Add(this.MainStatusStrip);
             this.Controls.Add(this.MainMenuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FormMain";
-            this.Text = "FormMain";
+            this.Text = "Fenetre principale";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
+            this.ListViewContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,6 +210,10 @@
         private System.Windows.Forms.TreeView MainTreeView;
         private System.Windows.Forms.Splitter MainSplitter;
         private System.Windows.Forms.ListView MainListView;
+        private System.Windows.Forms.ContextMenuStrip ListViewContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem ajouterÉlémentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modifierÉlémentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem supprimerÉlémentToolStripMenuItem;
     }
 }
 
