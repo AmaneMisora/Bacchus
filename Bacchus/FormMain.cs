@@ -111,9 +111,10 @@ namespace Bacchus
 
                     break;
                 case "Marques": // si on clique sur le noeud "Marques"
+                    MainListView.Groups.Clear();
                     NodeSelected = "Marques";
                     ColumnsWidth = MainListView.Width / 2;
-                    MainListView.Columns.Add("Marques", ColumnsWidth);
+                    MainListView.Columns.Add("Nom", ColumnsWidth);
                     MainListView.Columns.Add("Référence", ColumnsWidth);
                     
                     string[] Brand = new string[7];
@@ -131,9 +132,10 @@ namespace Bacchus
                     MainListView.Items.Add(BrandItem);
                     break;
                 case "Familles": // si on clique sur le noeud "Familles"
+                    MainListView.Groups.Clear();
                     NodeSelected = "Familles";
                     ColumnsWidth = MainListView.Width / 2;
-                    MainListView.Columns.Add("Familles", ColumnsWidth);
+                    MainListView.Columns.Add("Nom", ColumnsWidth);
                     MainListView.Columns.Add("Référence", ColumnsWidth);
 
                     string[] Family = new string[7];
@@ -151,11 +153,12 @@ namespace Bacchus
                     MainListView.Items.Add(FamilyItem);
                     break;
                 case "Sous familles": // si on clique sur le noeud "Sous familles"
+                    MainListView.Groups.Clear();
                     NodeSelected = "Sous familles";
                     ColumnsWidth = MainListView.Width / 3;
-                    MainListView.Columns.Add("Sous familles", ColumnsWidth);
+                    MainListView.Columns.Add("Nom", ColumnsWidth);
                     MainListView.Columns.Add("Référence", ColumnsWidth);
-                    MainListView.Columns.Add("Familles", ColumnsWidth);
+                    MainListView.Columns.Add("Famille", ColumnsWidth);
 
                     string[] SubFamily = new string[7];
 
@@ -185,7 +188,6 @@ namespace Bacchus
             SortColumn(Event);
 
             //creer les groupes en fonction de si il a cliquer sur la bonne colonne 
-            //factoriser le code plus bas car il se repete
             switch (Event.Column)
             {
                 case 0: //Quantity
@@ -223,27 +225,8 @@ namespace Bacchus
         {
             ListViewItem SelectedItem = MainListView.SelectedItems[0];
             // vérifie sur quel tableau on travaille
-            switch (NodeSelected)
-            {
-                case "Articles":
-                    ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
-                    NewModifyArticleForm.ShowDialog(this);
-                    break;
-                case "Marques":
-                    ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
-                    NewModifyBrandForm.ShowDialog(this);
-                    break;
-                case "Familles":
-                    ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
-                    NewModifyFamilyForm.ShowDialog(this);
-                    break;
-                case "Sous familles":
-                    ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
-                    NewModifySubFamilyForm.ShowDialog(this);
-                    break;
-                default:
-                    break;
-            }
+            OpenModifyForm(NodeSelected, SelectedItem);
+            
         }
 
         private void MainListView_KeyDown(object sender, KeyEventArgs e)
@@ -256,27 +239,8 @@ namespace Bacchus
                 {
                     ListViewItem SelectedItem = MainListView.SelectedItems[0];
                     // vérifie sur quel tableau on travaille
-                    switch (NodeSelected)
-                    {
-                        case "Articles":
-                            ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
-                            NewModifyArticleForm.ShowDialog(this);
-                            break;
-                        case "Marques":
-                            ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
-                            NewModifyBrandForm.ShowDialog(this);
-                            break;
-                        case "Familles":
-                            ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
-                            NewModifyFamilyForm.ShowDialog(this);
-                            break;
-                        case "Sous familles":
-                            ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
-                            NewModifySubFamilyForm.ShowDialog(this);
-                            break;
-                        default:
-                            break;
-                    }
+                    OpenModifyForm(NodeSelected, SelectedItem);
+                    
                 }
             }
             // si on appuie sur la touche F5, recharge la liste des éléments 
@@ -318,6 +282,71 @@ namespace Bacchus
 
         }
 
+        private void ajouterÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenAddForm(NodeSelected);
+        }
+
+        private void modifierÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainListView.SelectedItems.Count > 0)
+            {
+                ListViewItem SelectedItem = MainListView.SelectedItems[0];
+                // vérifie sur quel tableau on travaille
+                OpenModifyForm(NodeSelected, SelectedItem);
+            }
+        }
+
+
+        private void OpenModifyForm(String NodeName, ListViewItem SelectedItem)
+        {
+            switch (NodeName)
+            {
+                case "Articles":
+                    ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
+                    NewModifyArticleForm.ShowDialog(this);
+                    break;
+                case "Marques":
+                    ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
+                    NewModifyBrandForm.ShowDialog(this);
+                    break;
+                case "Familles":
+                    ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
+                    NewModifyFamilyForm.ShowDialog(this);
+                    break;
+                case "Sous familles":
+                    ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
+                    NewModifySubFamilyForm.ShowDialog(this);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OpenAddForm(String NodeName)
+        {
+            switch (NodeName)
+            {
+                case "Articles":
+                    AddArticleForm NewAddArticleForm = new AddArticleForm();
+                    NewAddArticleForm.ShowDialog(this);
+                    break;
+                case "Marques":
+                    AddBrandForm NewAddBrandForm = new AddBrandForm();
+                    NewAddBrandForm.ShowDialog(this);
+                    break;
+                case "Familles":
+                    AddFamilyForm NewAddFamilyForm = new AddFamilyForm();
+                    NewAddFamilyForm.ShowDialog(this);
+                    break;
+                case "Sous familles":
+                    AddSubFamilyForm NewAddSubFamilyForm = new AddSubFamilyForm();
+                    NewAddSubFamilyForm.ShowDialog(this);
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
         private void SortColumn(ColumnClickEventArgs Event)
@@ -345,39 +374,6 @@ namespace Bacchus
             this.MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
         }
 
-        private void ajouterÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void modifierÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MainListView.SelectedItems.Count > 0)
-            {
-                ListViewItem SelectedItem = MainListView.SelectedItems[0];
-                // vérifie sur quel tableau on travaille
-                switch (NodeSelected)
-                {
-                    case "Articles":
-                        ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
-                        NewModifyArticleForm.ShowDialog(this);
-                        break;
-                    case "Marques": 
-                        ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
-                        NewModifyBrandForm.ShowDialog(this);
-                        break;
-                    case "Familles":
-                        ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
-                        NewModifyFamilyForm.ShowDialog(this);
-                        break;
-                    case "Sous familles":
-                        ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
-                        NewModifySubFamilyForm.ShowDialog(this);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        
     }
 }

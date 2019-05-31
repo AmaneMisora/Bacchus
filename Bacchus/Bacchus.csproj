@@ -70,6 +70,30 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddArticleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddArticleForm.Designer.cs">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddBrandForm.Designer.cs">
+      <DependentUpon>AddBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddFamilyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFamilyForm.Designer.cs">
+      <DependentUpon>AddFamilyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSubFamilyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSubFamilyForm.Designer.cs">
+      <DependentUpon>AddSubFamilyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="dao\BrandDAO.cs" />
     <Compile Include="ExportForm.cs">
       <SubType>Form</SubType>
@@ -120,6 +144,18 @@
     <Compile Include="ModifySubFamilyForm.Designer.cs">
       <DependentUpon>ModifySubFamilyForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddArticleForm.resx">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddBrandForm.resx">
+      <DependentUpon>AddBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddFamilyForm.resx">
+      <DependentUpon>AddFamilyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSubFamilyForm.resx">
+      <DependentUpon>AddSubFamilyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExportForm.resx">
       <DependentUpon>ExportForm.cs</DependentUpon>
     </EmbeddedResource>

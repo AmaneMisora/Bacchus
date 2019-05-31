@@ -50,12 +50,11 @@ namespace Bacchus
             // ArticleLabel
             // 
             this.ArticleLabel.AutoSize = true;
-            this.ArticleLabel.Location = new System.Drawing.Point(129, 9);
+            this.ArticleLabel.Location = new System.Drawing.Point(116, 9);
             this.ArticleLabel.Name = "ArticleLabel";
-            this.ArticleLabel.Size = new System.Drawing.Size(66, 13);
+            this.ArticleLabel.Size = new System.Drawing.Size(63, 13);
             this.ArticleLabel.TabIndex = 0;
-            this.ArticleLabel.Text = "Référence : ";
-            this.ArticleLabel.Click += new System.EventHandler(this.label1_Click);
+            this.ArticleLabel.Text = "Référence :";
             // 
             // ArticleNameLabel
             // 
@@ -68,32 +67,31 @@ namespace Bacchus
             // 
             // DescriptionTextBox
             // 
-            this.DescriptionTextBox.Location = new System.Drawing.Point(132, 61);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(119, 61);
             this.DescriptionTextBox.Name = "DescriptionTextBox";
-            this.DescriptionTextBox.Size = new System.Drawing.Size(121, 20);
+            this.DescriptionTextBox.Size = new System.Drawing.Size(200, 20);
             this.DescriptionTextBox.TabIndex = 2;
-            this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
             // 
             // PriceHTTextBox
             // 
-            this.PriceHTTextBox.Location = new System.Drawing.Point(132, 218);
+            this.PriceHTTextBox.Location = new System.Drawing.Point(119, 218);
             this.PriceHTTextBox.Name = "PriceHTTextBox";
-            this.PriceHTTextBox.Size = new System.Drawing.Size(121, 20);
+            this.PriceHTTextBox.Size = new System.Drawing.Size(200, 20);
             this.PriceHTTextBox.TabIndex = 3;
             // 
             // QuantityTextBox
             // 
-            this.QuantityTextBox.Location = new System.Drawing.Point(132, 262);
+            this.QuantityTextBox.Location = new System.Drawing.Point(119, 262);
             this.QuantityTextBox.Name = "QuantityTextBox";
-            this.QuantityTextBox.Size = new System.Drawing.Size(121, 20);
+            this.QuantityTextBox.Size = new System.Drawing.Size(200, 20);
             this.QuantityTextBox.TabIndex = 4;
             // 
             // FamilyComboBox
             // 
             this.FamilyComboBox.FormattingEnabled = true;
-            this.FamilyComboBox.Location = new System.Drawing.Point(132, 96);
+            this.FamilyComboBox.Location = new System.Drawing.Point(119, 96);
             this.FamilyComboBox.Name = "FamilyComboBox";
-            this.FamilyComboBox.Size = new System.Drawing.Size(121, 21);
+            this.FamilyComboBox.Size = new System.Drawing.Size(200, 21);
             this.FamilyComboBox.TabIndex = 5;
             // 
             // DescriptionLabel
@@ -135,17 +133,17 @@ namespace Bacchus
             // SubFamilyComboBox
             // 
             this.SubFamilyComboBox.FormattingEnabled = true;
-            this.SubFamilyComboBox.Location = new System.Drawing.Point(132, 139);
+            this.SubFamilyComboBox.Location = new System.Drawing.Point(119, 139);
             this.SubFamilyComboBox.Name = "SubFamilyComboBox";
-            this.SubFamilyComboBox.Size = new System.Drawing.Size(121, 21);
+            this.SubFamilyComboBox.Size = new System.Drawing.Size(200, 21);
             this.SubFamilyComboBox.TabIndex = 10;
             // 
             // BrandComboBox
             // 
             this.BrandComboBox.FormattingEnabled = true;
-            this.BrandComboBox.Location = new System.Drawing.Point(132, 180);
+            this.BrandComboBox.Location = new System.Drawing.Point(119, 180);
             this.BrandComboBox.Name = "BrandComboBox";
-            this.BrandComboBox.Size = new System.Drawing.Size(121, 21);
+            this.BrandComboBox.Size = new System.Drawing.Size(200, 21);
             this.BrandComboBox.TabIndex = 11;
             // 
             // QuantityLabel
@@ -200,7 +198,6 @@ namespace Bacchus
             this.Name = "ModifyArticleForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Modifier un article";
-            this.Load += new System.EventHandler(this.ModifyArticle_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,7 +210,7 @@ namespace Bacchus
 
         private void label1_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         #endregion

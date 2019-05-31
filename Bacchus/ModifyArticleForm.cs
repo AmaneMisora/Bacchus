@@ -33,16 +33,6 @@ namespace Bacchus
         }
        
 
-        private void ModifyArticle_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void OkButton_Click(object sender, EventArgs e)
         {
             model.Article ModifiedArticle = new model.Article();
