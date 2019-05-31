@@ -22,22 +22,19 @@ namespace Bacchus.dao
             {
                 throw new ArgumentNullException("Brand Name");
             }
-            if (BrandToAdd.RefBrand.Equals("") || BrandToAdd.RefBrand == null)
-            {
-                throw new ArgumentNullException("Brand Ref");
-            }
 
             // Add to db
             using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("INSERT INTO Marques VALUES ('" + BrandToAdd.NameBrand + "'), ('" + BrandToAdd.RefBrand + "');"))
+                    using (var Command = new SQLiteCommand("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');"))
                     {
+                        MessageBox.Show("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');");
                         // Execute query
                         Command.Connection = con;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        Command.ExecuteNonQuery();
                         con.Close();
                         MessageBox.Show("Marque " + BrandToAdd.NameBrand + " créée");
 
@@ -46,9 +43,8 @@ namespace Bacchus.dao
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.To);
+                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.ToString());
                     con.Close();
-                    throw;
                 }
 
 
@@ -60,13 +56,9 @@ namespace Bacchus.dao
          * param name="BrandRef" : The reference of the Brand to modify
          * param name="NewBrandName" : The new name of the brand
          */
-        public static void editBrand(String BrandRef, String NewBrandName)
+        public static void editBrand(int BrandRef, String NewBrandName)
         {
             // Verifications
-            if (BrandRef.Equals("") || BrandRef == null)
-            {
-                throw new ArgumentNullException("Brand Name");
-            }
             if (NewBrandName.Equals("") || NewBrandName == null)
             {
                 throw new ArgumentNullException("Brand Ref");
@@ -128,7 +120,7 @@ namespace Bacchus.dao
 
                                 Brand BrandToAdd = new Brand();
 
-                                BrandToAdd.RefBrand = Reader[0].ToString();
+                                BrandToAdd.RefBrand = (int) Reader[0];
                                 BrandToAdd.NameBrand = Reader[1].ToString();
                                 
                                 listToReturn.SetValue(BrandToAdd, currentBrandIndex);

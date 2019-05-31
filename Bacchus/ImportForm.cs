@@ -40,7 +40,7 @@ namespace Bacchus
                         //execute query
                         Command.Connection = con;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        Command.ExecuteNonQuery();
                         con.Close();
                     }
 
@@ -50,7 +50,7 @@ namespace Bacchus
                         //execute query
                         Command.Connection = con;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        Command.ExecuteNonQuery();
                         con.Close();
                     }
 
@@ -60,7 +60,7 @@ namespace Bacchus
                         //execute query
                         Command.Connection = con;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        Command.ExecuteNonQuery();
                         con.Close();
                     }
 
@@ -70,26 +70,41 @@ namespace Bacchus
                         //execute query
                         Command.Connection = con;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        Command.ExecuteNonQuery();
                         con.Close();
                     }
 
                     MessageBox.Show("db Cleared");
                 }
-            
+
             }
-            catch(Exception ExceptionCaught)
+            catch (Exception ExceptionCaught)
             {
                 MessageBox.Show("Error while clearing db : " + ExceptionCaught);
             }
+            //add to db
 
+
+
+
+            //Tests BrandDAO (ok)
+            /*
+            BrandDAO.addBrand(new model.Brand(0, "test0"));
+            BrandDAO.addBrand(new model.Brand(1, "test1"));
+            BrandDAO.addBrand(new model.Brand(2, "test2"));
+            BrandDAO.editBrand(1, "edit");
+            model.Brand[] brands = BrandDAO.getAllBrands();
+            MessageBox.Show("Nombre de lignes à la fin : " + BrandDAO.nbBrands());
+            MessageBox.Show("Ref : " + brands[0].RefBrand, brands[0].NameBrand);
+            MessageBox.Show("Ref : " + brands[1].RefBrand, brands[1].NameBrand);
+            MessageBox.Show("Ref : " + brands[2].RefBrand, brands[2].NameBrand);
+            */
 
             /*
             //read csv
             model.Brand BrandToAdd = new model.Brand("test", "test");
 
 
-            // Add to db
             using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
@@ -114,9 +129,6 @@ namespace Bacchus
 
 
             }
-            */
-
-            //add to db
             try
             {
                 BrandDAO.addBrand(new model.Brand("test","test"));
@@ -128,6 +140,8 @@ namespace Bacchus
             {
                 MessageBox.Show(ExceptionCaught.Message.ToString(), ExceptionCaught.GetType().ToString());
             }
+            */
+
             MessageBox.Show("Juste parce que c'est satisfaisant d'afficher une fenêtre quand il n'y a pas d'erreur", "Exécution réussie");
 
         }

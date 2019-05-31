@@ -4,7 +4,7 @@ namespace Bacchus.model
 {
     class Brand
     {
-        public String RefBrand { get; set; }
+        public int RefBrand { get; set; }
         public String NameBrand { get; set; }
 
         public Brand()
@@ -12,7 +12,7 @@ namespace Bacchus.model
 
         }
 
-        public Brand(String RefBrandToSet, String NameBrandToSet)
+        public Brand(int RefBrandToSet, String NameBrandToSet)
         {
             RefBrand = RefBrandToSet;
             NameBrand = NameBrandToSet;
