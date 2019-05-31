@@ -11,11 +11,11 @@ namespace Bacchus.dao
     {
 
         /**
-         * Create a new brand and add it to the db
+         * Add a new brand to the db
          * param name="NewBrandRef" : the band's ref
          * param name="NewBrandName" : the brand's name
          */
-        public static void creatBrand(Brand BrandToAdd)
+        public static void addBrand(Brand BrandToAdd)
         {
             // Verifications
             if (BrandToAdd.NameBrand.Equals("") || BrandToAdd.NameBrand == null)
@@ -46,7 +46,7 @@ namespace Bacchus.dao
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée");
+                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.To);
                     con.Close();
                     throw;
                 }
@@ -56,40 +56,97 @@ namespace Bacchus.dao
         }
 
         /**
-         * Get all brands from db
+         * Change the name of a brand
+         * param name="BrandRef" : The reference of the Brand to modify
+         * param name="NewBrandName" : The new name of the brand
          */
-        public static DataTable getBrands()
+        public static void editBrand(String BrandRef, String NewBrandName)
         {
-
-            var DataTableToReturn = new DataTable();
-
-            using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            // Verifications
+            if (BrandRef.Equals("") || BrandRef == null)
             {
-                using (var Command = new SQLiteCommand("SELECT * FROM Marques;"))
+                throw new ArgumentNullException("Brand Name");
+            }
+            if (NewBrandName.Equals("") || NewBrandName == null)
+            {
+                throw new ArgumentNullException("Brand Ref");
+            }
+
+            // Add to db
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
                 {
-                    try
+                    using (var Command = new SQLiteCommand("UPDATE Marques SET Nom = " + NewBrandName + " WHERE RefMarque = " + BrandRef + "; "))
                     {
-                        //execute query
-                        Command.Connection = con;
+                        // Execute query
+                        Command.Connection = Connection;
                         Command.Connection.Open();
                         SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
-                        con.Close();
-
-                        adp.Fill(DataTableToReturn);
-
-                        MessageBox.Show("Nb lines : " + DataTableToReturn.Rows.Count);
+                        Connection.Close();
                     }
-                    catch (Exception ExceptionCaught)
-                    {
-                        con.Close();
-                        throw;
-                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    Connection.Close();
+                    throw;
                 }
 
 
             }
 
-            return DataTableToReturn;
+
+
+        }
+        
+        /**
+         * Get all brands from db 
+         * returns a table of brands
+         */
+        public static Brand[] getAllBrands()
+        {
+            //The table to return
+            Brand[] listToReturn = new Brand[BrandDAO.nbBrands()];
+            //The number of brands to get
+            int NbBrands = BrandDAO.nbBrands();
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM Marques;"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            for (int currentBrandIndex = 0; currentBrandIndex < NbBrands; currentBrandIndex++)
+                            {
+                                Reader.Read();
+
+                                Brand BrandToAdd = new Brand();
+
+                                BrandToAdd.RefBrand = Reader[0].ToString();
+                                BrandToAdd.NameBrand = Reader[1].ToString();
+                                
+                                listToReturn.SetValue(BrandToAdd, currentBrandIndex);
+                            }
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    }
+                }
+
+
+            }
+            
+            
+            return listToReturn;
         }
 
         /**
