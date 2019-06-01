@@ -82,6 +82,7 @@
             // 
             // FamilyComboBox
             // 
+            this.FamilyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FamilyComboBox.FormattingEnabled = true;
             this.FamilyComboBox.Location = new System.Drawing.Point(125, 106);
             this.FamilyComboBox.Name = "FamilyComboBox";

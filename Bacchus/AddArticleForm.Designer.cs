@@ -74,6 +74,7 @@
             // 
             // BrandComboBox
             // 
+            this.BrandComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BrandComboBox.FormattingEnabled = true;
             this.BrandComboBox.Location = new System.Drawing.Point(126, 183);
             this.BrandComboBox.Name = "BrandComboBox";
@@ -82,6 +83,7 @@
             // 
             // SubFamilyComboBox
             // 
+            this.SubFamilyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SubFamilyComboBox.FormattingEnabled = true;
             this.SubFamilyComboBox.Location = new System.Drawing.Point(126, 142);
             this.SubFamilyComboBox.Name = "SubFamilyComboBox";
@@ -126,6 +128,7 @@
             // 
             // FamilyComboBox
             // 
+            this.FamilyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FamilyComboBox.FormattingEnabled = true;
             this.FamilyComboBox.Location = new System.Drawing.Point(126, 99);
             this.FamilyComboBox.Name = "FamilyComboBox";
