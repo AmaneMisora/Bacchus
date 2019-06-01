@@ -1,5 +1,4 @@
 ﻿using Bacchus.model;
-
 using System;
 using System.Data;
 using System.Data.SQLite;
@@ -7,20 +6,20 @@ using System.Windows;
 
 namespace Bacchus.dao
 {
-    static class BrandDAO
+    class FamilyDAO
     {
 
         /**
-         * Add a new brand to the db
-         * param name="NewBrandRef" : the band's ref
-         * param name="NewBrandName" : the brand's name
+         * Add a new Family to the db
+         * param name="NewFamilyRef" : the family's ref
+         * param name="NewFamilyName" : the family's name
          */
-        public static void addBrand(Brand BrandToAdd)
+        public static void addFamily(Family FamilyToAdd)
         {
             // Verifications
-            if (BrandToAdd.NameBrand.Equals("") || BrandToAdd.NameBrand == null)
+            if (FamilyToAdd.NameFamily.Equals("") || FamilyToAdd.NameFamily == null)
             {
-                throw new ArgumentNullException("Brand Name");
+                throw new ArgumentNullException("Famille Name");
             }
 
             // Add to db
@@ -28,40 +27,38 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');"))
+                    using (var Command = new SQLiteCommand("INSERT INTO Familles VALUES (" + FamilyToAdd.RefFamily + ", '" + FamilyToAdd.NameFamily + "');"))
                     {
-                        MessageBox.Show("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');");
                         // Execute query
                         Command.Connection = con;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
                         con.Close();
-                        MessageBox.Show("Marque " + BrandToAdd.NameBrand + " créée");
+                        MessageBox.Show("Famille " + FamilyToAdd.NameFamily + " créée");
 
-                        MessageBox.Show("nb lines : " + nbBrands());
+                        MessageBox.Show("nb lines : " + nbFamilys());
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.ToString());
+                    MessageBox.Show("Famille " + FamilyToAdd.NameFamily + " non créée\n" + ExceptionCaught.Message.ToString());
                     con.Close();
                 }
-
-
+                
             }
         }
 
         /**
-         * Change the name of a brand
-         * param name="BrandRef" : The reference of the Brand to modify
-         * param name="NewBrandName" : The new name of the brand
+         * Change de name of a family
+         * param name="RefFamily" : The reference of the Family to modify
+         * param name="NewFamilyName" : The new name of the family
          */
-        public static void editBrand(int BrandRef, String NewBrandName)
+        public static void editFamily(int RefFamily, String NewFamilyName)
         {
             // Verifications
-            if (NewBrandName.Equals("") || NewBrandName == null)
+            if (NewFamilyName.Equals("") || NewFamilyName == null)
             {
-                throw new ArgumentNullException("Brand Ref");
+                throw new ArgumentNullException("Famille Ref");
             }
 
             // Add to db
@@ -69,7 +66,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("UPDATE Marques SET Nom = " + NewBrandName + " WHERE RefMarque = " + BrandRef + "; "))
+                    using (var Command = new SQLiteCommand("UPDATE Familles SET Nom = " + NewFamilyName + " WHERE RefMarque = " + RefFamily + "; "))
                     {
                         // Execute query
                         Command.Connection = Connection;
@@ -80,32 +77,27 @@ namespace Bacchus.dao
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    MessageBox.Show("Famille " + RefFamily + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     Connection.Close();
                     throw;
                 }
-
-
             }
-
-
-
         }
-        
+
         /**
-         * Get all brands from db 
-         * returns a table of brands
+         * Get all familys from db 
+         * returns a table of familys
          */
-        public static Brand[] getAllBrands()
+        public static Family[] getAllFamilys()
         {
             //The table to return
-            Brand[] listToReturn = new Brand[BrandDAO.nbBrands()];
-            //The number of brands to get
-            int NbBrands = BrandDAO.nbBrands();
+            Family[] listToReturn = new Family[FamilyDAO.nbFamilys()];
+            //The number of familys to get
+            int NbFamilys = FamilyDAO.nbFamilys();
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT * FROM Marques;"))
+                using (var Command = new SQLiteCommand("SELECT * FROM Familles;"))
                 {
                     try
                     {
@@ -114,23 +106,23 @@ namespace Bacchus.dao
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
-                            for (int currentBrandIndex = 0; currentBrandIndex < NbBrands; currentBrandIndex++)
+                            for (int currentFamilyIndex = 0; currentFamilyIndex < NbFamilys; currentFamilyIndex++)
                             {
                                 Reader.Read();
 
-                                Brand BrandToAdd = new Brand();
+                                Family FamilyToAdd = new Family();
 
-                                BrandToAdd.RefBrand = (int) Reader[0];
-                                BrandToAdd.NameBrand = Reader[1].ToString();
-                                
-                                listToReturn.SetValue(BrandToAdd, currentBrandIndex);
+                                FamilyToAdd.RefFamily = (int)Reader[0];
+                                FamilyToAdd.NameFamily = Reader[1].ToString();
+
+                                listToReturn.SetValue(FamilyToAdd, currentFamilyIndex);
                             }
                         }
 
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        MessageBox.Show("Echec de la récupération des données de la table Familles  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
@@ -139,10 +131,10 @@ namespace Bacchus.dao
         }
 
         /**
-         * Count the number of brands in the db
+         * Count the number of familys in the db
          * Return -1 if failed
          */
-        public static int nbBrands()
+        public static int nbFamilys()
         {
             int Result = -1;
 
@@ -150,7 +142,7 @@ namespace Bacchus.dao
 
             using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Marques;"))
+                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Familles;"))
                 {
                     try
                     {
@@ -174,6 +166,8 @@ namespace Bacchus.dao
 
         }
 
-    }
 
+
+
+    }
 }

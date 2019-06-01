@@ -82,10 +82,21 @@ namespace Bacchus
             {
                 MessageBox.Show("Error while clearing db : " + ExceptionCaught);
             }
+
             //add to db
 
-
-
+            //Test FamilySAO (ok)
+            /*
+            FamilyDAO.addFamily(new model.Family(0, "test0"));
+            FamilyDAO.addFamily(new model.Family(1, "test1"));
+            FamilyDAO.addFamily(new model.Family(2, "test2"));
+            FamilyDAO.editFamily(1, "edit");
+            model.Family[] Familys = FamilyDAO.getAllFamilys();
+            MessageBox.Show("Nombre de lignes à la fin : " + FamilyDAO.nbFamilys());
+            MessageBox.Show("Ref : " + Familys[0].RefFamily, Familys[0].NameFamily);
+            MessageBox.Show("Ref : " + Familys[1].RefFamily, Familys[1].NameFamily);
+            MessageBox.Show("Ref : " + Familys[2].RefFamily, Familys[2].NameFamily);
+            */
 
             //Tests BrandDAO (ok)
             /*

@@ -95,6 +95,7 @@
       <DependentUpon>AddSubFamilyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="dao\BrandDAO.cs" />
+    <Compile Include="dao\FamilyDAO.cs" />
     <Compile Include="ExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
