@@ -11,10 +11,13 @@ namespace Bacchus.model
         public double PriceHT { get; set; }
         public double Quantity { get; set; }
 
+        /// <summary>
+        /// Create a new empty article
+        /// </summary>
         public Article()
         {
         }
-
+        
         public Article(String ParamRefArticle, String ParamDescription, SubFamily ParamRefSubFamily, Brand ParamRefBrand, double ParamPriceHT, double ParamQuantity)
         {
             this.RefArticle = ParamRefArticle;
