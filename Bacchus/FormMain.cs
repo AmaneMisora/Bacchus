@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Collections;
+using Bacchus.dao;
+using Bacchus.model;
 
 namespace Bacchus
 {
@@ -111,46 +113,12 @@ namespace Bacchus
 
                     break;
                 case "Marques": // si on clique sur le noeud "Marques"
-                    MainListView.Groups.Clear();
                     NodeSelected = "Marques";
-                    ColumnsWidth = MainListView.Width / 2;
-                    MainListView.Columns.Add("Nom", ColumnsWidth);
-                    MainListView.Columns.Add("Référence", ColumnsWidth);
-                    
-                    string[] Brand = new string[7];
-
-                    ListViewItem BrandItem;
-                    // ajoute les items a la ListView
-                    Brand[0] = "Nike";
-                    Brand[1] = "123456789";
-                    BrandItem = new ListViewItem(Brand);
-                    MainListView.Items.Add(BrandItem);
-
-                    Brand[0] = "Bike";
-                    Brand[1] = "000001450";
-                    BrandItem = new ListViewItem(Brand);
-                    MainListView.Items.Add(BrandItem);
+                    UpdateListViewBrand(NodeSelected);
                     break;
                 case "Familles": // si on clique sur le noeud "Familles"
-                    MainListView.Groups.Clear();
                     NodeSelected = "Familles";
-                    ColumnsWidth = MainListView.Width / 2;
-                    MainListView.Columns.Add("Nom", ColumnsWidth);
-                    MainListView.Columns.Add("Référence", ColumnsWidth);
-
-                    string[] Family = new string[7];
-
-                    ListViewItem FamilyItem;
-                    // ajoute les items a la ListView
-                    Family[0] = "Retail";
-                    Family[1] = "beaucoup";
-                    FamilyItem = new ListViewItem(Family);
-                    MainListView.Items.Add(FamilyItem);
-
-                    Family[0] = "vallllaude";
-                    Family[1] = "moins";
-                    FamilyItem = new ListViewItem(Family);
-                    MainListView.Items.Add(FamilyItem);
+                    UpdateListViewBrand(NodeSelected);
                     break;
                 case "Sous familles": // si on clique sur le noeud "Sous familles"
                     MainListView.Groups.Clear();
@@ -160,7 +128,7 @@ namespace Bacchus
                     MainListView.Columns.Add("Référence", ColumnsWidth);
                     MainListView.Columns.Add("Famille", ColumnsWidth);
 
-                    string[] SubFamily = new string[7];
+                    string[] SubFamily = new string[3];
 
                     ListViewItem SubFamilyItem;
                     // ajoute les items a la ListView
@@ -248,6 +216,7 @@ namespace Bacchus
             {
                 //TODO La touche F5 rechargera la liste des éléments tout comme le sous-menu « Actualiser ».
                 //faire un getall en fonction du noeud selectionné (factorise le code dans MainTreeView_NodeMouseClick dans une fonction a part)
+                UpdateListViewBrand(NodeSelected);
             }
         }
 
@@ -334,6 +303,7 @@ namespace Bacchus
                 case "Marques":
                     AddBrandForm NewAddBrandForm = new AddBrandForm();
                     NewAddBrandForm.ShowDialog(this);
+                    UpdateListViewBrand("Marques");
                     break;
                 case "Familles":
                     AddFamilyForm NewAddFamilyForm = new AddFamilyForm();
@@ -374,6 +344,60 @@ namespace Bacchus
             this.MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
         }
 
-        
+        private void UpdateListViewBrand(String NodeName)
+        {
+            switch (NodeName)
+            {
+                case "Articles":
+                    break;
+                case "Marques":
+                    Brand[] Brands = BrandDAO.getAllBrands();
+
+                    MainListView.Columns.Clear();
+                    MainListView.Items.Clear();
+                    MainListView.Groups.Clear();
+                    MainListView.Columns.Add("Nom");
+                    MainListView.Columns.Add("Référence");
+                    foreach (Brand B in Brands)
+                    {
+
+                        string[] BrandToAdd = new string[2];
+
+                        ListViewItem BrandItem;
+                        // ajoute les items a la ListView
+                        BrandToAdd[0] = B.NameBrand;
+                        BrandToAdd[1] = B.RefBrand.ToString();
+                        BrandItem = new ListViewItem(BrandToAdd);
+                        MainListView.Items.Add(BrandItem);
+                    }
+                    break;
+                case "Familles":
+                    Family[] Families = FamilyDAO.getAllFamilys();
+
+                    MainListView.Columns.Clear();
+                    MainListView.Items.Clear();
+                    MainListView.Groups.Clear();
+                    MainListView.Columns.Add("Nom");
+                    MainListView.Columns.Add("Référence");
+                    foreach (Family F in Families)
+                    {
+
+                        string[] FamilyToAdd = new string[2];
+
+                        ListViewItem FamilyItem;
+                        // ajoute les items a la ListView
+                        FamilyToAdd[0] = F.NameFamily;
+                        FamilyToAdd[1] = F.RefFamily.ToString();
+                        FamilyItem = new ListViewItem(FamilyToAdd);
+                        MainListView.Items.Add(FamilyItem);
+                    }
+                    break;
+                case "Sous familles":
+                    break;
+                default:
+                    break;
+            }
+            
+        }
     }
 }

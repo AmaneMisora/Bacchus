@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bacchus.dao;
+using Bacchus.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,27 @@ namespace Bacchus
         public AddBrandForm()
         {
             InitializeComponent();
+        }
+
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            int value;
+            if (int.TryParse(RefTextBox.Text, out value))
+            {
+                if(NameTextBox.Text != "")
+                {
+                    Brand NewBrand = new Brand(value, NameTextBox.Text);
+                    BrandDAO.addBrand(NewBrand);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            } else
+            {
+                MessageBox.Show("Référence doit etre un chiffre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
