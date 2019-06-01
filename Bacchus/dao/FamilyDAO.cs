@@ -167,6 +167,47 @@ namespace Bacchus.dao
         }
 
         /**
+         * Get the Family corresponding to the Ref FamilyRef
+         */
+        public static Family getFamilyById(int FamilyRef)
+        {
+            Family FamilyToReturn = new Family();
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM Familles WHERE RefFamille = '" + FamilyRef + "';"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            Reader.Read();
+
+                            FamilyToReturn.RefFamily = (int)Reader[0];
+                            FamilyToReturn.NameFamily = Reader[1].ToString();
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        Connection.Close();
+                        FamilyToReturn = null;
+                        MessageBox.Show("Echec de la récupération de la Marque " + FamilyRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    }
+                }
+            }
+
+            return FamilyToReturn;
+
+
+        }
+
+
+
+        /**
          * Count the number of familys in the db
          * Return -1 if failed
          */

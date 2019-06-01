@@ -88,6 +88,7 @@ namespace Bacchus
             //Test FamilyDAO (ok)
             /*
             FamilyDAO.addFamily(new model.Family(0, "test0"));
+            MessageBox.Show("Ref : " + FamilyDAO.getFamilyById(0).RefFamily, FamilyDAO.getFamilyById(0).NameFamily);
             MessageBox.Show("Ref : " + FamilyDAO.getFamilyByName("test0").RefFamily, FamilyDAO.getFamilyByName("test0").NameFamily);
             FamilyDAO.addFamily(new model.Family(1, "test1"));
             FamilyDAO.addFamily(new model.Family(2, "test2"));
@@ -100,9 +101,9 @@ namespace Bacchus
             */
 
             //Tests BrandDAO (ok)
+            /*
             BrandDAO.addBrand(new model.Brand(0, "test0"));
             MessageBox.Show("Ref : " + BrandDAO.getBrandById(0).RefBrand, BrandDAO.getBrandById(0).NameBrand);
-            /*
             BrandDAO.addBrand(new model.Brand(1, "test1"));
             BrandDAO.addBrand(new model.Brand(2, "test2"));
             BrandDAO.editBrand(1, "edit");

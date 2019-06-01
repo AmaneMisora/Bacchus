@@ -131,6 +131,9 @@ namespace Bacchus.dao
             return listToReturn;
         }
 
+        /**
+         * Get the Brand corresponding to the Ref BrandRef
+         */
         public static Brand getBrandById(int BrandRef)
         {
             Brand BrandToReturn = new Brand();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bacchus.dao;
+using System;
 
 namespace Bacchus.model
 {
@@ -18,6 +19,23 @@ namespace Bacchus.model
             NameBrand = NameBrandToSet;
         }
 
+        public Brand(String NameBrandToSet)
+        {
+            NameBrand = NameBrandToSet;
+            RefBrand = -1;
+
+            int testRef = -1;
+
+            while(RefBrand == -1)
+            {
+                testRef++;
+
+                if(BrandDAO.getBrandById(testRef) == null)
+                {
+                    RefBrand = testRef;
+                }
+            }
+        }
        
     }
 }

@@ -21,7 +21,11 @@ namespace Bacchus.model
 
             if(FamilyDAO.getFamilyByName(NameFamilyToSet) == null)
             {
-
+                //créer une famille
+            }
+            else
+            {
+                RefFamily = FamilyDAO.getFamilyByName(NameFamilyToSet);
             }
         }
     }
