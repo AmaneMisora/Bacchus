@@ -24,15 +24,15 @@ namespace Bacchus.model
             NameBrand = NameBrandToSet;
             RefBrand = -1;
 
-            int testRef = -1;
+            int TestRef = -1;
 
             while(RefBrand == -1)
             {
-                testRef++;
+                TestRef++;
 
-                if(BrandDAO.getBrandById(testRef) == null)
+                if(BrandDAO.getBrandById(TestRef) == null)
                 {
-                    RefBrand = testRef;
+                    RefBrand = TestRef;
                 }
             }
         }

@@ -12,8 +12,7 @@ namespace Bacchus.dao
 
         /**
          * Add a new brand to the db
-         * param name="NewBrandRef" : the band's ref
-         * param name="NewBrandName" : the brand's name
+         * param name="BrandToAdd" : the brand to add to db
          */
         public static void addBrand(Brand BrandToAdd)
         {
@@ -21,6 +20,10 @@ namespace Bacchus.dao
             if (BrandToAdd.NameBrand.Equals("") || BrandToAdd.NameBrand == null)
             {
                 throw new ArgumentNullException("Brand Name");
+            }
+            if (BrandToAdd.RefBrand == -1)
+            {
+                throw new ArgumentException("La référence de la Marque ne doit pas être égale à -1");
             }
 
             // Add to db
@@ -30,7 +33,6 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');"))
                     {
-                        MessageBox.Show("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');");
                         // Execute query
                         Command.Connection = Connection;
                         Command.Connection.Open();
@@ -43,8 +45,6 @@ namespace Bacchus.dao
                     MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.ToString());
                     Connection.Close();
                 }
-
-
             }
         }
 
@@ -89,10 +89,10 @@ namespace Bacchus.dao
          */
         public static Brand[] getAllBrands()
         {
-            //The table to return
-            Brand[] listToReturn = new Brand[BrandDAO.nbBrands()];
             //The number of brands to get
             int NbBrands = BrandDAO.nbBrands();
+            //The table to return
+            Brand[] listToReturn = new Brand[NbBrands];
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
