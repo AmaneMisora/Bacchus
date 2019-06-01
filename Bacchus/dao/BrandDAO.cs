@@ -24,7 +24,7 @@ namespace Bacchus.dao
             }
 
             // Add to db
-            using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
@@ -32,19 +32,16 @@ namespace Bacchus.dao
                     {
                         MessageBox.Show("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');");
                         // Execute query
-                        Command.Connection = con;
+                        Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
-                        con.Close();
-                        MessageBox.Show("Marque " + BrandToAdd.NameBrand + " créée");
-
-                        MessageBox.Show("nb lines : " + nbBrands());
+                        Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.ToString());
-                    con.Close();
+                    Connection.Close();
                 }
 
 
@@ -80,16 +77,10 @@ namespace Bacchus.dao
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     Connection.Close();
-                    throw;
+                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                 }
-
-
             }
-
-
-
         }
         
         /**
@@ -130,12 +121,50 @@ namespace Bacchus.dao
                     }
                     catch (Exception ExceptionCaught)
                     {
+                        Connection.Close();
+                        listToReturn = null;
                         MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
 
             return listToReturn;
+        }
+
+        public static Brand getBrandById(int BrandRef)
+        {
+            Brand BrandToReturn = new Brand();
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM Marques WHERE RefMarque = '" + BrandRef + "';"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            Reader.Read();
+
+                            BrandToReturn.RefBrand = (int)Reader[0];
+                            BrandToReturn.NameBrand = Reader[1].ToString();
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        Connection.Close();
+                        BrandToReturn = null;
+                        MessageBox.Show("Echec de la récupération de la Marque " + BrandRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    }
+                }
+            }
+
+            return BrandToReturn;
+
+
         }
 
         /**
@@ -148,24 +177,25 @@ namespace Bacchus.dao
 
             var DataTableToReturn = new DataTable();
 
-            using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Marques;"))
                 {
                     try
                     {
                         //execute query
-                        Command.Connection = con;
+                        Command.Connection = Connection;
                         Command.Connection.Open();
                         SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
                         adp.Fill(DataTableToReturn);
                         Result = Convert.ToInt32(DataTableToReturn.Rows[0][0].ToString());
-                        con.Close();
+                        Connection.Close();
                     }
-                    catch (Exception)
+                    catch (Exception ExceptionCaught)
                     {
-                        con.Close();
-                        throw;
+                        Connection.Close();
+                        MessageBox.Show("Echec" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     }
                 }
             }

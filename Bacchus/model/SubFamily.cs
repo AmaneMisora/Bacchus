@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bacchus.dao;
+using System;
 
 namespace Bacchus.model
 {
@@ -11,6 +12,17 @@ namespace Bacchus.model
         public SubFamily()
         {
 
+        }
+
+        public SubFamily(int RefSubFamilyToSet, String NameFamilyToSet, String NameSubFamilyToSet)
+        {
+            RefSubFamily = RefSubFamilyToSet;
+            NameSubFamily = NameSubFamilyToSet;
+
+            if(FamilyDAO.getFamilyByName(NameFamilyToSet) == null)
+            {
+
+            }
         }
     }
 }

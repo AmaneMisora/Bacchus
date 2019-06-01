@@ -23,17 +23,17 @@ namespace Bacchus.dao
             }
 
             // Add to db
-            using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO Familles VALUES (" + FamilyToAdd.RefFamily + ", '" + FamilyToAdd.NameFamily + "');"))
                     {
                         // Execute query
-                        Command.Connection = con;
+                        Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
-                        con.Close();
+                        Connection.Close();
                         MessageBox.Show("Famille " + FamilyToAdd.NameFamily + " créée");
 
                         MessageBox.Show("nb lines : " + nbFamilys());
@@ -42,9 +42,8 @@ namespace Bacchus.dao
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Famille " + FamilyToAdd.NameFamily + " non créée\n" + ExceptionCaught.Message.ToString());
-                    con.Close();
+                    Connection.Close();
                 }
-                
             }
         }
 
@@ -79,7 +78,6 @@ namespace Bacchus.dao
                 {
                     MessageBox.Show("Famille " + RefFamily + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     Connection.Close();
-                    throw;
                 }
             }
         }
@@ -124,6 +122,7 @@ namespace Bacchus.dao
                     {
                         listToReturn = null;
                         MessageBox.Show("Echec de la récupération des données de la table Familles  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        Connection.Close();
                     }
                 }
             }
@@ -135,7 +134,7 @@ namespace Bacchus.dao
          */
         public static Family getFamilyByName(String FamilyName)
         {
-            Family FamilyToAdd = new Family();
+            Family FamilyReturn = new Family();
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -150,20 +149,21 @@ namespace Bacchus.dao
                         {
                             Reader.Read();
 
-                            FamilyToAdd.RefFamily = (int)Reader[0];
-                            FamilyToAdd.NameFamily = Reader[1].ToString();
+                            FamilyReturn.RefFamily = (int)Reader[0];
+                            FamilyReturn.NameFamily = Reader[1].ToString();
                         }
 
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        FamilyToAdd = null;
+                        FamilyReturn = null;
                         MessageBox.Show("Echec de la récupération de la Famille " + FamilyName +   "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        Connection.Close();
                     }
                 }
             }
 
-            return FamilyToAdd;
+            return FamilyReturn;
         }
 
         /**
@@ -176,24 +176,23 @@ namespace Bacchus.dao
 
             var DataTableToReturn = new DataTable();
 
-            using (var con = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Familles;"))
                 {
                     try
                     {
                         //execute query
-                        Command.Connection = con;
+                        Command.Connection = Connection;
                         Command.Connection.Open();
                         SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
                         adp.Fill(DataTableToReturn);
                         Result = Convert.ToInt32(DataTableToReturn.Rows[0][0].ToString());
-                        con.Close();
+                        Connection.Close();
                     }
                     catch (Exception)
                     {
-                        con.Close();
-                        throw;
+                        Connection.Close();
                     }
                 }
             }

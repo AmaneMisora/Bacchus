@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="dao\BrandDAO.cs" />
     <Compile Include="dao\FamilyDAO.cs" />
+    <Compile Include="dao\SubFamilyDAO.cs" />
     <Compile Include="ExportForm.cs">
       <SubType>Form</SubType>
     </Compile>

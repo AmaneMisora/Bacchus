@@ -17,5 +17,7 @@ namespace Bacchus.model
             RefBrand = RefBrandToSet;
             NameBrand = NameBrandToSet;
         }
+
+       
     }
 }
