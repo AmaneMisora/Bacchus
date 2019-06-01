@@ -122,12 +122,48 @@ namespace Bacchus.dao
                     }
                     catch (Exception ExceptionCaught)
                     {
+                        listToReturn = null;
                         MessageBox.Show("Echec de la récupération des données de la table Familles  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
 
             return listToReturn;
+        }
+        /**
+         * Get the Family corresponding to the name FamilyName
+         */
+        public static Family getFamilyByName(String FamilyName)
+        {
+            Family FamilyToAdd = new Family();
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM Familles WHERE Nom = '"+ FamilyName + "';"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            Reader.Read();
+
+                            FamilyToAdd.RefFamily = (int)Reader[0];
+                            FamilyToAdd.NameFamily = Reader[1].ToString();
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        FamilyToAdd = null;
+                        MessageBox.Show("Echec de la récupération de la Famille " + FamilyName +   "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    }
+                }
+            }
+
+            return FamilyToAdd;
         }
 
         /**
