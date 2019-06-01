@@ -9,11 +9,10 @@ namespace Bacchus.dao
 {
     static class BrandDAO
     {
-
-        /**
-         * Add a new brand to the db
-         * param name="BrandToAdd" : the brand to add to db
-         */
+        /// <summary>
+        /// Add a new brand to the db
+        /// </summary>
+        /// <param name="BrandToAdd"></param>
         public static void addBrand(Brand BrandToAdd)
         {
             // Verifications
@@ -48,11 +47,11 @@ namespace Bacchus.dao
             }
         }
 
-        /**
-         * Change the name of a brand
-         * param name="BrandRef" : The reference of the Brand to modify
-         * param name="NewBrandName" : The new name of the brand
-         */
+        /// <summary>
+        /// Change the name of a brand
+        /// </summary>
+        /// <param name="BrandRef"></param>
+        /// <param name="NewBrandName"></param>
         public static void editBrand(int BrandRef, String NewBrandName)
         {
             // Verifications
@@ -82,11 +81,11 @@ namespace Bacchus.dao
                 }
             }
         }
-        
-        /**
-         * Get all brands from db 
-         * returns a table of brands
-         */
+
+        /// <summary>
+        /// Get all brands from db 
+        /// </summary>
+        /// <returns></returns>
         public static Brand[] getAllBrands()
         {
             //The number of brands to get
@@ -131,9 +130,11 @@ namespace Bacchus.dao
             return listToReturn;
         }
 
-        /**
-         * Get the Brand corresponding to the Ref BrandRef
-         */
+        /// <summary>
+        /// Get the Brand corresponding to the Ref BrandRef
+        /// </summary>
+        /// <param name="BrandRef"></param>
+        /// <returns></returns>
         public static Brand getBrandById(int BrandRef)
         {
             Brand BrandToReturn = new Brand();
@@ -170,10 +171,10 @@ namespace Bacchus.dao
 
         }
 
-        /**
-         * Count the number of brands in the db
-         * Return -1 if failed
-         */
+        /// <summary>
+        /// Count the number of brands in the db
+        /// </summary>
+        /// <returns></returns>
         public static int nbBrands()
         {
             int Result = -1;

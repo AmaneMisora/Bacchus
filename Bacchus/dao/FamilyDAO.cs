@@ -8,12 +8,10 @@ namespace Bacchus.dao
 {
     class FamilyDAO
     {
-
-        /**
-         * Add a new Family to the db
-         * param name="NewFamilyRef" : the family's ref
-         * param name="NewFamilyName" : the family's name
-         */
+        /// <summary>
+        /// Add a new Family to the db
+        /// </summary>
+        /// <param name="FamilyToAdd"></param>
         public static void addFamily(Family FamilyToAdd)
         {
             // Verifications
@@ -47,11 +45,11 @@ namespace Bacchus.dao
             }
         }
 
-        /**
-         * Change de name of a family
-         * param name="RefFamily" : The reference of the Family to modify
-         * param name="NewFamilyName" : The new name of the family
-         */
+        /// <summary>
+        /// Change de name of a family
+        /// </summary>
+        /// <param name="RefFamily"></param>
+        /// <param name="NewFamilyName"></param>
         public static void editFamily(int RefFamily, String NewFamilyName)
         {
             // Verifications
@@ -82,10 +80,10 @@ namespace Bacchus.dao
             }
         }
 
-        /**
-         * Get all familys from db 
-         * returns a table of familys
-         */
+        /// <summary>
+        /// Get all familys from db 
+        /// </summary>
+        /// <returns></returns>
         public static Family[] getAllFamilys()
         {
             //The table to return
@@ -129,9 +127,12 @@ namespace Bacchus.dao
 
             return listToReturn;
         }
-        /**
-         * Get the Family corresponding to the name FamilyName
-         */
+
+        /// <summary>
+        /// Get the Family corresponding to the name FamilyName
+        /// </summary>
+        /// <param name="FamilyName"></param>
+        /// <returns></returns>
         public static Family getFamilyByName(String FamilyName)
         {
             Family FamilyReturn = new Family();
@@ -166,9 +167,11 @@ namespace Bacchus.dao
             return FamilyReturn;
         }
 
-        /**
-         * Get the Family corresponding to the Ref FamilyRef
-         */
+        /// <summary>
+        /// Get the Family corresponding to the Ref FamilyRef
+        /// </summary>
+        /// <param name="FamilyRef"></param>
+        /// <returns></returns>
         public static Family getFamilyById(int FamilyRef)
         {
             Family FamilyToReturn = new Family();
@@ -205,12 +208,10 @@ namespace Bacchus.dao
 
         }
 
-
-
-        /**
-         * Count the number of familys in the db
-         * Return -1 if failed
-         */
+        /// <summary>
+        /// Count the number of familys in the db
+        /// </summary>
+        /// <returns></returns>
         public static int nbFamilys()
         {
             int Result = -1;
@@ -241,9 +242,6 @@ namespace Bacchus.dao
             return Result;
 
         }
-
-
-
 
     }
 }

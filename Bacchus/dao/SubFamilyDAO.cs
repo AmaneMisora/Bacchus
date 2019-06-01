@@ -8,11 +8,10 @@ namespace Bacchus.dao
 {
     class SubFamilyDAO
     {
-        
-        /**
-         * Add a new subFamily to the db
-         * param name="SubFamilyToAdd" : the subFamily to add
-         */
+        /// <summary>
+        /// Add a new subFamily to the db
+        /// </summary>
+        /// <param name="SubFamilyToAdd"></param>
         public static void addFamily(SubFamily SubFamilyToAdd)
         {
             //Verifications
@@ -57,6 +56,10 @@ namespace Bacchus.dao
             MessageBox.Show("TODO");
         }
 
+        /// <summary>
+        /// Return all the SubFamillies from the db
+        /// </summary>
+        /// <returns></returns>
         public static SubFamily[] getAllSubFamillies()
         {
             //The number of subFamily
@@ -103,6 +106,10 @@ namespace Bacchus.dao
             return listToReturn;
         }
 
+        /// <summary>
+        /// Return the number of subFamillies in the db
+        /// </summary>
+        /// <returns></returns>
         public static int nbSubFamily()
         {
             int Result = -1;

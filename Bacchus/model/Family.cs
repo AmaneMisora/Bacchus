@@ -8,30 +8,29 @@ namespace Bacchus.model
         public int RefFamily { get; set; }
         public String NameFamily { get; set; }
 
-        /**
-         * Create a new empty family
-         */
+        /// <summary>
+        /// Create a new empty family
+        /// </summary>
         public Family()
         {
             RefFamily = -1;
         }
 
-        /**
-         * Create a new family using the reference and the name
-         * param name="RefFamilyToSet" : The reference to set
-         * param name="param name="NameFamilyToSet" : The name to set
-         */
+        /// <summary>
+        /// Create a new family using the reference and the name
+        /// </summary>
+        /// <param name="RefFamilyToSet"></param>
+        /// <param name="NameFamilyToSet"></param>
         public Family(int RefFamilyToSet, String NameFamilyToSet)
         {
             RefFamily = RefFamilyToSet;
             NameFamily = NameFamilyToSet;
         }
 
-        /**
-         * Create a new family using the reference and the name
-         * param name="RefFamilyToSet" : The reference to set
-         * param name="param name="NameFamilyToSet" : The name to set
-         */
+        /// <summary>
+        /// Create a new family using the reference and the name
+        /// </summary>
+        /// <param name="NameFamilyToSet"></param>
         public Family(String NameFamilyToSet)
         {
             NameFamily = NameFamilyToSet;
