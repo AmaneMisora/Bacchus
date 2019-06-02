@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bacchus.dao;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +22,8 @@ namespace Bacchus
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-
+            //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
+            BrandDAO.editBrand(int.Parse(BrandNameLabel.Text),NameTextBox.Text);
             this.Close();
         }
     }

@@ -68,6 +68,7 @@ namespace Bacchus
             // DescriptionTextBox
             // 
             this.DescriptionTextBox.Location = new System.Drawing.Point(119, 61);
+            this.DescriptionTextBox.MaxLength = 35;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(200, 20);
             this.DescriptionTextBox.TabIndex = 2;
@@ -75,6 +76,7 @@ namespace Bacchus
             // PriceHTTextBox
             // 
             this.PriceHTTextBox.Location = new System.Drawing.Point(119, 218);
+            this.PriceHTTextBox.MaxLength = 35;
             this.PriceHTTextBox.Name = "PriceHTTextBox";
             this.PriceHTTextBox.Size = new System.Drawing.Size(200, 20);
             this.PriceHTTextBox.TabIndex = 3;
@@ -82,6 +84,7 @@ namespace Bacchus
             // QuantityTextBox
             // 
             this.QuantityTextBox.Location = new System.Drawing.Point(119, 262);
+            this.QuantityTextBox.MaxLength = 35;
             this.QuantityTextBox.Name = "QuantityTextBox";
             this.QuantityTextBox.Size = new System.Drawing.Size(200, 20);
             this.QuantityTextBox.TabIndex = 4;

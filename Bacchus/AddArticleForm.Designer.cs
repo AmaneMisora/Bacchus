@@ -138,6 +138,7 @@
             // QuantityTextBox
             // 
             this.QuantityTextBox.Location = new System.Drawing.Point(126, 265);
+            this.QuantityTextBox.MaxLength = 35;
             this.QuantityTextBox.Name = "QuantityTextBox";
             this.QuantityTextBox.Size = new System.Drawing.Size(200, 20);
             this.QuantityTextBox.TabIndex = 19;
@@ -145,6 +146,7 @@
             // PriceHTTextBox
             // 
             this.PriceHTTextBox.Location = new System.Drawing.Point(126, 221);
+            this.PriceHTTextBox.MaxLength = 35;
             this.PriceHTTextBox.Name = "PriceHTTextBox";
             this.PriceHTTextBox.Size = new System.Drawing.Size(200, 20);
             this.PriceHTTextBox.TabIndex = 18;
@@ -152,6 +154,7 @@
             // DescriptionTextBox
             // 
             this.DescriptionTextBox.Location = new System.Drawing.Point(126, 64);
+            this.DescriptionTextBox.MaxLength = 35;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(200, 20);
             this.DescriptionTextBox.TabIndex = 17;
@@ -168,6 +171,7 @@
             // RefTextBox
             // 
             this.RefTextBox.Location = new System.Drawing.Point(126, 32);
+            this.RefTextBox.MaxLength = 35;
             this.RefTextBox.Name = "RefTextBox";
             this.RefTextBox.Size = new System.Drawing.Size(200, 20);
             this.RefTextBox.TabIndex = 30;

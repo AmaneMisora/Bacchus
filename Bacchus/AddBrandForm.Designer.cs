@@ -57,6 +57,7 @@
             // NameTextBox
             // 
             this.NameTextBox.Location = new System.Drawing.Point(127, 61);
+            this.NameTextBox.MaxLength = 35;
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(199, 20);
             this.NameTextBox.TabIndex = 14;
@@ -73,6 +74,7 @@
             // RefTextBox
             // 
             this.RefTextBox.Location = new System.Drawing.Point(127, 28);
+            this.RefTextBox.MaxLength = 35;
             this.RefTextBox.Name = "RefTextBox";
             this.RefTextBox.Size = new System.Drawing.Size(199, 20);
             this.RefTextBox.TabIndex = 17;

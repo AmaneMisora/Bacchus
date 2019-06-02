@@ -16,12 +16,12 @@ namespace Bacchus
 {
     public partial class FormMain : Form
     {
-        private int SortedColumn;
-        private String NodeSelected = ""; // enregistre sur quel noeud l'utilisateur à cliqué
+        private int SortedColumn;           // enregistre la dernière colonne triée
+        private String NodeSelected = "";   // enregistre sur quel noeud l'utilisateur a cliqué
 
-        // Declare a Hashtable array in which to store the groups.
-        private Hashtable[] groupTables;
-
+        /// <summary>
+        /// Constructeur de la fenetre FormMain
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -32,16 +32,36 @@ namespace Bacchus
 
         }
 
-        private void ImporterToolStripMenuItem_Click(object sender, EventArgs Event)
+        /// <summary>
+        /// Ouvre la fenetre d'import lorsque l'on clique sur "importer" dans le menu
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void ImporterToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
             ImportForm f = new ImportForm();
             f.ShowDialog(this);
         }
 
-        private void ExporterToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Ouvre la fenetre d'export lorsque l'on clique sur "exporter" dans le menu
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void ExporterToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
             ExportForm f = new ExportForm();
             f.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// Actualise le tableau lié au noeud où l'on travaille actuellement lorsque l'on clique sur "Actualiser" dans le menu
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void ActualiserToolStripMenuItem_Click(object Sender, EventArgs Event)
+        {
+            UpdateListView(NodeSelected);
         }
 
         private void MainTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -54,19 +74,24 @@ namespace Bacchus
 
         }
 
-        private void MainTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs Event)
+        /// <summary>
+        /// Créer le tableau lié au noeud de la TreeView sur lequel on clique
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void MainTreeView_NodeMouseClick(object Sender, TreeNodeMouseClickEventArgs Event)
         {
-
-            MainListView.Columns.Clear();
-            MainListView.Items.Clear();
-
             // affiche le bon tableau en fonction du noeud selectionné sur le treeview
             String NodeCliked = Event.Node.Text;
             int ColumnsWidth = 0;
             switch (NodeCliked)
             {
                 case "Articles": // si on clique sur le noeud "Articles"
+                    MainListView.ListViewItemSorter = null;
                     NodeSelected = "Articles";
+                    MainListView.Groups.Clear();
+                    MainListView.Columns.Clear();
+                    MainListView.Items.Clear();
                     ColumnsWidth = MainListView.Width / 7;
                     MainListView.Columns.Add("Quantité", ColumnsWidth);
                     MainListView.Columns.Add("Description", ColumnsWidth);
@@ -111,18 +136,33 @@ namespace Bacchus
                     MainListView.Items.Add(ArcticleItem);
 
 
+                    Article[0] = "12";
+                    Article[1] = "ZBilles gel G1 Pilot Bleu";
+                    Article[2] = "F0010087";
+                    Article[3] = "Pilot";
+                    Article[4] = "Ecriture & Correction";
+                    Article[5] = "Stylos, feutres & rollers";
+                    Article[6] = "7,05";
+                    ArcticleItem = new ListViewItem(Article);
+                    MainListView.Items.Add(ArcticleItem);
                     break;
+
                 case "Marques": // si on clique sur le noeud "Marques"
                     NodeSelected = "Marques";
-                    UpdateListViewBrand(NodeSelected);
+                    UpdateListView(NodeSelected);
                     break;
+
                 case "Familles": // si on clique sur le noeud "Familles"
                     NodeSelected = "Familles";
-                    UpdateListViewBrand(NodeSelected);
+                    UpdateListView(NodeSelected);
                     break;
+
                 case "Sous familles": // si on clique sur le noeud "Sous familles"
-                    MainListView.Groups.Clear();
+                    MainListView.ListViewItemSorter = null;
                     NodeSelected = "Sous familles";
+                    MainListView.Groups.Clear();
+                    MainListView.Columns.Clear();
+                    MainListView.Items.Clear();
                     ColumnsWidth = MainListView.Width / 3;
                     MainListView.Columns.Add("Nom", ColumnsWidth);
                     MainListView.Columns.Add("Référence", ColumnsWidth);
@@ -144,129 +184,199 @@ namespace Bacchus
                     SubFamilyItem = new ListViewItem(SubFamily);
                     MainListView.Items.Add(SubFamilyItem);
                     break;
+
                 default:
                     break;
+
             }
 
         }
 
-        private void MainListView_ColumnClick(object sender, ColumnClickEventArgs Event)
+        /// <summary>
+        /// Trie en fonction du tableau sur lequel on travaille et la colonne sur laquel on a cliqué
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void MainListView_ColumnClick(object Sender, ColumnClickEventArgs Event)
         {
-
-            SortColumn(Event);
-
-            //creer les groupes en fonction de si il a cliquer sur la bonne colonne 
-            switch (Event.Column)
+            // cherche le tableau sur lequel on travaille 
+            switch (NodeSelected)
             {
-                case 0: //Quantity
-                    MainListView.Groups.Clear();
+                case "Articles":
+                    //trie
+                    SortColumn(Event);
+
+                    // creer les groupes en fonction de si il a cliquer sur la bonne colonne 
+                    switch (Event.Column)
+                    {
+                        case 0: //Quantity
+                            MainListView.Groups.Clear();
+                            break;
+
+                        case 1: //Description
+                            MainListView.Groups.Clear();
+                            break;
+
+                        case 2: //Ref
+                            MainListView.Groups.Clear();
+                            break;
+
+                        case 3: //Marques
+                            MainListView.Groups.Clear();
+                            SetGroups(3);
+                            break;
+
+                        case 4: //Famille
+                            MainListView.Groups.Clear();
+                            SetGroups(4);
+                            break;
+
+                        case 5: //Sous-Famille
+                            MainListView.Groups.Clear();
+                            SetGroups(5);
+                            break;
+
+                        case 6: //Prix H.T.
+                            MainListView.Groups.Clear();
+                            //faire un group par tranche de prix si j'ai le temps
+                            break;
+
+                        default:
+                            break;
+
+                    }
                     break;
-                case 1: //Description
+
+                case "Marques":
                     MainListView.Groups.Clear();
+                    SortColumn(Event);
                     break;
-                case 2: //Ref
+
+                case "Familles":
                     MainListView.Groups.Clear();
+                    SortColumn(Event);
                     break;
-                case 3: //Marques
+                case "Sous familles":
                     MainListView.Groups.Clear();
-                    SetGroups(2);
+                    SortColumn(Event);
                     break;
-                case 4: //Famille
-                    MainListView.Groups.Clear();
-                    SetGroups(3);
-                    break;
-                case 5: //Sous-Famille
-                    MainListView.Groups.Clear();
-                    SetGroups(4);
-                    break;
-                case 6: //Prix H.T.
-                    MainListView.Groups.Clear();
-                    //faire un group par tranche de prix si j'ai le temps
-                    break;
+
                 default:
                     break;
+
             }
+           
             
         }
 
-        private void MainListView_MouseDoubleClick(object sender, MouseEventArgs Event)
+        /// <summary>
+        /// Ouvre la fenetre de modification si on double click sur un element
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void MainListView_MouseDoubleClick(object Sender, MouseEventArgs Event)
         {
+            // trouve l'élément selectionné (unique)
             ListViewItem SelectedItem = MainListView.SelectedItems[0];
-            // vérifie sur quel tableau on travaille
+
+            // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de modification
             OpenModifyForm(NodeSelected, SelectedItem);
             
         }
 
-        private void MainListView_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// S'active si on appuie sur la touche entrer ou la touche F5
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void MainListView_KeyDown(object Sender, KeyEventArgs Event)
         {
-            // si on appuie sur la touche entrer, ouvre la fenetre de modification de l'élément séléctionné
-            if (e.KeyCode == Keys.Enter)
+            // si on appuie sur la touche entrer, ouvre la fenetre de modification de l'élément sélectionné
+            if (Event.KeyCode == Keys.Enter)
             {   
-                // vérifie si un item est bien séléctionné
+                // vérifie si un item est bien sélectionné
                 if (MainListView.SelectedItems.Count > 0)
                 {
                     ListViewItem SelectedItem = MainListView.SelectedItems[0];
-                    // vérifie sur quel tableau on travaille
+
+                    // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de modification 
                     OpenModifyForm(NodeSelected, SelectedItem);
-                    
                 }
             }
+
             // si on appuie sur la touche F5, recharge la liste des éléments 
-            if (e.KeyCode == Keys.F5)
+            if (Event.KeyCode == Keys.F5)
             {
-                //TODO La touche F5 rechargera la liste des éléments tout comme le sous-menu « Actualiser ».
-                //faire un getall en fonction du noeud selectionné (factorise le code dans MainTreeView_NodeMouseClick dans une fonction a part)
-                UpdateListViewBrand(NodeSelected);
+                UpdateListView(NodeSelected);
             }
         }
 
         // Sets myListView to the groups created for the specified column.
-        private void SetGroups(int column)
+        /// <summary>
+        /// Créer des groups pour chacun des différents objets de la colonne spécifiée
+        /// </summary>
+        /// <param name="Column"></param>
+        private void SetGroups(int Column)
         {
             String LastGroup;
             List<String> ListGroup = new List<String>();
-            LastGroup = MainListView.Items[0].SubItems[column].Text;
-            ListGroup.Add(MainListView.Items[0].SubItems[column].Text);
+            LastGroup = MainListView.Items[0].SubItems[Column].Text;
+            ListGroup.Add(MainListView.Items[0].SubItems[Column].Text);
             MainListView.Groups.Add(new ListViewGroup(LastGroup, HorizontalAlignment.Left));
             foreach (ListViewItem item in MainListView.Items)
             {
-                if (LastGroup != item.SubItems[column].Text)
+                if (LastGroup != item.SubItems[Column].Text)
                 {
-                    LastGroup = item.SubItems[column].Text;
-                    ListGroup.Add(item.SubItems[column].Text);
+                    LastGroup = item.SubItems[Column].Text;
+                    ListGroup.Add(item.SubItems[Column].Text);
                     MainListView.Groups.Add(new ListViewGroup(LastGroup, HorizontalAlignment.Left));
                     MainListView.Columns.Add(MainListView.Groups[1].Header);
                 }
                 
                 foreach (ListViewGroup GroupCreated in MainListView.Groups)
                 {
-
-                    if (GroupCreated.Header == item.SubItems[column].Text)
+                    if (GroupCreated.Header == item.SubItems[Column].Text)
                     {
                         item.Group = GroupCreated;
                     }
                 }
 
             }
-
         }
 
-        private void ajouterÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Ouvre la fenetre d'ajout d'un élément à partir de "ajouter élément" du clique droit
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void ajouterÉlémentToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
+            // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de création d'un élément
             OpenAddForm(NodeSelected);
         }
 
-        private void modifierÉlémentToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Ouvre la fenetre de modification d'un élément à partir de "modifier élément" du clique droit
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void modifierÉlémentToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
+            // vérifie si un élément est séléctionné 
             if (MainListView.SelectedItems.Count > 0)
             {
                 ListViewItem SelectedItem = MainListView.SelectedItems[0];
-                // vérifie sur quel tableau on travaille
+
+                // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de modification d'un élément
                 OpenModifyForm(NodeSelected, SelectedItem);
             }
         }
 
-
+        /// <summary>
+        /// Ouvre la bonne fenetre de modification en fonction du nom du noeud sur lequel on travaille et un élément à modifier
+        /// </summary>
+        /// <param name="NodeName">le nom du noeud sur lequel on travaille</param>
+        /// <param name="SelectedItem">l'élément à modifier qui est une ligne du tableau</param>
         private void OpenModifyForm(String NodeName, ListViewItem SelectedItem)
         {
             switch (NodeName)
@@ -275,23 +385,32 @@ namespace Bacchus
                     ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
                     NewModifyArticleForm.ShowDialog(this);
                     break;
+
                 case "Marques":
                     ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
                     NewModifyBrandForm.ShowDialog(this);
                     break;
+
                 case "Familles":
                     ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
                     NewModifyFamilyForm.ShowDialog(this);
                     break;
+
                 case "Sous familles":
                     ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
                     NewModifySubFamilyForm.ShowDialog(this);
                     break;
+
                 default:
                     break;
+
             }
         }
 
+        /// <summary>
+        /// Ouvre la bonne fenetre d'ajout en fonction du nom du noeud sur lequel on travaille
+        /// </summary>
+        /// <param name="NodeName">le nom du noeud sur lequel on travaille</param>
         private void OpenAddForm(String NodeName)
         {
             switch (NodeName)
@@ -300,25 +419,33 @@ namespace Bacchus
                     AddArticleForm NewAddArticleForm = new AddArticleForm();
                     NewAddArticleForm.ShowDialog(this);
                     break;
+
                 case "Marques":
                     AddBrandForm NewAddBrandForm = new AddBrandForm();
                     NewAddBrandForm.ShowDialog(this);
-                    UpdateListViewBrand("Marques");
+                    UpdateListView("Marques");
                     break;
+
                 case "Familles":
                     AddFamilyForm NewAddFamilyForm = new AddFamilyForm();
                     NewAddFamilyForm.ShowDialog(this);
                     break;
+
                 case "Sous familles":
                     AddSubFamilyForm NewAddSubFamilyForm = new AddSubFamilyForm();
                     NewAddSubFamilyForm.ShowDialog(this);
                     break;
+
                 default:
                     break;
+
             }
         }
 
-
+        /// <summary>
+        /// Trie les colonnes dans l'ordre ascendant au premier clique et descendant au deuxième
+        /// </summary>
+        /// <param name="Event"></param>
         private void SortColumn(ColumnClickEventArgs Event)
         {
 
@@ -327,7 +454,7 @@ namespace Bacchus
             {
                 // mais a jour la derniere colonne cliquee
                 SortedColumn = Event.Column;
-                // puis mais le tri en ascendant
+                // puis mets le tri en ascendant
                 MainListView.Sorting = SortOrder.Ascending;
             }
             else
@@ -341,15 +468,24 @@ namespace Bacchus
 
             MainListView.Sort();
             // utilise ListViewItemComparer qui implemente ICompare pour trier
-            this.MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
+            MainListView.ListViewItemSorter = new ListViewItemComparer(Event.Column, MainListView.Sorting);
         }
 
-        private void UpdateListViewBrand(String NodeName)
+        /// <summary>
+        /// recréer les tableaux en fonctions des données de la bdd pour le mettre à jour
+        /// </summary>
+        /// <param name="NodeName"></param>
+        private void UpdateListView(String NodeName)
         {
+            // reinitialise le trie
+            MainListView.ListViewItemSorter = null;
+
+            // choisi quel tableau mettre à jour ou créer
             switch (NodeName)
             {
                 case "Articles":
                     break;
+
                 case "Marques":
                     Brand[] Brands = BrandDAO.getAllBrands();
 
@@ -371,6 +507,7 @@ namespace Bacchus
                         MainListView.Items.Add(BrandItem);
                     }
                     break;
+
                 case "Familles":
                     Family[] Families = FamilyDAO.getAllFamilys();
 
@@ -392,12 +529,16 @@ namespace Bacchus
                         MainListView.Items.Add(FamilyItem);
                     }
                     break;
+
                 case "Sous familles":
                     break;
+
                 default:
                     break;
+
             }
-            
         }
+
+        
     }
 }
