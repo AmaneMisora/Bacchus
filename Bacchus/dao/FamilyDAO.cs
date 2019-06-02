@@ -65,7 +65,7 @@ namespace Bacchus.dao
                         // Execute query
                         Command.Connection = Connection;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        Command.ExecuteNonQuery();
                         Connection.Close();
                     }
                 }
