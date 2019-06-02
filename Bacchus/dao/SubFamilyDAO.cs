@@ -94,7 +94,7 @@ namespace Bacchus.dao
         /// Return all the SubFamillies from the db
         /// </summary>
         /// <returns></returns>
-        public static SubFamily[] getAllSubFamillies()
+        public static SubFamily[] getAllSubFamilies()
         {
             //The number of subFamily
             int nbSubFamily = SubFamilyDAO.nbSubFamily();

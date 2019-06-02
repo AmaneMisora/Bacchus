@@ -611,7 +611,7 @@ namespace Bacchus
                     break;
 
                 case "Sous familles":
-                    SubFamily[] SubFamilies = SubFamilyDAO.getAllSubFamillies();
+                    SubFamily[] SubFamilies = SubFamilyDAO.getAllSubFamilies();
 
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
