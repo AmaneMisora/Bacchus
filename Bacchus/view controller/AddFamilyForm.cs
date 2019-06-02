@@ -14,16 +14,26 @@ namespace Bacchus
 {
     public partial class AddFamilyForm : Form
     {
+        /// <summary>
+        /// Constructeur de la fenetre
+        /// </summary>
         public AddFamilyForm()
         {
             InitializeComponent();
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Créer la famille lorsque l'on clique sur le bouton valider
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void OkButton_Click(object Sender, EventArgs Event)
         {
             int value;
+            // vérifie si le contenue du champ reference est bien un nombre
             if (int.TryParse(RefTextBox.Text, out value))
             {
+                // vérifie que le champ nom soit remplie
                 if (NameTextBox.Text != "")
                 {
                     Family NewFamily = new Family(value, NameTextBox.Text);

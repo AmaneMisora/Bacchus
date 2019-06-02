@@ -63,6 +63,7 @@
             this.OkButton.TabIndex = 28;
             this.OkButton.Text = "Valider";
             this.OkButton.UseVisualStyleBackColor = true;
+            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // NameLabel
             // 

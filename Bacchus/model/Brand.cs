@@ -48,6 +48,15 @@ namespace Bacchus.model
                 }
             }
         }
-       
+
+        /// <summary>
+        /// Transforme une marque en chaine de caractere
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return NameBrand;
+        }
+
     }
 }

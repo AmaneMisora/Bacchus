@@ -47,8 +47,15 @@ namespace Bacchus.model
                     RefFamily = TestRef;
                 }
             }
+        }
 
-
+        /// <summary>
+        /// Transforme une famille en chaine de caractere
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return NameFamily;
         }
     }
 }

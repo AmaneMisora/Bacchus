@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bacchus.dao;
+using Bacchus.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,42 @@ namespace Bacchus
 {
     public partial class AddSubFamilyForm : Form
     {
+
+        /// <summary>
+        /// Constructeur de la fenetre
+        /// </summary>
         public AddSubFamilyForm()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Créer la sous famille lorsque l'on clique sur le bouton valider
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void OkButton_Click(object Sender, EventArgs Event)
+        {
+            int value;
+            // vérifie si le contenue du champ reference est bien un nombre
+            if (int.TryParse(RefTextBox.Text, out value))
+            {
+                // vérifie que le champ nom soit remplie
+                if (NameTextBox.Text != "")
+                {
+                    //SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, FamilyComboBox);
+                    //SubFamilyDAO.addSubFamily(NewSubFamily);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Référence doit etre un chiffre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

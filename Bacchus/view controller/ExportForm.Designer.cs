@@ -88,6 +88,7 @@
             this.ExportButton.TabIndex = 2;
             this.ExportButton.Text = "Exporter";
             this.ExportButton.UseVisualStyleBackColor = true;
+            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
             // tableLayoutPanel1
             // 

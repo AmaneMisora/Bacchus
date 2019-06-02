@@ -12,6 +12,11 @@ namespace Bacchus
 {
     public partial class ModifyFamilyForm : Form
     {
+
+        /// <summary>
+        /// Constructeur de la fenetre qui initialise tout les champs à partir des données de la famille modifiée
+        /// </summary>
+        /// <param name="SelectedItem"></param>
         public ModifyFamilyForm(ListViewItem SelectedItem)
         {
             InitializeComponent();
@@ -24,9 +29,23 @@ namespace Bacchus
 
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Si les modifications sont valides change la famille concernée à l'appuie sur le bouton valider
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void OkButton_Click(object Sender, EventArgs Event)
         {
-            this.Close();
+            if (NameTextBox.Text != "")
+            {
+                //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
+                //editFamily
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

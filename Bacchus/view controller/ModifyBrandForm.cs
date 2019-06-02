@@ -13,6 +13,11 @@ namespace Bacchus
 {
     public partial class ModifyBrandForm : Form
     {
+
+        /// <summary>
+        /// Constructeur de la fenetre qui initialise tout les champs à partir des données de la marque modifiée
+        /// </summary>
+        /// <param name="SelectedItem"></param>
         public ModifyBrandForm(ListViewItem SelectedItem)
         {
             InitializeComponent();
@@ -20,11 +25,24 @@ namespace Bacchus
             NameTextBox.Text = SelectedItem.SubItems[0].Text;
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Si les modifications sont valides change la marque concernée à l'appuie sur le bouton valider
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void OkButton_Click(object Sender, EventArgs Event)
         {
-            //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
-            BrandDAO.editBrand(int.Parse(BrandNameLabel.Text),NameTextBox.Text);
-            this.Close();
+            if (NameTextBox.Text != "")
+            {
+                //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
+                BrandDAO.editBrand(int.Parse(BrandNameLabel.Text), NameTextBox.Text);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
     }
 }

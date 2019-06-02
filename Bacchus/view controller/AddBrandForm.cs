@@ -14,12 +14,21 @@ namespace Bacchus
 {
     public partial class AddBrandForm : Form
     {
+
+        /// <summary>
+        /// Constructeur de la fenetre
+        /// </summary>
         public AddBrandForm()
         {
             InitializeComponent();
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Créer la marque lorsque l'on clique sur le bouton valider
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void OkButton_Click(object Sender, EventArgs Event)
         {
             int value;
             if (int.TryParse(RefTextBox.Text, out value))
