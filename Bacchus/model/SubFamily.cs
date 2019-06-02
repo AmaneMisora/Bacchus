@@ -10,7 +10,7 @@ namespace Bacchus.model
         public String NameSubFamily { get; set; }
 
         /// <summary>
-        /// Create a new empty SubFamily 
+        /// Créé une sous-famille vide
         /// </summary>
         public SubFamily()
         {
