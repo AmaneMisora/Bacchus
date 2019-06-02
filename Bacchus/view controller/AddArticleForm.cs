@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bacchus.dao;
+using Bacchus.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +21,20 @@ namespace Bacchus
         public AddArticleForm()
         {
             InitializeComponent();
+
+            // rempli la combo box marque avec la liste des marques existante 
+            Brand[] AllBrand = BrandDAO.getAllBrands();
+            foreach (Brand B in AllBrand)
+            {
+                BrandComboBox.Items.Add(B);
+            }
+
+            // rempli la combo box famille avec la liste des familles existante 
+            Family[] AllFamily = FamilyDAO.getAllFamilys();
+            foreach (Family F in AllFamily)
+            {
+                FamilyComboBox.Items.Add(F);
+            }
         }
 
         /// <summary>
@@ -32,8 +48,8 @@ namespace Bacchus
             // vérifie si le contenue du champ reference est bien un nombre
             if (int.TryParse(RefTextBox.Text, out value))
             {
-                // vérifie que les champs soientt remplie
-                if ( DescriptionTextBox.Text != "" || PriceHTTextBox.Text != "" || QuantityTextBox.Text != "")
+                // vérifie que les champs soient remplie
+                if ( DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "")
                 {
                     // faire une verif sur la ref TODO
                     /*if (ArticleDAO.getArticleById(value) == null)
@@ -56,6 +72,15 @@ namespace Bacchus
             {
                 MessageBox.Show("Référence doit etre un chiffre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void FamilyComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (FamilyComboBox.SelectionLength > 0)
+            {
+                //FamilyComboBox.SelectedItem TODO
+            }
+
         }
     }
 }

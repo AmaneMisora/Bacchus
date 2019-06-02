@@ -67,7 +67,7 @@ namespace Bacchus
         private void OkButton_Click(object Sender, EventArgs Event)
         {
             //TODO verifier si l'un des champs est vide
-            Article ModifiedArticle = new Article();
+            //Article ModifiedArticle = new Article();
             // appeler save du dao de article
             // qui va chercher un article avec cette ref et appliquer les modif si il y en a 
 
