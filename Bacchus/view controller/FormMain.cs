@@ -165,31 +165,7 @@ namespace Bacchus
 
                 case "Sous familles": // si on clique sur le noeud "Sous familles"
                     NodeSelected = "Sous familles";
-                    //UpdateListView(NodeSelected);
-                    MainListView.ListViewItemSorter = null;
-                    MainListView.Groups.Clear();
-                    MainListView.Columns.Clear();
-                    MainListView.Items.Clear();
-                    ColumnsWidth = MainListView.Width / 3;
-                    MainListView.Columns.Add("Nom", ColumnsWidth);
-                    MainListView.Columns.Add("Référence", ColumnsWidth);
-                    MainListView.Columns.Add("Famille", ColumnsWidth);
-
-                    string[] SubFamily = new string[3];
-
-                    ListViewItem SubFamilyItem;
-                    // ajoute les items a la ListView
-                    SubFamily[0] = "sousRetail";
-                    SubFamily[1] = "beaucoup";
-                    SubFamily[2] = "Retail";
-                    SubFamilyItem = new ListViewItem(SubFamily);
-                    MainListView.Items.Add(SubFamilyItem);
-
-                    SubFamily[0] = "sousvallllaude";
-                    SubFamily[1] = "moins";
-                    SubFamily[2] = "vallllaude";
-                    SubFamilyItem = new ListViewItem(SubFamily);
-                    MainListView.Items.Add(SubFamilyItem);
+                    UpdateListView(NodeSelected);
                     break;
 
                 default:
@@ -532,7 +508,7 @@ namespace Bacchus
                     break;
 
                 case "Sous familles":
-                    //SubFamilyDAO.DeleteSubFamily(int.Parse(SelectedItem.SubItems[1].Text));
+                    SubFamilyDAO.DeleteSubFamily(int.Parse(SelectedItem.SubItems[1].Text));
                     UpdateListView("Sous familles");
                     break;
 

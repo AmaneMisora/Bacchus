@@ -46,8 +46,8 @@ namespace Bacchus
                 {
                     if (FamilyDAO.getFamilyById(value) == null)
                     {
-                        //SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, FamilyComboBox);
-                        //SubFamilyDAO.addSubFamily(NewSubFamily);
+                        SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, (Family) FamilyComboBox.SelectedItem);
+                        SubFamilyDAO.AddSubFamily(NewSubFamily);
                         this.Close();
                     }
                     else

@@ -22,21 +22,13 @@ namespace Bacchus.model
         /// the name of the family and name of the subFamily
         /// </summary>
         /// <param name="RefSubFamilyToSet"></param>
-        /// <param name="NameFamilyToSet"></param>
         /// <param name="NameSubFamilyToSet"></param>
-        public SubFamily(int RefSubFamilyToSet, String NameFamilyToSet, String NameSubFamilyToSet)
+        /// <param name="FamilyToSet"></param>
+        public SubFamily(int RefSubFamilyToSet, String NameSubFamilyToSet, Family FamilyToSet)
         {
             RefSubFamily = RefSubFamilyToSet;
             NameSubFamily = NameSubFamilyToSet;
-
-            if(FamilyDAO.getFamilyByName(NameFamilyToSet) == null)
-            {
-                FamilyDAO.addFamily(new Family(NameFamilyToSet));
-            }
-            else
-            {
-                RefFamily = FamilyDAO.getFamilyByName(NameFamilyToSet);
-            }
+            RefFamily = FamilyToSet;
         }
     }
 }
