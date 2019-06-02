@@ -35,7 +35,7 @@ namespace Bacchus
             {
                 if(NameTextBox.Text != "")
                 { 
-                    if(BrandDAO.getBrandById(value) == null)
+                    if(BrandDAO.GetBrandById(value) == null)
                     {
                         Brand NewBrand = new Brand(value, NameTextBox.Text);
                         BrandDAO.AddBrand(NewBrand);

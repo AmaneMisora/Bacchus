@@ -23,14 +23,14 @@ namespace Bacchus
             InitializeComponent();
 
             // rempli la combo box marque avec la liste des marques existante 
-            Brand[] AllBrand = BrandDAO.getAllBrands();
+            Brand[] AllBrand = BrandDAO.GetAllBrands();
             foreach (Brand B in AllBrand)
             {
                 BrandComboBox.Items.Add(B);
             }
 
             // rempli la combo box famille avec la liste des familles existante 
-            Family[] AllFamily = FamilyDAO.getAllFamilys();
+            Family[] AllFamily = FamilyDAO.GetAllFamilies();
             foreach (Family F in AllFamily)
             {
                 FamilyComboBox.Items.Add(F);

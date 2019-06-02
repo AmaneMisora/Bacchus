@@ -26,7 +26,7 @@ namespace Bacchus
             // rempli la combo box marque avec la liste des marques existante 
             int Index = 0;
             int IndexBrand = 0;
-            Brand[] AllBrand = BrandDAO.getAllBrands();
+            Brand[] AllBrand = BrandDAO.GetAllBrands();
             foreach (Brand B in AllBrand)
             {
                 BrandComboBox.Items.Add(B);
@@ -40,7 +40,7 @@ namespace Bacchus
             // rempli la combo box famille avec la liste des familles existante 
             Index = 0;
             int IndexFamily = 0;
-            Family[] AllFamily = FamilyDAO.getAllFamilys();
+            Family[] AllFamily = FamilyDAO.GetAllFamilies();
             foreach (Family F in AllFamily)
             {
                 FamilyComboBox.Items.Add(F);

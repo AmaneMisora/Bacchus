@@ -27,7 +27,7 @@ namespace Bacchus
             // rempli la combo box famille avec la liste des familles existante 
             int Index = 0;
             int IndexFamily = 0;
-            Family[] AllFamily = FamilyDAO.getAllFamilys();
+            Family[] AllFamily = FamilyDAO.GetAllFamilies();
             foreach (Family F in AllFamily)
             {
                 FamilyComboBox.Items.Add(F);

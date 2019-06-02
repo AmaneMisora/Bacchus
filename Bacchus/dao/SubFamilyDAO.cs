@@ -9,7 +9,7 @@ namespace Bacchus.dao
     class SubFamilyDAO
     {
         /// <summary>
-        /// Add a new subFamily to the db
+        /// Ajoute la sous-famille à la base de donnée
         /// </summary>
         /// <param name="SubFamilyToAdd"></param>
         public static void AddSubFamily(SubFamily SubFamilyToAdd)
@@ -28,19 +28,19 @@ namespace Bacchus.dao
                 throw new ArgumentNullException("Family Name");
             }
 
-            //Add to db
+            //Ajout à la base de donnée
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO SousFamilles VALUES (" + SubFamilyToAdd.RefSubFamily + ", '" + SubFamilyToAdd.RefFamily.RefFamily + "', '" + SubFamilyToAdd.NameSubFamily + "');"))
                     {
-                        // Execute query
+                        //Execution de la requete
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
-                        Connection.Close();
 
+                        Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
@@ -52,9 +52,9 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Supprime la sous famille correspodant à la ref passée en paramètre
+        /// Supprime la sous-famille correspodant à la ref passée en paramètre
         /// </summary>
-        /// <param name="BrandRef"></param>
+        /// <param name="SubFamilyRef"></param>
         public static void DeleteSubFamily(int SubFamilyRef)
         {
             //vérifications (la marque ne doit pas avoir d'article)
@@ -91,13 +91,13 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Return all the SubFamillies from the db
+        /// Retourne toutes les sous-familles de la base de donnée
         /// </summary>
         /// <returns></returns>
-        public static SubFamily[] getAllSubFamilies()
+        public static SubFamily[] GetAllSubFamilies()
         {
             //The number of subFamily
-            int nbSubFamily = SubFamilyDAO.nbSubFamily();
+            int nbSubFamily = SubFamilyDAO.NbSubFamilies();
             //The table to return
             SubFamily[] listToReturn = new SubFamily[nbSubFamily];
 
@@ -146,7 +146,7 @@ namespace Bacchus.dao
         /// </summary>
         /// <param name="SubFamilyRef"></param>
         /// <returns></returns>
-        public static SubFamily getFamilyById(int SubFamilyRef)
+        public static SubFamily GetFamilyById(int SubFamilyRef)
         {
             SubFamily SubFamilyToReturn = new SubFamily();
 
@@ -169,7 +169,7 @@ namespace Bacchus.dao
                         }
 
                     }
-                    catch (Exception ExceptionCaught)
+                    catch (Exception)
                     {
                         Connection.Close();
                         SubFamilyToReturn = null;
@@ -181,10 +181,10 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Return the number of subFamillies in the db
+        /// Retourne le nombre de sous familles de la base de donnée
         /// </summary>
         /// <returns></returns>
-        public static int nbSubFamily()
+        public static int NbSubFamilies()
         {
             int Result = -1;
 

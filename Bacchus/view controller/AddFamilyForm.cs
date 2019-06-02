@@ -39,7 +39,7 @@ namespace Bacchus
                     if (FamilyDAO.getFamilyById(value) == null)
                     {
                         Family NewFamily = new Family(value, NameTextBox.Text);
-                        FamilyDAO.addFamily(NewFamily);
+                        FamilyDAO.AddFamily(NewFamily);
                         this.Close();
                     }
                     else

@@ -38,14 +38,16 @@ namespace Bacchus.dao
 
                                 ArticleToAdd.RefArticle = Reader[0].ToString();
                                 ArticleToAdd.Description = Reader[1].ToString();
-                                ArticleToAdd.RefSubFamily = SubFamilyDAO.getFamilyById((int)Reader[2]);
-                                ArticleToAdd.RefBrand = BrandDAO.getBrandById((int)Reader[3]);
+                                ArticleToAdd.RefSubFamily = SubFamilyDAO.GetFamilyById((int)Reader[2]);
+                                ArticleToAdd.RefBrand = BrandDAO.GetBrandById((int)Reader[3]);
                                 ArticleToAdd.PriceHT = (float)Reader[4];
                                 ArticleToAdd.Quantity = (int)Reader[5];
+
                                 listToReturn.SetValue(ArticleToAdd, currentArticleIndex);
                             }
                         }
 
+                        Connection.Close();
                     }
                     catch (Exception ExceptionCaught)
                     {
@@ -56,8 +58,8 @@ namespace Bacchus.dao
 
                 }
 
-                return listToReturn;
             }
+                return listToReturn;
 
         }
 
@@ -86,8 +88,8 @@ namespace Bacchus.dao
                             Reader.Read();
                             ArticleToReturn.RefArticle = Reader[0].ToString();
                             ArticleToReturn.Description = Reader[1].ToString();
-                            ArticleToReturn.RefSubFamily = SubFamilyDAO.getFamilyById((int)Reader[2]);
-                            ArticleToReturn.RefBrand = BrandDAO.getBrandById((int)Reader[3]);
+                            ArticleToReturn.RefSubFamily = SubFamilyDAO.GetFamilyById((int)Reader[2]);
+                            ArticleToReturn.RefBrand = BrandDAO.GetBrandById((int)Reader[3]);
                             ArticleToReturn.PriceHT = (float)Reader[4];
                             ArticleToReturn.Quantity = (int)Reader[5];
                         }

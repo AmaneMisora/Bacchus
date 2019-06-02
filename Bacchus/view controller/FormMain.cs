@@ -565,7 +565,7 @@ namespace Bacchus
                     break;
 
                 case "Marques":
-                    Brand[] Brands = BrandDAO.getAllBrands();
+                    Brand[] Brands = BrandDAO.GetAllBrands();
 
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
@@ -588,7 +588,7 @@ namespace Bacchus
                     break;
 
                 case "Familles":
-                    Family[] Families = FamilyDAO.getAllFamilys();
+                    Family[] Families = FamilyDAO.GetAllFamilies();
 
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
@@ -611,7 +611,7 @@ namespace Bacchus
                     break;
 
                 case "Sous familles":
-                    SubFamily[] SubFamilies = SubFamilyDAO.getAllSubFamilies();
+                    SubFamily[] SubFamilies = SubFamilyDAO.GetAllSubFamilies();
 
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();

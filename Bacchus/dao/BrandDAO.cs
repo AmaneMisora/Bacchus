@@ -108,7 +108,7 @@ namespace Bacchus.dao
         /// </summary>
         /// <param name="BrandRef"></param>
         /// <param name="NewBrandName"></param>
-        public static void editBrand(int BrandRef, String NewBrandName)
+        public static void EditBrand(int BrandRef, String NewBrandName)
         {
             // Verifications
             if (NewBrandName.Equals("") || NewBrandName == null)
@@ -142,10 +142,10 @@ namespace Bacchus.dao
         /// Get all brands from db 
         /// </summary>
         /// <returns></returns>
-        public static Brand[] getAllBrands()
+        public static Brand[] GetAllBrands()
         {
             //The number of brands to get
-            int NbBrands = BrandDAO.nbBrands();
+            int NbBrands = BrandDAO.NbBrands();
             //The table to return
             Brand[] listToReturn = new Brand[NbBrands];
 
@@ -193,7 +193,7 @@ namespace Bacchus.dao
         /// </summary>
         /// <param name="BrandRef"></param>
         /// <returns></returns>
-        public static Brand getBrandById(int BrandRef)
+        public static Brand GetBrandById(int BrandRef)
         {
             Brand BrandToReturn = new Brand();
 
@@ -231,7 +231,7 @@ namespace Bacchus.dao
         /// Count the number of brands in the db
         /// </summary>
         /// <returns></returns>
-        public static int nbBrands()
+        public static int NbBrands()
         {
             int Result = -1;
 

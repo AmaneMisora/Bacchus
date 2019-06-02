@@ -9,25 +9,25 @@ namespace Bacchus.dao
     class FamilyDAO
     {
         /// <summary>
-        /// Add a new Family to the db
+        /// Ajoute la famille à la base de donnée
         /// </summary>
         /// <param name="FamilyToAdd"></param>
-        public static void addFamily(Family FamilyToAdd)
+        public static void AddFamily(Family FamilyToAdd)
         {
-            // Verifications
+            // Vérifications
             if (FamilyToAdd.NameFamily.Equals("") || FamilyToAdd.NameFamily == null)
             {
                 throw new ArgumentNullException("Famille Name");
             }
 
-            // Add to db
+            // Ajout à la base de données
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO Familles VALUES (" + FamilyToAdd.RefFamily + ", '" + FamilyToAdd.NameFamily + "');"))
                     {
-                        // Execute query
+                        // Execution de la requete
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
@@ -56,7 +56,7 @@ namespace Bacchus.dao
                 {
                     try
                     {
-                        //Execution de la requête
+                        // Execution de la requête
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
@@ -83,7 +83,7 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = " + RefFamily + "; "))
                     {
-                        //Execution de la requête
+                        // Execution de la requête
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
@@ -100,11 +100,11 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Change de name of a family
+        /// Change le nom de la famille
         /// </summary>
         /// <param name="RefFamily"></param>
         /// <param name="NewFamilyName"></param>
-        public static void editFamily(int RefFamily, String NewFamilyName)
+        public static void EditFamily(int RefFamily, String NewFamilyName)
         {
             // Verifications
             if (NewFamilyName.Equals("") || NewFamilyName == null)
@@ -112,14 +112,14 @@ namespace Bacchus.dao
                 throw new ArgumentNullException("Famille Ref");
             }
 
-            // Add to db
+            // Ajout à la base de données
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("UPDATE Familles SET Nom = " + NewFamilyName + " WHERE RefFamille = " + RefFamily + "; "))
                     {
-                        // Execute query
+                        // Execution de la requete
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
@@ -135,15 +135,15 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Get all familys from db 
+        /// Retourne toutes les familles de la base de données
         /// </summary>
         /// <returns></returns>
-        public static Family[] getAllFamilys()
+        public static Family[] GetAllFamilies()
         {
-            //The table to return
-            Family[] listToReturn = new Family[FamilyDAO.nbFamilys()];
-            //The number of familys to get
-            int NbFamilys = FamilyDAO.nbFamilys();
+            // Nombre de familles dans la base de données
+            int NbFamilies = FamilyDAO.NbFamilies();
+            // Tableau de familles à retourner
+            Family[] listToReturn = new Family[NbFamilies];
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -156,7 +156,7 @@ namespace Bacchus.dao
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
-                            for (int currentFamilyIndex = 0; currentFamilyIndex < NbFamilys; currentFamilyIndex++)
+                            for (int currentFamilyIndex = 0; currentFamilyIndex < NbFamilies; currentFamilyIndex++)
                             {
                                 Reader.Read();
 
@@ -187,7 +187,7 @@ namespace Bacchus.dao
         /// </summary>
         /// <param name="FamilyName"></param>
         /// <returns></returns>
-        public static Family getFamilyByName(String FamilyName)
+        public static Family GetFamilyByName(String FamilyName)
         {
             Family FamilyReturn = new Family();
 
@@ -266,7 +266,7 @@ namespace Bacchus.dao
         /// Count the number of familys in the db
         /// </summary>
         /// <returns></returns>
-        public static int nbFamilys()
+        public static int NbFamilies()
         {
             int Result = -1;
 

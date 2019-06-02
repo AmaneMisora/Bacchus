@@ -39,7 +39,7 @@ namespace Bacchus
         {
             if (NameTextBox.Text != "")
             {
-                FamilyDAO.editFamily(int.Parse(FamilyNameLabel.Text), NameTextBox.Text);
+                FamilyDAO.EditFamily(int.Parse(FamilyNameLabel.Text), NameTextBox.Text);
                 this.Close();
             }
             else

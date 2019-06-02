@@ -93,14 +93,14 @@ namespace Bacchus
 
             //Test FamilyDAO (ok)
             /*
-            FamilyDAO.addFamily(new model.Family(0, "test0"));
-            MessageBox.Show("Ref : " + FamilyDAO.getFamilyById(0).RefFamily, FamilyDAO.getFamilyById(0).NameFamily);
-            MessageBox.Show("Ref : " + FamilyDAO.getFamilyByName("test0").RefFamily, FamilyDAO.getFamilyByName("test0").NameFamily);
-            FamilyDAO.addFamily(new model.Family(1, "test1"));
-            FamilyDAO.addFamily(new model.Family(2, "test2"));
-            FamilyDAO.editFamily(1, "edit");
-            model.Family[] Familys = FamilyDAO.getAllFamilys();
-            MessageBox.Show("Nombre de lignes à la fin : " + FamilyDAO.nbFamilys());
+            FamilyDAO.AddFamily(new model.Family(0, "test0"));
+            MessageBox.Show("Ref : " + FamilyDAO.GetFamilyById(0).RefFamily, FamilyDAO.GetFamilyById(0).NameFamily);
+            MessageBox.Show("Ref : " + FamilyDAO.GetFamilyByName("test0").RefFamily, FamilyDAO.GetFamilyByName("test0").NameFamily);
+            FamilyDAO.AddFamily(new model.Family(1, "test1"));
+            FamilyDAO.AddFamily(new model.Family(2, "test2"));
+            FamilyDAO.EditFamily(1, "edit");
+            model.Family[] Familys = FamilyDAO.GetAllFamilies();
+            MessageBox.Show("Nombre de lignes à la fin : " + FamilyDAO.NbFamilies());
             MessageBox.Show("Ref : " + Familys[0].RefFamily, Familys[0].NameFamily);
             MessageBox.Show("Ref : " + Familys[1].RefFamily, Familys[1].NameFamily);
             MessageBox.Show("Ref : " + Familys[2].RefFamily, Familys[2].NameFamily);
@@ -109,12 +109,12 @@ namespace Bacchus
             //Tests BrandDAO (ok)
             /*
             BrandDAO.addBrand(new model.Brand(0, "test0"));
-            MessageBox.Show("Ref : " + BrandDAO.getBrandById(0).RefBrand, BrandDAO.getBrandById(0).NameBrand);
+            MessageBox.Show("Ref : " + BrandDAO.GetBrandById(0).RefBrand, BrandDAO.GetBrandById(0).NameBrand);
             BrandDAO.addBrand(new model.Brand(1, "test1"));
             BrandDAO.addBrand(new model.Brand(2, "test2"));
-            BrandDAO.editBrand(1, "edit");
-            model.Brand[] brands = BrandDAO.getAllBrands();
-            MessageBox.Show("Nombre de lignes à la fin : " + BrandDAO.nbBrands());
+            BrandDAO.EditBrand(1, "edit");
+            model.Brand[] brands = BrandDAO.GetAllBrands();
+            MessageBox.Show("Nombre de lignes à la fin : " + BrandDAO.NbBrands());
             MessageBox.Show("Ref : " + brands[0].RefBrand, brands[0].NameBrand);
             MessageBox.Show("Ref : " + brands[1].RefBrand, brands[1].NameBrand);
             MessageBox.Show("Ref : " + brands[2].RefBrand, brands[2].NameBrand);
@@ -138,7 +138,7 @@ namespace Bacchus
                         con.Close();
                         MessageBox.Show("Marque " + BrandToAdd.NameBrand + " créée");
 
-                        MessageBox.Show("nb lines : " + BrandDAO.nbBrands());
+                        MessageBox.Show("nb lines : " + BrandDAO.NbBrands());
                     }
                 }
                 catch (Exception ExceptionCaught)
@@ -152,9 +152,9 @@ namespace Bacchus
             try
             {
                 BrandDAO.addBrand(new model.Brand("test","test"));
-                MessageBox.Show("nb marques" + BrandDAO.nbBrands().ToString());
-                BrandDAO.editBrand("test", "edit");
-                BrandDAO.getAllBrands();
+                MessageBox.Show("nb marques" + BrandDAO.NbBrands().ToString());
+                BrandDAO.EditBrand("test", "edit");
+                BrandDAO.GetAllBrands();
             }
             catch (Exception ExceptionCaught)
             {

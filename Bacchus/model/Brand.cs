@@ -42,7 +42,7 @@ namespace Bacchus.model
             {
                 TestRef++;
 
-                if(BrandDAO.getBrandById(TestRef) == null)
+                if(BrandDAO.GetBrandById(TestRef) == null)
                 {
                     RefBrand = TestRef;
                 }
