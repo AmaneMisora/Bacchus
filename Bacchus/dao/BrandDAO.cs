@@ -65,7 +65,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("UPDATE Marques SET Nom = " + NewBrandName + " WHERE RefMarque = " + BrandRef + "; "))
+                    using (var Command = new SQLiteCommand("UPDATE Marques SET Nom = '" + NewBrandName + "' WHERE RefMarque = " + BrandRef + "; "))
                     {
                         // Execute query
                         Command.Connection = Connection;
