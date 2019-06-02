@@ -70,6 +70,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dao\ArticleDAO.cs" />
     <Compile Include="view controller\AddArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>
