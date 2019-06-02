@@ -85,6 +85,11 @@ namespace Bacchus
 
             //add to db
 
+
+            //Test SubFamilyDAO
+            /*
+             */
+
             //Test FamilyDAO (ok)
             /*
             FamilyDAO.addFamily(new model.Family(0, "test0"));
