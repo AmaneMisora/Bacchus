@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bacchus.dao;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,8 +39,7 @@ namespace Bacchus
         {
             if (NameTextBox.Text != "")
             {
-                //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
-                //editFamily
+                FamilyDAO.editFamily(int.Parse(FamilyNameLabel.Text), NameTextBox.Text);
                 this.Close();
             }
             else

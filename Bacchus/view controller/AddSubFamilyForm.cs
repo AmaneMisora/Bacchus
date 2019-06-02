@@ -21,6 +21,13 @@ namespace Bacchus
         public AddSubFamilyForm()
         {
             InitializeComponent();
+
+            // rempli la combo box famille avec la liste des familles existante 
+            Family[] AllFamily = FamilyDAO.getAllFamilys();
+            foreach (Family F in AllFamily)
+            {
+                FamilyComboBox.Items.Add(F);
+            }
         }
 
         /// <summary>
@@ -37,9 +44,16 @@ namespace Bacchus
                 // vérifie que le champ nom soit remplie
                 if (NameTextBox.Text != "")
                 {
-                    //SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, FamilyComboBox);
-                    //SubFamilyDAO.addSubFamily(NewSubFamily);
-                    this.Close();
+                    if (FamilyDAO.getFamilyById(value) == null)
+                    {
+                        //SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, FamilyComboBox);
+                        //SubFamilyDAO.addSubFamily(NewSubFamily);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ref existe déjà", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

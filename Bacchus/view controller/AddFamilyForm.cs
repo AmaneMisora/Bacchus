@@ -36,9 +36,17 @@ namespace Bacchus
                 // vérifie que le champ nom soit remplie
                 if (NameTextBox.Text != "")
                 {
-                    Family NewFamily = new Family(value, NameTextBox.Text);
-                    FamilyDAO.addFamily(NewFamily);
-                    this.Close();
+                    if (FamilyDAO.getFamilyById(value) == null)
+                    {
+                        Family NewFamily = new Family(value, NameTextBox.Text);
+                        FamilyDAO.addFamily(NewFamily);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ref existe déjà", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
                 else
                 {
