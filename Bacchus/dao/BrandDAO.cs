@@ -53,15 +53,41 @@ namespace Bacchus.dao
         /// <param name="BrandRef"></param>
         public static void DeleteBrand(int BrandRef)
         {
+            //vérifications (la marque ne doit pas avoir d'article)
+            DataTable SQLRequestDataTable = new DataTable();
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefFMarque = " + BrandRef + ";"))
+                {
+                    try
+                    {
+                        //Execution de la requête
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        adp.Fill(SQLRequestDataTable);
+                        if (Convert.ToInt32(SQLRequestDataTable.Rows[0][0]) != 0)
+                        {
+                            MessageBox.Show("Il existe des articles utilisant cette marque. Il n'est pas possible de la supprimer");
+                            return;
+                        }
+                        Connection.Close();
+                    }
+                    catch (Exception)
+                    {
+                        Connection.Close();
+                    }
+                }
+            }
 
-            // Add to db
+            // Suppression de la base de donnée
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("DELETE FROM Marques WHERE RefMarque = " + BrandRef + "; "))
                     {
-                        // Execute query
+                        //Execution de la requête
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
@@ -71,7 +97,7 @@ namespace Bacchus.dao
                 catch (Exception ExceptionCaught)
                 {
                     Connection.Close();
-                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    MessageBox.Show("Marque " + BrandRef + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                 }
             }
 

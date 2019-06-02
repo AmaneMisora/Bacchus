@@ -48,14 +48,42 @@ namespace Bacchus.dao
         /// <param name="RefFamily"></param>
         public static void DeleteFamily(int RefFamily)
         {
-            // Add to db
+            //vérifications (la famille ne doit pas avoir de sous famille)
+            DataTable SQLRequestDataTable = new DataTable();
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM SousFamilles WHERE RefFamille = " + RefFamily + ";"))
+                {
+                    try
+                    {
+                        //Execution de la requête
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        adp.Fill(SQLRequestDataTable);
+                        if( Convert.ToInt32(SQLRequestDataTable.Rows[0][0]) != 0 )
+                        {
+                            MessageBox.Show("Il existe des sous familles utilisant cette famille. Il n'est pas possible de la supprimer");
+                            return;
+                        }
+                        Connection.Close();
+                    }
+                    catch (Exception)
+                    {
+                        Connection.Close();
+                    }
+                }
+            }
+
+
+            // Supression de la base de donnée
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("DELETE FROM Familles WHERE RefMarque = " + RefFamily + "; "))
+                    using (var Command = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = " + RefFamily + "; "))
                     {
-                        // Execute query
+                        //Execution de la requête
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
@@ -89,7 +117,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("UPDATE Familles SET Nom = " + NewFamilyName + " WHERE RefMarque = " + RefFamily + "; "))
+                    using (var Command = new SQLiteCommand("UPDATE Familles SET Nom = " + NewFamilyName + " WHERE RefFamille = " + RefFamily + "; "))
                     {
                         // Execute query
                         Command.Connection = Connection;
