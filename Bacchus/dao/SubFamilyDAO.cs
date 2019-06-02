@@ -103,7 +103,7 @@ namespace Bacchus.dao
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT * FROM SousFamille;"))
+                using (var Command = new SQLiteCommand("SELECT * FROM SousFamilles;"))
                 {
                     try
                     {
@@ -193,7 +193,7 @@ namespace Bacchus.dao
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM SousFamille;"))
+                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM SousFamilles;"))
                 {
                     try
                     {
