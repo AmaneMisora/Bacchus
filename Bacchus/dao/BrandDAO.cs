@@ -48,6 +48,36 @@ namespace Bacchus.dao
         }
 
         /// <summary>
+        /// Supprime la marque correspodant à la ref passée en paramètre
+        /// </summary>
+        /// <param name="BrandRef"></param>
+        public static void DeleteBrand(int BrandRef)
+        {
+
+            // Add to db
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    using (var Command = new SQLiteCommand("DELETE FROM Marques WHERE RefMarque = " + BrandRef + "; "))
+                    {
+                        // Execute query
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    Connection.Close();
+                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                }
+            }
+
+        }
+
+        /// <summary>
         /// Change the name of a brand
         /// </summary>
         /// <param name="BrandRef"></param>
@@ -129,6 +159,8 @@ namespace Bacchus.dao
 
             return listToReturn;
         }
+
+
 
         /// <summary>
         /// Get the Brand corresponding to the Ref BrandRef

@@ -42,6 +42,10 @@ namespace Bacchus.dao
             }
         }
 
+        /// <summary>
+        /// Supprime la famille correspondant à la ref en entrée
+        /// </summary>
+        /// <param name="RefFamily"></param>
         public static void DeleteFamily(int RefFamily)
         {
             // Add to db
