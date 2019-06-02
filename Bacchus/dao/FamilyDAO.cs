@@ -32,9 +32,6 @@ namespace Bacchus.dao
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
                         Connection.Close();
-                        MessageBox.Show("Famille " + FamilyToAdd.NameFamily + " créée");
-
-                        MessageBox.Show("nb lines : " + nbFamilys());
                     }
                 }
                 catch (Exception ExceptionCaught)
