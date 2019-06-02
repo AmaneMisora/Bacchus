@@ -285,7 +285,7 @@ namespace Bacchus
         }
 
         /// <summary>
-        /// S'active si on appuie sur la touche entrer ou la touche F5
+        /// S'active si on appuie sur la touche entrer, la touche F5 ou la touche suppr
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="Event"></param>
@@ -297,10 +297,8 @@ namespace Bacchus
                 // vérifie si un item est bien sélectionné
                 if (MainListView.SelectedItems.Count > 0)
                 {
-                    ListViewItem SelectedItem = MainListView.SelectedItems[0];
-
                     // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de modification 
-                    OpenModifyForm(NodeSelected, SelectedItem);
+                    OpenModifyForm(NodeSelected, MainListView.SelectedItems[0]);
                 }
             }
 
@@ -308,6 +306,16 @@ namespace Bacchus
             if (Event.KeyCode == Keys.F5)
             {
                 UpdateListView(NodeSelected);
+            }
+
+            // si on appuie sur la touche suppr, supprime l'élément sélectionné
+            if (Event.KeyCode == Keys.Delete)
+            {
+                // vérifie si un élément est séléctionné 
+                if (MainListView.SelectedItems.Count > 0)
+                {
+                    DeleteItemListView(NodeSelected, MainListView.SelectedItems[0]);
+                }
             }
         }
 
@@ -362,14 +370,28 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void modifierÉlémentToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
-            // vérifie si un élément est séléctionné 
+            // vérifie si un élément est sélectionné 
             if (MainListView.SelectedItems.Count > 0)
             {
-                ListViewItem SelectedItem = MainListView.SelectedItems[0];
-
-                // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de modification d'un élément
-                OpenModifyForm(NodeSelected, SelectedItem);
+                // vérifie sur quel tableau on travaille et ouvre la bonne fenetre de modification de l'élément sélectionné
+                OpenModifyForm(NodeSelected, MainListView.SelectedItems[0]);
             }
+        }
+
+        /// <summary>
+        /// Supprime l'élément sélectionné à partir de "supprimer élément" du clique droit
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void supprimerÉlémentToolStripMenuItem_Click(object Sender, EventArgs Event)
+        {
+            // vérifie si un élément est sélectionné 
+            if (MainListView.SelectedItems.Count > 0)
+            {
+                // vérifie sur quel tableau on travaille et supprime l'élement sélectionné
+                DeleteItemListView(NodeSelected, MainListView.SelectedItems[0]);
+            }
+            
         }
 
         /// <summary>
@@ -479,6 +501,40 @@ namespace Bacchus
         }
 
         /// <summary>
+        /// Supprime l'élement sélectionné du bon tableau
+        /// </summary>
+        /// <param name="NodeName"></param>
+        /// <param name="SelectedItem"></param>
+        private void DeleteItemListView(String NodeName, ListViewItem SelectedItem)
+        {
+            switch (NodeName)
+            {
+                case "Articles":
+                    //ArticleDAO.DeleteArticle(SelectedItem.SubItems[?]);
+                    UpdateListView("Articles");
+                    break;
+
+                case "Marques":
+                    BrandDAO.DeleteBrand(int.Parse(SelectedItem.SubItems[1].Text));
+                    UpdateListView("Marques");
+                    break;
+
+                case "Familles":
+                    FamilyDAO.DeleteFamily(int.Parse(SelectedItem.SubItems[1].Text));
+                    UpdateListView("Familles");
+                    break;
+
+                case "Sous familles":
+                    //SubFamilyDAO.DeleteSubFamily(int.Parse(SelectedItem.SubItems[1].Text));
+                    UpdateListView("Sous familles");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
         /// recréer les tableaux en fonctions des données de la bdd pour le mettre à jour
         /// </summary>
         /// <param name="NodeName"></param>
@@ -546,6 +602,5 @@ namespace Bacchus
             }
         }
 
-        
     }
 }

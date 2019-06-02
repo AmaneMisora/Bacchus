@@ -38,7 +38,7 @@ namespace Bacchus
                     if(BrandDAO.getBrandById(value) == null)
                     {
                         Brand NewBrand = new Brand(value, NameTextBox.Text);
-                        BrandDAO.addBrand(NewBrand);
+                        BrandDAO.AddBrand(NewBrand);
                         this.Close();
                     } else
                     {
