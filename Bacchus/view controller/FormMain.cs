@@ -611,8 +611,7 @@ namespace Bacchus
                     break;
 
                 case "Sous familles":
-                    /*
-                    SubFamily[] SubFamilies = SubFamilyDAO.getAllSubFamilys();
+                    SubFamily[] SubFamilies = SubFamilyDAO.getAllSubFamillies();
 
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
@@ -633,7 +632,7 @@ namespace Bacchus
                         SubFamilyToAdd[2] = SF.RefFamily.ToString();
                         SubFamilyItem = new ListViewItem(SubFamilyToAdd);
                         MainListView.Items.Add(SubFamilyItem);
-                    }*/
+                    }
                     break;
 
                 default:
