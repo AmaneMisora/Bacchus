@@ -34,7 +34,6 @@ namespace Bacchus
         {
             if (NameTextBox.Text != "")
             {
-                //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
                 BrandDAO.editBrand(int.Parse(BrandNameLabel.Text), NameTextBox.Text);
                 this.Close();
             }

@@ -34,10 +34,17 @@ namespace Bacchus
             if (int.TryParse(RefTextBox.Text, out value))
             {
                 if(NameTextBox.Text != "")
-                {
-                    Brand NewBrand = new Brand(value, NameTextBox.Text);
-                    BrandDAO.addBrand(NewBrand);
-                    this.Close();
+                { 
+                    if(BrandDAO.getBrandById(value) == null)
+                    {
+                        Brand NewBrand = new Brand(value, NameTextBox.Text);
+                        BrandDAO.addBrand(NewBrand);
+                        this.Close();
+                    } else
+                    {
+                        MessageBox.Show("Ref existe déjà", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
                 else
                 {

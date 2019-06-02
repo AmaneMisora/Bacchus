@@ -384,21 +384,25 @@ namespace Bacchus
                 case "Articles":
                     ModifyArticleForm NewModifyArticleForm = new ModifyArticleForm(SelectedItem);
                     NewModifyArticleForm.ShowDialog(this);
+                    UpdateListView("Articles");
                     break;
 
                 case "Marques":
                     ModifyBrandForm NewModifyBrandForm = new ModifyBrandForm(SelectedItem);
                     NewModifyBrandForm.ShowDialog(this);
+                    UpdateListView("Marques");
                     break;
 
                 case "Familles":
                     ModifyFamilyForm NewModifyFamilyForm = new ModifyFamilyForm(SelectedItem);
                     NewModifyFamilyForm.ShowDialog(this);
+                    UpdateListView("Familles");
                     break;
 
                 case "Sous familles":
                     ModifySubFamilyForm NewModifySubFamilyForm = new ModifySubFamilyForm(SelectedItem);
                     NewModifySubFamilyForm.ShowDialog(this);
+                    UpdateListView("Sous familles");
                     break;
 
                 default:
@@ -418,6 +422,7 @@ namespace Bacchus
                 case "Articles":
                     AddArticleForm NewAddArticleForm = new AddArticleForm();
                     NewAddArticleForm.ShowDialog(this);
+                    UpdateListView("Articles");
                     break;
 
                 case "Marques":
@@ -429,11 +434,13 @@ namespace Bacchus
                 case "Familles":
                     AddFamilyForm NewAddFamilyForm = new AddFamilyForm();
                     NewAddFamilyForm.ShowDialog(this);
+                    UpdateListView("Familles");
                     break;
 
                 case "Sous familles":
                     AddSubFamilyForm NewAddSubFamilyForm = new AddSubFamilyForm();
                     NewAddSubFamilyForm.ShowDialog(this);
+                    UpdateListView("Sous familles");
                     break;
 
                 default:

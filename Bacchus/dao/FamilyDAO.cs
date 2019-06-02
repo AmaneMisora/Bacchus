@@ -195,7 +195,7 @@ namespace Bacchus.dao
                     {
                         Connection.Close();
                         FamilyToReturn = null;
-                        MessageBox.Show("Echec de la récupération de la Marque " + FamilyRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        //MessageBox.Show("Echec de la récupération de la Marque " + FamilyRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
