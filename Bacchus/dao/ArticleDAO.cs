@@ -12,6 +12,57 @@ namespace Bacchus.dao
 {
     class ArticleDAO
     {
+        public static Article[] GetAllArticles()
+        {
+            //Nombre d'articles dans la base de donnée
+            int nbArticle = ArticleDAO.NbArticles();
+            //Tableau d'artiles à retourner
+            Article[] listToReturn = new Article[nbArticle];
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM Articles;"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            for (int currentArticleIndex = 0; currentArticleIndex < nbArticle; currentArticleIndex++)
+                            {
+                                Reader.Read();
+
+                                Article ArticleToAdd = new Article();
+
+                                ArticleToAdd.RefArticle = Reader[0].ToString();
+                                ArticleToAdd.Description = Reader[1].ToString();
+                                ArticleToAdd.RefSubFamily = SubFamilyDAO.getFamilyById((int)Reader[2]);
+                                ArticleToAdd.RefBrand = BrandDAO.getBrandById((int)Reader[3]);
+                                ArticleToAdd.PriceHT = (float)Reader[4];
+                                ArticleToAdd.Quantity = (int)Reader[5];
+                                listToReturn.SetValue(ArticleToAdd, currentArticleIndex);
+                            }
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        Connection.Close();
+                        listToReturn = null;
+                        MessageBox.Show("Echec de la récupération des données de la table SousFamille  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    }
+
+                }
+
+                return listToReturn;
+            }
+
+        }
+
+
+
         /// <summary>
         /// Retourne l'article correspondant à la référence passée en paramètre
         /// </summary>

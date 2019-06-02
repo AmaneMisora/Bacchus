@@ -126,6 +126,7 @@ namespace Bacchus.dao
                             }
                         }
 
+                        Connection.Close();
                     }
                     catch (Exception ExceptionCaught)
                     {
@@ -178,8 +179,6 @@ namespace Bacchus.dao
 
             return SubFamilyToReturn;
         }
-
-
 
         /// <summary>
         /// Return the number of subFamillies in the db
