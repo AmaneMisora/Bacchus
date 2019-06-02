@@ -12,7 +12,7 @@ namespace Bacchus.dao
         /// Add a new subFamily to the db
         /// </summary>
         /// <param name="SubFamilyToAdd"></param>
-        public static void addFamily(SubFamily SubFamilyToAdd)
+        public static void AddSubFamily(SubFamily SubFamilyToAdd)
         {
             //Verifications
             if(SubFamilyToAdd.NameSubFamily.Equals("") || SubFamilyToAdd.NameSubFamily == null)

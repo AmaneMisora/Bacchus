@@ -13,7 +13,7 @@ namespace Bacchus.dao
         /// Add a new brand to the db
         /// </summary>
         /// <param name="BrandToAdd"></param>
-        public static void addBrand(Brand BrandToAdd)
+        public static void AddBrand(Brand BrandToAdd)
         {
             // Verifications
             if (BrandToAdd.NameBrand.Equals("") || BrandToAdd.NameBrand == null)
@@ -141,7 +141,7 @@ namespace Bacchus.dao
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT * FROM Marques WHERE RefMarque = '" + BrandRef + "';"))
+                using (var Command = new SQLiteCommand("SELECT * FROM Marques WHERE RefMarque = " + BrandRef + ";"))
                 {
                     try
                     {

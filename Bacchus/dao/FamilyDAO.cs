@@ -42,6 +42,31 @@ namespace Bacchus.dao
             }
         }
 
+        public static void DeleteFamily(int RefFamily)
+        {
+            // Add to db
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    using (var Command = new SQLiteCommand("DELETE FROM Familles WHERE RefMarque = " + RefFamily + "; "))
+                    {
+                        // Execute query
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Famille " + RefFamily + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    Connection.Close();
+                }
+            }
+
+        }
+
         /// <summary>
         /// Change de name of a family
         /// </summary>
