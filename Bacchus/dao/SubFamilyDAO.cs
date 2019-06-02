@@ -141,6 +141,47 @@ namespace Bacchus.dao
         }
 
         /// <summary>
+        /// Retourne la sous-famille correspondant à l'id passé en paramètre
+        /// </summary>
+        /// <param name="SubFamilyRef"></param>
+        /// <returns></returns>
+        public static SubFamily getFamilyById(int SubFamilyRef)
+        {
+            SubFamily SubFamilyToReturn = new SubFamily();
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefSousFamille = " + SubFamilyRef + ";"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            Reader.Read();
+
+                            SubFamilyToReturn.RefSubFamily = (int)Reader[0];
+                            SubFamilyToReturn.RefFamily = FamilyDAO.getFamilyById((int)Reader[1]);
+                            SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        Connection.Close();
+                        SubFamilyToReturn = null;
+                    }
+                }
+            }
+
+            return SubFamilyToReturn;
+        }
+
+
+
+        /// <summary>
         /// Return the number of subFamillies in the db
         /// </summary>
         /// <returns></returns>

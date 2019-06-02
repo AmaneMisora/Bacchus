@@ -225,8 +225,6 @@ namespace Bacchus.dao
             }
 
             return BrandToReturn;
-
-
         }
 
         /// <summary>
