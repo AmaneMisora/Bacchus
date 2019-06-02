@@ -51,7 +51,41 @@ namespace Bacchus.dao
             }
         }
 
-        public static void editSubFamily(int SubFamilyRef, String NewSubFamilyName)
+        /// <summary>
+        /// Supprime la sous famille correspodant à la ref passée en paramètre
+        /// </summary>
+        /// <param name="BrandRef"></param>
+        public static void DeleteSubFamily(int SubFamilyRef)
+        {
+            //vérifications (la marque ne doit pas avoir d'article)
+            DataTable SQLRequestDataTable = new DataTable();
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefSousFamille = " + SubFamilyRef + ";"))
+                {
+                    try
+                    {
+                        //Execution de la requête
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        adp.Fill(SQLRequestDataTable);
+                        if (Convert.ToInt32(SQLRequestDataTable.Rows[0][0]) != 0)
+                        {
+                            MessageBox.Show("Il existe des articles utilisant cette sous-famille. Il n'est pas possible de la supprimer");
+                            return;
+                        }
+                        Connection.Close();
+                    }
+                    catch (Exception)
+                    {
+                        Connection.Close();
+                    }
+                }
+            }
+        }
+
+        public static void editSubFamily(int SubFamilyRef, Family FamilyRef, String NewSubFamilyName)
         {
             MessageBox.Show("TODO");
         }

@@ -57,7 +57,7 @@ namespace Bacchus.dao
             DataTable SQLRequestDataTable = new DataTable();
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefFMarque = " + BrandRef + ";"))
+                using (var Command = new SQLiteCommand("SELECT COUNT(*) FROM Articles WHERE RefMarque = " + BrandRef + ";"))
                 {
                     try
                     {
