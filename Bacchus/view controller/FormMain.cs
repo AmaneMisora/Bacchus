@@ -27,7 +27,12 @@ namespace Bacchus
             InitializeComponent();
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Déclenche l'événement load
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void FormMain_Load(object sender, EventArgs Event)
         {
 
         }
@@ -87,8 +92,9 @@ namespace Bacchus
             switch (NodeCliked)
             {
                 case "Articles": // si on clique sur le noeud "Articles"
-                    MainListView.ListViewItemSorter = null;
                     NodeSelected = "Articles";
+                    //UpdateListView(NodeSelected);
+                    MainListView.ListViewItemSorter = null;
                     MainListView.Groups.Clear();
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
@@ -158,8 +164,9 @@ namespace Bacchus
                     break;
 
                 case "Sous familles": // si on clique sur le noeud "Sous familles"
-                    MainListView.ListViewItemSorter = null;
                     NodeSelected = "Sous familles";
+                    //UpdateListView(NodeSelected);
+                    MainListView.ListViewItemSorter = null;
                     MainListView.Groups.Clear();
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
@@ -535,11 +542,12 @@ namespace Bacchus
         }
 
         /// <summary>
-        /// recréer les tableaux en fonctions des données de la bdd pour le mettre à jour
+        /// Recréer les tableaux en fonctions des données de la bdd pour le mettre à jour
         /// </summary>
         /// <param name="NodeName"></param>
         private void UpdateListView(String NodeName)
         {
+            int ColumnsWidth = 0;
             // reinitialise le trie
             MainListView.ListViewItemSorter = null;
 
@@ -547,6 +555,37 @@ namespace Bacchus
             switch (NodeName)
             {
                 case "Articles":
+                    /*
+                    Article[] Articles = ArticleDAO.getAllArticles();
+
+                    MainListView.Columns.Clear();
+                    MainListView.Items.Clear();
+                    MainListView.Groups.Clear();
+                    ColumnsWidth = MainListView.Width / 7;
+                    MainListView.Columns.Add("Quantité", ColumnsWidth);
+                    MainListView.Columns.Add("Description", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
+                    MainListView.Columns.Add("Marque", ColumnsWidth);
+                    MainListView.Columns.Add("Famille", ColumnsWidth);
+                    MainListView.Columns.Add("Sous-Famille", ColumnsWidth);
+                    MainListView.Columns.Add("Prix H.T.", ColumnsWidth);
+                    foreach (Article A in Articles)
+                    {
+
+                        string[] ArticleToAdd = new string[7];
+
+                        ListViewItem ArticleItem;
+                        // ajoute les items a la ListView
+                        ArticleToAdd[0] = A.Quantity.ToString();
+                        ArticleToAdd[1] = A.Description;
+                        ArticleToAdd[2] = A.RefArticle;
+                        ArticleToAdd[3] = A.RefBrand.ToString();
+                        ArticleToAdd[4] = A.RefSubFamily.RefFamily.ToString();
+                        ArticleToAdd[5] = A.RefSubFamily.ToString();
+                        ArticleToAdd[6] = A.PriceHT.ToString();
+                        ArticleItem = new ListViewItem(ArticleToAdd);
+                        MainListView.Items.Add(ArticleItem);
+                    }*/
                     break;
 
                 case "Marques":
@@ -555,8 +594,9 @@ namespace Bacchus
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
                     MainListView.Groups.Clear();
-                    MainListView.Columns.Add("Nom");
-                    MainListView.Columns.Add("Référence");
+                    ColumnsWidth = MainListView.Width / 2;
+                    MainListView.Columns.Add("Nom", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
                     foreach (Brand B in Brands)
                     {
 
@@ -577,8 +617,9 @@ namespace Bacchus
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
                     MainListView.Groups.Clear();
-                    MainListView.Columns.Add("Nom");
-                    MainListView.Columns.Add("Référence");
+                    ColumnsWidth = MainListView.Width / 2;
+                    MainListView.Columns.Add("Nom", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
                     foreach (Family F in Families)
                     {
 
@@ -594,6 +635,29 @@ namespace Bacchus
                     break;
 
                 case "Sous familles":
+                    /*
+                    SubFamily[] SubFamilies = SubFamilyDAO.getAllSubFamilys();
+
+                    MainListView.Columns.Clear();
+                    MainListView.Items.Clear();
+                    MainListView.Groups.Clear();
+                    ColumnsWidth = MainListView.Width / 3;
+                    MainListView.Columns.Add("Nom", ColumnsWidth);
+                    MainListView.Columns.Add("Référence", ColumnsWidth);
+                    MainListView.Columns.Add("Familles", ColumnsWidth);
+                    foreach (SubFamily SF in SubFamilies)
+                    {
+
+                        string[] SubFamilyToAdd = new string[2];
+
+                        ListViewItem SubFamilyItem;
+                        // ajoute les items a la ListView
+                        SubFamilyToAdd[0] = SF.NameSubFamily;
+                        SubFamilyToAdd[1] = SF.RefSubFamily.ToString();
+                        SubFamilyToAdd[2] = SF.RefFamily.ToString();
+                        SubFamilyItem = new ListViewItem(SubFamilyToAdd);
+                        MainListView.Items.Add(SubFamilyItem);
+                    }*/
                     break;
 
                 default:

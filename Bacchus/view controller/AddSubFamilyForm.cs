@@ -42,7 +42,7 @@ namespace Bacchus
             if (int.TryParse(RefTextBox.Text, out value))
             {
                 // vérifie que le champ nom soit remplie
-                if (NameTextBox.Text != "")
+                if (NameTextBox.Text != "" || FamilyComboBox.Text != "")
                 {
                     if (FamilyDAO.getFamilyById(value) == null)
                     {

@@ -1,6 +1,7 @@
 ﻿using Bacchus.dao;
-
+using Bacchus.model;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Windows.Forms;
@@ -172,7 +173,26 @@ namespace Bacchus
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-
+            
+            using (var reader = new StreamReader(@CSVNameTextBox.Text))
+            {
+                List<string> listA = new List<string>();
+                List<string> listB = new List<string>();
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+                    /*
+                    //TODO verifier a chaque fois si les brand et famille n'existe pas 
+                    SubFamily SubFamilyToAdd = new SubFamily(values[4]);// TODO peut etre family avant subfamily 
+                    Family FamilyToAdd = new Family(values[3], SubFamilyToAdd);
+                    Brand BrandToAdd = new Brand(values[2]);
+                    //TODO couper values[0] en 2 pour avoir la quantite et la descritption
+                    //TODO rajouter un constucteur de article avec quantite
+                    Article ArticleToAdd = new Article(values[1] ref, values[0] description, SubFamilyToAdd subfamily, FamilyToAdd family, BrandToAdd brand, values[5] PriceHT, values[0] Quantity);
+                    */
+                }
+            }
         }
     }
 }
