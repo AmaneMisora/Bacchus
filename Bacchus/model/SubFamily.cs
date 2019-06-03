@@ -30,6 +30,7 @@ namespace Bacchus.model
 
             int TestRef = -1;
 
+            // Recherche d'un id inutilisé
             while (RefSubFamily == -1)
             {
                 TestRef++;
@@ -42,8 +43,7 @@ namespace Bacchus.model
         }
 
         /// <summary>
-        /// Create a new SubFamily using the reference of the subFamily,
-        /// the name of the family and name of the subFamily
+        /// Créé une sous-famille à partir de son nom, son id et le nom de la famille à laquelle elle appartient
         /// </summary>
         /// <param name="RefSubFamilyToSet"></param>
         /// <param name="NameSubFamilyToSet"></param>

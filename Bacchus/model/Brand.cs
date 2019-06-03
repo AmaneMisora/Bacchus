@@ -9,7 +9,7 @@ namespace Bacchus.model
         public String NameBrand { get; set; }
 
         /// <summary>
-        /// Create a new empty Brand
+        /// Créé une marque vide
         /// </summary>
         public Brand()
         {
@@ -17,7 +17,7 @@ namespace Bacchus.model
         }
 
         /// <summary>
-        /// Create a new Brand using the reference and the name of the brand
+        /// Créé une nouvelle marque à partir de son nom et son id
         /// </summary>
         /// <param name="RefBrandToSet"></param>
         /// <param name="NameBrandToSet"></param>
@@ -28,7 +28,7 @@ namespace Bacchus.model
         }
 
         /// <summary>
-        /// Create a new Brand using the name of the brand
+        /// Créé une nouvelle marque à partir de son nom
         /// </summary>
         /// <param name="NameBrandToSet"></param>
         public Brand(String NameBrandToSet)
@@ -38,7 +38,8 @@ namespace Bacchus.model
 
             int TestRef = -1;
 
-            while(RefBrand == -1)
+            // Recherche d'un id inutilisé
+            while (RefBrand == -1)
             {
                 TestRef++;
 

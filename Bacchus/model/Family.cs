@@ -9,7 +9,7 @@ namespace Bacchus.model
         public String NameFamily { get; set; }
 
         /// <summary>
-        /// Create a new empty family
+        /// Créé une nouvelle famille vide
         /// </summary>
         public Family()
         {
@@ -17,7 +17,7 @@ namespace Bacchus.model
         }
 
         /// <summary>
-        /// Create a new family using the reference and the name
+        /// Créé une famille à partir de son nom et son id
         /// </summary>
         /// <param name="RefFamilyToSet"></param>
         /// <param name="NameFamilyToSet"></param>
@@ -28,7 +28,7 @@ namespace Bacchus.model
         }
 
         /// <summary>
-        /// Create a new family using the name
+        /// Créé une famille à partir de son nom
         /// </summary>
         /// <param name="NameFamilyToSet"></param>
         public Family(String NameFamilyToSet)
@@ -38,6 +38,7 @@ namespace Bacchus.model
 
             int TestRef = -1;
 
+            // Recherche d'un id inutilisé
             while (RefFamily == -1)
             {
                 TestRef++;
