@@ -87,7 +87,32 @@ namespace Bacchus.dao
 
         public static void editSubFamily(int SubFamilyRef, Family FamilyRef, String NewSubFamilyName)
         {
-            MessageBox.Show("TODO");
+            // Verifications
+            if (NewSubFamilyName.Equals("") || NewSubFamilyName == null)
+            {
+                throw new ArgumentNullException("Famille Name");
+            }
+
+            // Ajout à la base de données
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    using (var Command = new SQLiteCommand("UPDATE SousFamilles SET RefFamille = " + FamilyRef.RefFamily + "'Nom = '" + NewSubFamilyName + "' WHERE RefSousFamille = " + SubFamilyRef + "; "))
+                    {
+                        // Execution de la requete
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Sous-Famille " + NewSubFamilyName + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    Connection.Close();
+                }
+            }
         }
 
         /// <summary>
