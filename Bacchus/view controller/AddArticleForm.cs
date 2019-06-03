@@ -49,7 +49,7 @@ namespace Bacchus
             if (int.TryParse(RefTextBox.Text, out value))
             {
                 // vérifie que les champs soient remplie
-                if ( DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "")
+                if ( DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
                 {
                     // faire une verif sur la ref TODO
                     /*if (ArticleDAO.getArticleById(value) == null)

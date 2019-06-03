@@ -57,8 +57,7 @@ namespace Bacchus
         {
             if (NameTextBox.Text != "")
             {
-                //MessageBox.Show(int.Parse(BrandNameLabel.Text) + " " + NameTextBox.Text);
-                //editSubFamily
+                //SubFamilyDAO.editSubFamily(int.Parse(FamilyNameLabel.Text), NameTextBox.Text , FamilyComboBox.SelectedItem);
                 this.Close();
             }
             else
