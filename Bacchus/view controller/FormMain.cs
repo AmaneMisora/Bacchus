@@ -88,69 +88,11 @@ namespace Bacchus
         {
             // affiche le bon tableau en fonction du noeud selectionné sur le treeview
             String NodeCliked = Event.Node.Text;
-            int ColumnsWidth = 0;
             switch (NodeCliked)
             {
                 case "Articles": // si on clique sur le noeud "Articles"
                     NodeSelected = "Articles";
-                    //UpdateListView(NodeSelected);
-                    MainListView.ListViewItemSorter = null;
-                    MainListView.Groups.Clear();
-                    MainListView.Columns.Clear();
-                    MainListView.Items.Clear();
-                    ColumnsWidth = MainListView.Width / 7;
-                    MainListView.Columns.Add("Quantité", ColumnsWidth);
-                    MainListView.Columns.Add("Description", ColumnsWidth);
-                    MainListView.Columns.Add("Référence", ColumnsWidth);
-                    MainListView.Columns.Add("Marque", ColumnsWidth);
-                    MainListView.Columns.Add("Famille", ColumnsWidth);
-                    MainListView.Columns.Add("Sous-Famille", ColumnsWidth);
-                    MainListView.Columns.Add("Prix H.T.", ColumnsWidth);
-                    string[] Article = new string[7];
-                    //dao.ArticleDAO.getArticle();
-                    // faire une boucle ou on ajoute chaque article de la list plus haut dans la listview
-                    ListViewItem ArcticleItem;
-                    // ajoute les items a la ListView
-                    Article[0] = "12";
-                    Article[1] = "Billes gel G1 Pilot Bleu";
-                    Article[2] = "F0010087";
-                    Article[3] = "Pilot";
-                    Article[4] = "Ecriture & Correction";
-                    Article[5] = "Stylos, feutres & rollers";
-                    Article[6] = "7,05";
-                    ArcticleItem = new ListViewItem(Article);
-                    MainListView.Items.Add(ArcticleItem);
-
-                    Article[0] = "12";
-                    Article[1] = "Crayons à papier Tradition HB";
-                    Article[2] = "F0000019";
-                    Article[3] = "Conté";
-                    Article[4] = "Ecriture & Correction";
-                    Article[5] = "Crayons & Porte-mines";
-                    Article[6] = "5,09";
-                    ArcticleItem = new ListViewItem(Article);
-                    MainListView.Items.Add(ArcticleItem);
-
-                    Article[0] = "12";
-                    Article[1] = "Crayons graphite Foray HB";
-                    Article[2] = "F1646150";
-                    Article[3] = "Foray";
-                    Article[4] = "Ecriture & Correction";
-                    Article[5] = "Crayons & Porte-mines";
-                    Article[6] = "2,69";
-                    ArcticleItem = new ListViewItem(Article);
-                    MainListView.Items.Add(ArcticleItem);
-
-
-                    Article[0] = "12";
-                    Article[1] = "ZBilles gel G1 Pilot Bleu";
-                    Article[2] = "F0010087";
-                    Article[3] = "Pilot";
-                    Article[4] = "Ecriture & Correction";
-                    Article[5] = "Stylos, feutres & rollers";
-                    Article[6] = "7,05";
-                    ArcticleItem = new ListViewItem(Article);
-                    MainListView.Items.Add(ArcticleItem);
+                    UpdateListView(NodeSelected);
                     break;
 
                 case "Marques": // si on clique sur le noeud "Marques"
@@ -531,8 +473,7 @@ namespace Bacchus
             switch (NodeName)
             {
                 case "Articles":
-                    /*
-                    Article[] Articles = ArticleDAO.getAllArticles();
+                    Article[] Articles = ArticleDAO.GetAllArticles();
 
                     MainListView.Columns.Clear();
                     MainListView.Items.Clear();
@@ -561,7 +502,7 @@ namespace Bacchus
                         ArticleToAdd[6] = A.PriceHT.ToString();
                         ArticleItem = new ListViewItem(ArticleToAdd);
                         MainListView.Items.Add(ArticleItem);
-                    }*/
+                    }
                     break;
 
                 case "Marques":
@@ -623,7 +564,7 @@ namespace Bacchus
                     foreach (SubFamily SF in SubFamilies)
                     {
 
-                        string[] SubFamilyToAdd = new string[2];
+                        string[] SubFamilyToAdd = new string[3];
 
                         ListViewItem SubFamilyItem;
                         // ajoute les items a la ListView
