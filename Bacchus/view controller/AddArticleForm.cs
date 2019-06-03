@@ -55,11 +55,9 @@ namespace Bacchus
                 float FloatPrice;
                 if (float.TryParse(PriceHTTextBox.Text, out FloatPrice))
                 {
-                    PriceToAdd = DoublePrice;
                     int IntQuantity;
                     if (int.TryParse(QuantityTextBox.Text, out IntQuantity))
                     {
-                        QuantityToAdd = IntQuantity;
                         // vérifie que les champs soient remplie
                         if (DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
                         {
