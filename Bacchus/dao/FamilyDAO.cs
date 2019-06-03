@@ -290,7 +290,7 @@ namespace Bacchus.dao
 
             // Création de la liste à retourner (de la taille du résultat de la requete)
             SubFamily[] SubFamilyTableToReturn = new SubFamily[DataTableToFill.Rows.Count];
-
+            
             // Création des SubFamilies à partir de la DataTable et ajout à la liste
             for (int currentSubFamilyIndex = 0; currentSubFamilyIndex < DataTableToFill.Rows.Count; currentSubFamilyIndex++)
             {
@@ -298,14 +298,14 @@ namespace Bacchus.dao
                 SubFamily TmpSubFamilyToAdd = new SubFamily();
 
                 // Ajout des paramètres de la SousFamille
-                TmpSubFamilyToAdd.RefSubFamily = (int)DataTableToFill.Rows[currentSubFamilyIndex][0];
-                TmpSubFamilyToAdd.RefFamily = FamilyDAO.GetFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][1]);
-                TmpSubFamilyToAdd.NameSubFamily = DataTableToFill.Rows[currentSubFamilyIndex][1].ToString();
+                TmpSubFamilyToAdd.RefSubFamily = (int)DataTableToFill.Rows[currentSubFamilyIndex][1];
+                TmpSubFamilyToAdd.RefFamily = FamilyDAO.GetFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][0]);
+                TmpSubFamilyToAdd.NameSubFamily = DataTableToFill.Rows[currentSubFamilyIndex][2].ToString();
 
                 // Ajout de la famille à la liste à retourner
                 SubFamilyTableToReturn.SetValue(TmpSubFamilyToAdd, currentSubFamilyIndex);
             }
-            
+
             return SubFamilyTableToReturn;
         }
 
