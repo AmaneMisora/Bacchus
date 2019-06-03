@@ -163,6 +163,7 @@ namespace Bacchus
                                 float FloatPrice;
                                 if (float.TryParse(values[5], out FloatPrice))
                                 {
+
                                     //créer l'article et le rajoute à la bd
                                     Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, FloatPrice, IntQuantity);
                                     ArticleDAO.AddArticle(ArticleToAdd);
