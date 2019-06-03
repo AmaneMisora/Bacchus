@@ -12,7 +12,7 @@ namespace Bacchus.model
         public int Quantity { get; set; }
 
         /// <summary>
-        /// Create a new empty article
+        /// Créé un Article vide
         /// </summary>
         public Article()
         {
@@ -37,6 +37,10 @@ namespace Bacchus.model
             this.Quantity = ParamQuantity;
         }
 
+        /// <summary>
+        /// Renvoie le prix sous forme d'un String compatible avec les requetes sql
+        /// </summary>
+        /// <returns></returns>
         public String GetPriceToString()
         {
             String[] PriceStr = PriceHT.ToString().Split(',');

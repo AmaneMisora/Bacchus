@@ -35,9 +35,11 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO SousFamilles VALUES (" + SubFamilyToAdd.RefSubFamily + ", '" + SubFamilyToAdd.RefFamily.RefFamily + "', '" + SubFamilyToAdd.NameSubFamily + "');"))
                     {
-                        //Execution de la requete
+                        //Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
+
+                        //Execution de la requete
                         Command.ExecuteNonQuery();
 
                         Connection.Close();
@@ -46,6 +48,7 @@ namespace Bacchus.dao
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Famille " + SubFamilyToAdd.NameSubFamily + " non créée\n" + ExceptionCaught.Message.ToString());
+
                     Connection.Close();
                 }
             }
@@ -65,11 +68,16 @@ namespace Bacchus.dao
                 {
                     try
                     {
-                        //Execution de la requête
+                        //Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
-                        adp.Fill(SQLRequestDataTable);
+
+                        //Execution de la requête
+                        SQLiteDataAdapter Adapter = new SQLiteDataAdapter(Command);
+
+                        //Récupération des données
+                        Adapter.Fill(SQLRequestDataTable);
+
                         if (Convert.ToInt32(SQLRequestDataTable.Rows[0][0]) != 0)
                         {
                             MessageBox.Show("Il existe des articles utilisant cette sous-famille. Il n'est pas possible de la supprimer");
@@ -91,16 +99,20 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("DELETE FROM SousFamilles WHERE RefSousFamille = " + SubFamilyRef + "; "))
                     {
-                        // Execution de la requête
+                        //Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
+
+                        // Execution de la requête
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Sous-famille " + SubFamilyRef + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -130,16 +142,19 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("UPDATE SousFamilles SET RefFamille = " + FamilyRef.RefFamily + ", Nom = '" + NewSubFamilyName + "' WHERE RefSousFamille = " + SubFamilyRef + "; "))
                     {
-                        // Execution de la requete
+                        //Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
+                        // Execution de la requete
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Sous-Famille " + NewSubFamilyName + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -153,6 +168,7 @@ namespace Bacchus.dao
         {
             //The number of subFamily
             int nbSubFamily = SubFamilyDAO.NbSubFamilies();
+
             //The table to return
             SubFamily[] listToReturn = new SubFamily[nbSubFamily];
 
@@ -162,6 +178,7 @@ namespace Bacchus.dao
                 {
                     try
                     {
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
 
@@ -169,14 +186,18 @@ namespace Bacchus.dao
                         {
                             for(int currentSubFamilyIndex = 0; currentSubFamilyIndex < nbSubFamily; currentSubFamilyIndex++)
                             {
+                                // Lecture de la ligne 
                                 Reader.Read();
 
+                                // Creation de la famille
                                 SubFamily SubFamilyToAdd = new SubFamily();
 
+                                // Ajout des paramètres
                                 SubFamilyToAdd.RefSubFamily = (int)Reader[0];
                                 SubFamilyToAdd.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
                                 SubFamilyToAdd.NameSubFamily = Reader[2].ToString();
 
+                                // Ajout de la sous-famille à la liste à retourner
                                 listToReturn.SetValue(SubFamilyToAdd, currentSubFamilyIndex);
                             }
                         }
@@ -185,9 +206,12 @@ namespace Bacchus.dao
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        Connection.Close();
+                        // Rtourne null en cas d'erreur
                         listToReturn = null;
+
                         MessageBox.Show("Echec de la récupération des données de la table SousFamille  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        Connection.Close();
                     }
                 }
 
@@ -203,7 +227,8 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static SubFamily GetSubFamilyById(int SubFamilyRef)
         {
-            SubFamily SubFamilyToReturn = new SubFamily();
+            // Sous famille à retourner
+            SubFamily SubFamilyToReturn = null;
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -211,23 +236,42 @@ namespace Bacchus.dao
                 {
                     try
                     {
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
+                            // Lecture de la ligne
                             Reader.Read();
 
+                            // Création de la sousfamille
+                            SubFamilyToReturn = new SubFamily();
+
+                            // Ajout des paramètres
                             SubFamilyToReturn.RefSubFamily = (int)Reader[0];
                             SubFamilyToReturn.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
                             SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
                         }
 
-                    }
-                    catch (Exception)
-                    {
                         Connection.Close();
+
+                    }
+                    // dans le cas où il n'existe pas de sous familles avec cet id
+                    catch (InvalidOperationException)
+                    {
                         SubFamilyToReturn = null;
+
+                        Connection.Close();
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        // Retourne null en cas d'erreur
+                        SubFamilyToReturn = null;
+
+                        MessageBox.Show("Echec de la récupération de la SousFamille " + SubFamilyRef + " \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        Connection.Close();
                     }
                 }
             }
@@ -251,6 +295,7 @@ namespace Bacchus.dao
                 {
                     try
                     {
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
 
@@ -266,11 +311,16 @@ namespace Bacchus.dao
                             SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
                         }
 
+                        Connection.Close();
+
                     }
                     catch (Exception ExceptionCaught)
                     {
                         // Retourne null en cas d'échec
                         SubFamilyToReturn = null;
+
+                        MessageBox.Show("Echec de la récupération de la SousFamille " + SubFamilyName + " \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                         Connection.Close();
                     }
                 }
@@ -295,18 +345,24 @@ namespace Bacchus.dao
                 {
                     try
                     {
-                        //execute query
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
-                        adp.Fill(DataTableToReturn);
+
+                        // Execution
+                        SQLiteDataAdapter Adapter = new SQLiteDataAdapter(Command);
+
+                        // Récupération
+                        Adapter.Fill(DataTableToReturn);
                         Result = Convert.ToInt32(DataTableToReturn.Rows[0][0].ToString());
+
                         Connection.Close();
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        Connection.Close();
                         MessageBox.Show("Echec" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        Connection.Close();
 
                     }
                 }
