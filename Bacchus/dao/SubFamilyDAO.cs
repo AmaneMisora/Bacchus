@@ -85,7 +85,7 @@ namespace Bacchus.dao
             }
         }
 
-        public static void editSubFamily(int SubFamilyRef, Family FamilyRef, String NewSubFamilyName)
+        public static void editSubFamily(int SubFamilyRef, String NewSubFamilyName, Family FamilyRef)
         {
             // Verifications
             if (NewSubFamilyName.Equals("") || NewSubFamilyName == null)
