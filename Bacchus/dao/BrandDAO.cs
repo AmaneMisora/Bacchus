@@ -186,6 +186,11 @@ namespace Bacchus.dao
             return listToReturn;
         }
 
+        /// <summary>
+        /// Retourne toutes les maques de la base de données
+        /// </summary>
+        /// <param name="BrandName"></param>
+        /// <returns></returns>
         public static Brand GetBrandByName(String BrandName)
         {
             Brand BrandToReturn = new Brand();

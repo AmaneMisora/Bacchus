@@ -44,7 +44,7 @@ namespace Bacchus
                 // vérifie que le champ nom soit remplie
                 if (NameTextBox.Text != "" && FamilyComboBox.Text != "")
                 {
-                    if (SubFamilyDAO.GetFamilyById(IntRef) == null)
+                    if (SubFamilyDAO.GetSubFamilyById(IntRef) == null)
                     {
                         SubFamily NewSubFamily = new SubFamily(IntRef, NameTextBox.Text, (Family) FamilyComboBox.SelectedItem);
                         SubFamilyDAO.AddSubFamily(NewSubFamily);

@@ -171,7 +171,7 @@ namespace Bacchus.dao
         /// </summary>
         /// <param name="SubFamilyRef"></param>
         /// <returns></returns>
-        public static SubFamily GetFamilyById(int SubFamilyRef)
+        public static SubFamily GetSubFamilyById(int SubFamilyRef)
         {
             SubFamily SubFamilyToReturn = new SubFamily();
 
@@ -204,6 +204,7 @@ namespace Bacchus.dao
 
             return SubFamilyToReturn;
         }
+
 
         /// <summary>
         /// Retourne le nombre de sous familles de la base de donnée

@@ -94,7 +94,7 @@ namespace Bacchus
             //Test FamilyDAO (ok)
             /*
             FamilyDAO.AddFamily(new model.Family(0, "test0"));
-            MessageBox.Show("Ref : " + FamilyDAO.GetFamilyById(0).RefFamily, FamilyDAO.GetFamilyById(0).NameFamily);
+            MessageBox.Show("Ref : " + FamilyDAO.GetSubFamilyById(0).RefFamily, FamilyDAO.GetSubFamilyById(0).NameFamily);
             MessageBox.Show("Ref : " + FamilyDAO.GetFamilyByName("test0").RefFamily, FamilyDAO.GetFamilyByName("test0").NameFamily);
             FamilyDAO.AddFamily(new model.Family(1, "test1"));
             FamilyDAO.AddFamily(new model.Family(2, "test2"));
