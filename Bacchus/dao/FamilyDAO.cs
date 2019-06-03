@@ -240,7 +240,7 @@ namespace Bacchus.dao
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
-                            // LEcture de a ligne
+                            // Lecture de la ligne
                             Reader.Read();
 
                             // Ajout des paramètres

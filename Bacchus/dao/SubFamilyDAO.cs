@@ -85,7 +85,12 @@ namespace Bacchus.dao
             }
         }
 
-
+        /// <summary>
+        /// Modifie le nom et la famille de la sous-famille en référencce
+        /// </summary>
+        /// <param name="SubFamilyRef"> La référence de la sous famille à modifier </param>
+        /// <param name="NewSubFamilyName"> Le nouveau nom de la sous famille</param>
+        /// <param name="FamilyRef"> La nouvelle famille </param>
         public static void EditSubFamily(int SubFamilyRef, String NewSubFamilyName, Family FamilyRef)
         {
             // Verifications
@@ -188,6 +193,12 @@ namespace Bacchus.dao
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
                             Reader.Read();
+
+                            try { MessageBox.Show(Reader[0].ToString());
+                                MessageBox.Show(Reader[1].ToString());
+                                MessageBox.Show(Reader[2].ToString());
+                            }
+                            catch { }
 
                             SubFamilyToReturn.RefSubFamily = (int)Reader[0];
                             SubFamilyToReturn.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
