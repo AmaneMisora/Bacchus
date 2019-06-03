@@ -30,5 +30,15 @@ namespace Bacchus.model
             NameSubFamily = NameSubFamilyToSet;
             RefFamily = FamilyToSet;
         }
+
+        /// <summary>
+        /// Transforme une sous famille en chaine de caractere
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return NameSubFamily;
+        }
+
     }
 }

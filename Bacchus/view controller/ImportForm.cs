@@ -204,7 +204,7 @@ namespace Bacchus
                                 Description = values[0];
                                 IntQuantity = 1;
                             }
-
+                            /*
                             // si la famille existe la trouve sinon la creer 
                             Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
                             if (FamilyToAdd == null)
@@ -230,7 +230,7 @@ namespace Bacchus
                             //TODO couper values[0] en 2 pour avoir la quantite et la descritption
                             //TODO rajouter un constucteur de article avec quantite
                             Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, FamilyToAdd, BrandToAdd, values[5], IntQuantity);
-                        
+                        */
                         } 
                     }
                     else
