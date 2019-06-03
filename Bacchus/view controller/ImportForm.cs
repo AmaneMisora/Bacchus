@@ -185,6 +185,9 @@ namespace Bacchus
                                         //créer l'article et le rajoute à la bd
                                         ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, FloatPrice, IntQuantity);
                                         ArticleDAO.AddArticle(ArticleToAdd);
+
+                                        // une ligne rajoutée, on avance donc d'une étape dans la progress bar
+                                        ImportProgressBar.PerformStep();
                                     }
 
                                 }
