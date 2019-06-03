@@ -44,8 +44,8 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void ImporterToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
-            ImportForm f = new ImportForm();
-            f.ShowDialog(this);
+            ImportForm Form = new ImportForm();
+            Form.ShowDialog(this);
             UpdateListView(NodeSelected);
         }
 
@@ -56,8 +56,8 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void ExporterToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
-            ExportForm f = new ExportForm();
-            f.ShowDialog(this);
+            ExportForm Form = new ExportForm();
+            Form.ShowDialog(this);
             UpdateListView(NodeSelected);
         }
 
@@ -69,16 +69,6 @@ namespace Bacchus
         private void ActualiserToolStripMenuItem_Click(object Sender, EventArgs Event)
         {
             UpdateListView(NodeSelected);
-        }
-
-        private void MainTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void MainListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -244,21 +234,23 @@ namespace Bacchus
                 }
             }
         }
-
-        // Sets myListView to the groups created for the specified column.
+        
         /// <summary>
-        /// Créer des groups pour chacun des différents objets de la colonne spécifiée
+        /// Créer des groupes pour chacun des différents objets de la colonne spécifiée
         /// </summary>
         /// <param name="Column"></param>
         private void SetGroups(int Column)
         {
             String LastGroup;
             List<String> ListGroup = new List<String>();
+            // créer le premier groupe
             LastGroup = MainListView.Items[0].SubItems[Column].Text;
             ListGroup.Add(MainListView.Items[0].SubItems[Column].Text);
             MainListView.Groups.Add(new ListViewGroup(LastGroup, HorizontalAlignment.Left));
             foreach (ListViewItem item in MainListView.Items)
             {
+
+                // vérifie si le group n'est pas similaire au précédent puis le créer
                 if (LastGroup != item.SubItems[Column].Text)
                 {
                     LastGroup = item.SubItems[Column].Text;
@@ -267,6 +259,7 @@ namespace Bacchus
                     MainListView.Columns.Add(MainListView.Groups[1].Header);
                 }
                 
+                // remplie les groupes
                 foreach (ListViewGroup GroupCreated in MainListView.Groups)
                 {
                     if (GroupCreated.Header == item.SubItems[Column].Text)
@@ -317,7 +310,6 @@ namespace Bacchus
                 // vérifie sur quel tableau on travaille et supprime l'élement sélectionné
                 DeleteItemListView(NodeSelected, MainListView.SelectedItems[0]);
             }
-            
         }
 
         /// <summary>
@@ -457,6 +449,7 @@ namespace Bacchus
 
                 default:
                     break;
+
             }
         }
 

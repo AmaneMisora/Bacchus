@@ -69,7 +69,6 @@ namespace Bacchus
             // initialise les champs avec les données de l'article modifié 
             ArticleNameLabel.Text = SelectedItem.SubItems[2].Text;
             DescriptionTextBox.Text = SelectedItem.SubItems[1].Text;
-            SubFamilyComboBox.Text = SelectedItem.SubItems[5].Text; //TODO
             PriceHTTextBox.Text = SelectedItem.SubItems[6].Text;
             QuantityTextBox.Text = SelectedItem.SubItems[0].Text;
         }

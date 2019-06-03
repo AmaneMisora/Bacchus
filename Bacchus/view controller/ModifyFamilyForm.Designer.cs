@@ -93,7 +93,6 @@
             this.Name = "ModifyFamilyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Modifier une famille";
-            this.Load += new System.EventHandler(this.ModifyFamilyForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

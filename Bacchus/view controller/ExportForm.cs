@@ -24,6 +24,11 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void ExportButton_Click(object Sender, EventArgs Event)
         {
+
+            // met le maximun de la progress bar au nombre de ligne
+            ExportProgressBar.Maximum = ArticleDAO.NbArticles();
+           
+            
             try
             {
                 // écrit les titres des colonnes en première ligne
@@ -35,42 +40,45 @@ namespace Bacchus
                 var TitleSubFamilyRow = "Sous-Famille";
                 var TitlePriceRow = "Prix H.T.";
 
+                ExportProgressBar.PerformStep();
+
                 // formate cette ligne puis l'ajoute au csv
                 var TitleLine = string.Format("{0};{1};{2};{3};{4};{5}", TitleQuantityAndDescriptionRow, TitleRefRow, TitleBrandRow, TitleFamilyRow, TitleSubFamilyRow, TitlePriceRow);
                 csv.AppendLine(TitleLine);
-
                 // fait la meme chose pour tout les articles de la bd
                 Article[] AllArticle = ArticleDAO.GetAllArticles();
                 foreach (Article A in AllArticle)
                 {
+                    // une ligne est crée, on avance donc d'une étape dans la progress bar
+                    ExportProgressBar.PerformStep();
                     var QuantityAndDescriptionRow = A.Quantity + " " + A.Description;
                     var RefRow = A.RefArticle;
                     var BrandRow = A.RefBrand.ToString();
                     var FamilyRow = A.RefSubFamily.RefFamily.ToString();
                     var SubFamilyRow = A.RefSubFamily.ToString();
                     var PriceRow = A.PriceHT.ToString();
-                    //Suggestion made by KyleMit
                     var NewLine = string.Format("{0};{1};{2};{3};{4};{5}", QuantityAndDescriptionRow, RefRow, BrandRow, FamilyRow, SubFamilyRow, PriceRow);
                     csv.AppendLine(NewLine);
                 }
 
                 // ecrit les données dans le fichier au path choisit
-                File.WriteAllText(CSVNameTextBox.Text, csv.ToString()); //"E:\\Travail\\test.csv"
+                File.WriteAllText(CSVNameTextBox.Text, csv.ToString());
 
-                MessageBox.Show("Export réussi");
             }
             catch (Exception ExceptionCaught)
             {
                 MessageBox.Show("L'export à échoué \n" + ExceptionCaught.Message.ToString(), ExceptionCaught.GetType().ToString());
             }
+            this.Close();
         }
 
         /// <summary>
-        /// Ouvre le gestionnaire de fichier à l'appui sur le bouton "..."
+        /// Choisit ou et comment appeler le fichier csv d'export
+        /// ce déclenche à l'appui sur le bouton "..."
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CSVButton_Click(object sender, EventArgs e)
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void CSVButton_Click(object Sender, EventArgs Event)
         {
             // Nom de fichier par défault dans l'explorateur de fichier
             string FileName = "BacchusExport.csv";
