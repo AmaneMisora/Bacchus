@@ -211,7 +211,7 @@ namespace Bacchus
                             {
                                 FamilyToAdd = new Family(values[3]);
                             }
-                            /*
+                            
                             // si la sous famille existe la trouve sinon la creer
                             SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4]);
                             if (SubFamilyToAdd == null)
@@ -229,8 +229,8 @@ namespace Bacchus
 
                             //TODO couper values[0] en 2 pour avoir la quantite et la descritption
                             //TODO rajouter un constucteur de article avec quantite
-                            Article ArticleToAdd = new Article(values[1], Description description, SubFamilyToAdd subfamily, FamilyToAdd family, BrandToAdd brand, values[5] PriceHT, IntQuantity Quantity);
-                        */
+                            Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, FamilyToAdd, BrandToAdd, values[5], IntQuantity);
+                        
                         } 
                     }
                     else
