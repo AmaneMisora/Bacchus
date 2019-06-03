@@ -199,7 +199,7 @@ namespace Bacchus.dao
                     {
                         Command.Connection = Connection;
                         Command.Connection.Open();
-
+                        
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
                             Reader.Read();
@@ -210,9 +210,11 @@ namespace Bacchus.dao
                             ArticleToReturn.Description = Reader[1].ToString();
                             ArticleToReturn.RefSubFamily = SubFamilyDAO.GetSubFamilyById((int)Reader[2]);
                             ArticleToReturn.RefBrand = BrandDAO.GetBrandById((int)Reader[3]);
-                            ArticleToReturn.PriceHT = (float)Reader[4];
+                            ArticleToReturn.PriceHT = float.Parse(Reader[4].ToString());
                             ArticleToReturn.Quantity = (int)Reader[5];
                         }
+                        
+                        Connection.Close();
 
                     }
                     catch
