@@ -128,11 +128,7 @@ namespace Bacchus
                                 var Quantity = values[0].Substring(0, firstSpaceIndex); // la quantite si elle existe
                                 var Description = values[0].Substring(firstSpaceIndex + 1); // la description si il y a un quantite
                                 int IntQuantity;
-                                if (int.TryParse(Quantity, out IntQuantity))
-                                {
-
-                                }
-                                else
+                                if (int.TryParse(Quantity, out IntQuantity) == false)
                                 {
                                     Description = values[0];
                                     IntQuantity = 1;
@@ -144,6 +140,7 @@ namespace Bacchus
                                 if (FamilyToAdd == null)
                                 {
                                     FamilyToAdd = new Family(values[3]);
+                                    FamilyDAO.AddFamily(FamilyToAdd);
                                 }
 
                                 // si la sous famille existe la trouve sinon la creer
@@ -151,6 +148,7 @@ namespace Bacchus
                                 if (SubFamilyToAdd == null)
                                 {
                                     SubFamilyToAdd = new SubFamily(values[4], FamilyToAdd);
+                                    SubFamilyDAO.AddSubFamily(SubFamilyToAdd);
                                 }
 
                                 // si la marque existe la trouve sinon la creer
@@ -158,6 +156,7 @@ namespace Bacchus
                                 if (BrandToAdd == null)
                                 {
                                     BrandToAdd = new Brand(values[2]);
+                                    BrandDAO.AddBrand(BrandToAdd);
                                 }
 
                                 // vérifie si le prix est bein un double
