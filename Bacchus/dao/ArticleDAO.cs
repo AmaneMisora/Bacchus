@@ -12,6 +12,16 @@ namespace Bacchus.dao
 {
     class ArticleDAO
     {
+
+        /// <summary>
+        /// Ajoute l'article à la base de données
+        /// </summary>
+        /// <param name="ArticleToAdd"></param>
+        public static void AddArticle(Article ArticleToAdd)
+        {
+
+        }
+
         public static Article[] GetAllArticles()
         {
             //Nombre d'articles dans la base de donnée
@@ -62,8 +72,6 @@ namespace Bacchus.dao
                 return listToReturn;
 
         }
-
-
 
         /// <summary>
         /// Retourne l'article correspondant à la référence passée en paramètre
