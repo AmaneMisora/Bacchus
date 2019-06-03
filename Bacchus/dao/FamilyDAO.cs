@@ -27,16 +27,20 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO Familles VALUES (" + FamilyToAdd.RefFamily + ", '" + FamilyToAdd.NameFamily + "');"))
                     {
-                        // Execution de la requete
+                        // Connection 
                         Command.Connection = Connection;
                         Command.Connection.Open();
+
+                        // Execution de la requete
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Famille " + FamilyToAdd.NameFamily + " non créée\n" + ExceptionCaught.Message.ToString());
+
                     Connection.Close();
                 }
             }
@@ -56,11 +60,15 @@ namespace Bacchus.dao
                 {
                     try
                     {
-                        // Execution de la requête
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
-                        adp.Fill(SQLRequestDataTable);
+
+                        // Execution de la requête
+                        SQLiteDataAdapter Adapter = new SQLiteDataAdapter(Command);
+
+                        // Récupération des données
+                        Adapter.Fill(SQLRequestDataTable);
                         if( Convert.ToInt32(SQLRequestDataTable.Rows[0][0]) != 0 )
                         {
                             MessageBox.Show("Il existe des sous familles utilisant cette famille. Il n'est pas possible de la supprimer");
@@ -82,16 +90,20 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("DELETE FROM Familles WHERE RefFamille = " + RefFamily + "; "))
                     {
-                        // Execution de la requête
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
+
+                        // Execution de la requête
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Famille " + RefFamily + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -118,16 +130,20 @@ namespace Bacchus.dao
                 {
                     using (var Command = new SQLiteCommand("UPDATE Familles SET Nom = '" + NewFamilyName + "' WHERE RefFamille = " + RefFamily + "; "))
                     {
-                        // Execution de la requete
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
+
+                        // Execution de la requete
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Famille " + RefFamily + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -141,6 +157,7 @@ namespace Bacchus.dao
         {
             // Nombre de familles dans la base de données
             int NbFamilies = FamilyDAO.NbFamilies();
+
             // Tableau de familles à retourner
             Family[] listToReturn = new Family[NbFamilies];
 
@@ -150,29 +167,39 @@ namespace Bacchus.dao
                 {
                     try
                     {
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
-                            for (int currentFamilyIndex = 0; currentFamilyIndex < NbFamilies; currentFamilyIndex++)
+                            for (int CurrentFamilyIndex = 0; CurrentFamilyIndex < NbFamilies; CurrentFamilyIndex++)
                             {
+                                // Lecture de la ligne
                                 Reader.Read();
 
+                                // Création d'une nouvelle famille
                                 Family FamilyToAdd = new Family();
 
+                                // Ajout des paramètres
                                 FamilyToAdd.RefFamily = (int)Reader[0];
                                 FamilyToAdd.NameFamily = Reader[1].ToString();
 
-                                listToReturn.SetValue(FamilyToAdd, currentFamilyIndex);
+                                // Ajout de la famille au tableau
+                                listToReturn.SetValue(FamilyToAdd, CurrentFamilyIndex);
                             }
                         }
+
+                        Connection.Close();
 
                     }
                     catch (Exception ExceptionCaught)
                     {
+                        // Retourne null en cas d'erreur 
                         listToReturn = null;
+
                         MessageBox.Show("Echec de la récupération des données de la table Familles  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                         Connection.Close();
                     }
                 }
@@ -188,7 +215,7 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static Family GetFamilyByName(String FamilyName)
         {
-            Family FamilyReturn = new Family();
+            Family FamilyReturn = null;
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -201,16 +228,25 @@ namespace Bacchus.dao
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
+                            // Lecture de la ligne
                             Reader.Read();
 
+                            // Crée une nouvelle famille
+                            FamilyReturn = new Family();
+
+                            //Ajout des paramètres
                             FamilyReturn.RefFamily = (int)Reader[0];
                             FamilyReturn.NameFamily = Reader[1].ToString();
                         }
 
+                        Connection.Close();
+
                     }
                     catch
                     {
+                        // Renvoie null en cas d'erreur
                         FamilyReturn = null;
+
                         Connection.Close();
                     }
                 }
@@ -242,16 +278,32 @@ namespace Bacchus.dao
                             // Lecture de la ligne
                             Reader.Read();
 
+                            // Création d'une famille
+                            FamilyToReturn = new Family();
+
                             // Ajout des paramètres
                             FamilyToReturn.RefFamily = (int)Reader[0];
                             FamilyToReturn.NameFamily = Reader[1].ToString();
                         }
 
-                    }
-                    catch
-                    {
                         Connection.Close();
+
+                    }
+                    // Dans le cas où il n'y a pas de famille avec cet id
+                    catch(InvalidOperationException)
+                    {
                         FamilyToReturn = null;
+
+                        Connection.Close();
+                    }
+                    catch(Exception ExceptionCaught)
+                    {
+                        // Retourne null en cas d'erreur 
+                        FamilyToReturn = null;
+
+                        MessageBox.Show("Echec de la récupération de la Familles " + FamilyRef + "  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        Connection.Close();
                     }
                 }
             }
@@ -318,9 +370,11 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static int NbFamilies()
         {
+            // Le résultat du compte à retourner
             int Result = -1;
 
-            DataTable DataTableToReturn = new DataTable();
+            // DataTable contenant le résultat de la requete sql
+            DataTable DataTableToFill = new DataTable();
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -328,12 +382,17 @@ namespace Bacchus.dao
                 {
                     try
                     {
-                        //execute query
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
-                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
-                        adp.Fill(DataTableToReturn);
-                        Result = Convert.ToInt32(DataTableToReturn.Rows[0][0].ToString());
+
+                        // Execution de la requete
+                        SQLiteDataAdapter Adapter = new SQLiteDataAdapter(Command);
+
+                        // Récupération des données
+                        Adapter.Fill(DataTableToFill);
+                        Result = Convert.ToInt32(DataTableToFill.Rows[0][0].ToString());
+
                         Connection.Close();
                     }
                     catch
