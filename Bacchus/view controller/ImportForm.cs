@@ -40,14 +40,38 @@ namespace Bacchus
             }
         }
 
-        private void OverwriteButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void OverwriteButton_Click(object Sender, EventArgs Event)
         {
+
+            //Nombre de ligne du fichier (-1 pour éviter la colonne titre)
+            int NbLine = -1;
 
             // test les erreurs avec le fichier CSV
             try
             {
+                // compte le nombre de ligne du fichier
                 using (var reader = new StreamReader(@CSVNameTextBox.Text))
                 {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(';');
+                        NbLine++;
+
+                    }
+                }
+
+                // met le maximun de la progress bar au nombre de ligne
+                ImportProgressBar.Maximum = NbLine;
+
+                using (var reader = new StreamReader(@CSVNameTextBox.Text))
+                {
+
                     // nettoie la bd
                     try
                     {
@@ -188,9 +212,28 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void AddButton_Click(object Sender, EventArgs Event)
         {
+
+            //Nombre de ligne du fichier (-1 pour éviter la colonne titre)
+            int NbLine = -1;
+
             // test les erreurs avec le fichier CSV
             try
             {
+                // compte le nombre de ligne du fichier
+                using (var reader = new StreamReader(@CSVNameTextBox.Text))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(';');
+                        NbLine++;
+                        
+                    }
+                }
+
+                // met le maximun de la progress bar au nombre de ligne
+                ImportProgressBar.Maximum = NbLine;
+
                 using (var reader = new StreamReader(@CSVNameTextBox.Text))
                 {
                     bool TitleLine = true;
@@ -202,6 +245,7 @@ namespace Bacchus
                         // verification qui permet d'éviter la ligne titre
                         if (TitleLine == false)
                         {
+                            ImportProgressBar.PerformStep();
                             // verifie si la reference est valide 
                             if (ArticleDAO.VerifArticleRef(values[1]) == true)
                             {
@@ -253,6 +297,9 @@ namespace Bacchus
                                         //créer l'article et le rajoute à la bd
                                         ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, FloatPrice, IntQuantity);
                                         ArticleDAO.AddArticle(ArticleToAdd);
+
+                                        // une ligne rajoutée, on avance donc d'une étape dans la progress bar
+                                        ImportProgressBar.PerformStep();
                                     }
                                     
                                 }

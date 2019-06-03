@@ -93,6 +93,7 @@
             this.ImportProgressBar.Margin = new System.Windows.Forms.Padding(3, 30, 3, 30);
             this.ImportProgressBar.Name = "ImportProgressBar";
             this.ImportProgressBar.Size = new System.Drawing.Size(393, 23);
+            this.ImportProgressBar.Step = 1;
             this.ImportProgressBar.TabIndex = 4;
             this.ImportProgressBar.Tag = "";
             // 
