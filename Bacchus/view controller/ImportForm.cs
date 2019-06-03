@@ -163,11 +163,15 @@ namespace Bacchus
                                 float FloatPrice;
                                 if (float.TryParse(values[5], out FloatPrice))
                                 {
-
-                                    //créer l'article et le rajoute à la bd
-                                    Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, FloatPrice, IntQuantity);
-                                    ArticleDAO.AddArticle(ArticleToAdd);
-                                    this.Close();
+                                    // si la reference de l'article existe la trouve sinon creer l'article
+                                    Article ArticleToAdd = ArticleDAO.GetArticleById(values[1]);
+                                    if(ArticleToAdd == null)
+                                    {
+                                        //créer l'article et le rajoute à la bd
+                                        ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, FloatPrice, IntQuantity);
+                                        ArticleDAO.AddArticle(ArticleToAdd);
+                                    }
+                                    
                                 }
 
                             }
@@ -176,9 +180,8 @@ namespace Bacchus
                         {
                             TitleLine = false;
                         }
-
-
                     }
+                    this.Close();
                 }
             } catch (System.Exception Excep)
             {

@@ -46,6 +46,7 @@ namespace Bacchus
         {
             ImportForm f = new ImportForm();
             f.ShowDialog(this);
+            UpdateListView(NodeSelected);
         }
 
         /// <summary>
@@ -57,6 +58,7 @@ namespace Bacchus
         {
             ExportForm f = new ExportForm();
             f.ShowDialog(this);
+            UpdateListView(NodeSelected);
         }
 
         /// <summary>
