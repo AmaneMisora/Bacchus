@@ -52,8 +52,8 @@ namespace Bacchus
             if (ArticleDAO.VerifArticleRef(RefTextBox.Text) == true)
             {
                 // verifie que le prix puis la quantité soient bien des nombres
-                double DoublePrice;
-                if (double.TryParse(PriceHTTextBox.Text, out DoublePrice))
+                float DoublePrice;
+                if (float.TryParse(PriceHTTextBox.Text, out DoublePrice))
                 {
                     int IntQuantity;
                     if (int.TryParse(PriceHTTextBox.Text, out IntQuantity))

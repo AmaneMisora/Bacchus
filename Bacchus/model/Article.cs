@@ -8,8 +8,8 @@ namespace Bacchus.model
         public String Description { get; set; }
         public SubFamily RefSubFamily { get; set; }
         public Brand RefBrand { get; set; }
-        public double PriceHT { get; set; }
-        public double Quantity { get; set; }
+        public float PriceHT { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Create a new empty article
@@ -27,7 +27,7 @@ namespace Bacchus.model
         /// <param name="ParamRefBrand"></param>
         /// <param name="ParamPriceHT"></param>
         /// <param name="ParamQuantity"></param>
-        public Article(String ParamRefArticle, String ParamDescription, SubFamily ParamRefSubFamily, Brand ParamRefBrand, double ParamPriceHT, double ParamQuantity)
+        public Article(String ParamRefArticle, String ParamDescription, SubFamily ParamRefSubFamily, Brand ParamRefBrand, float ParamPriceHT, int ParamQuantity)
         {
             this.RefArticle = ParamRefArticle;
             this.Description = ParamDescription;
