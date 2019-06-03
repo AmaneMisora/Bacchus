@@ -163,7 +163,6 @@ namespace Bacchus
 
                         case 6: //Prix H.T.
                             MainListView.Groups.Clear();
-                            //faire un group par tranche de prix si j'ai le temps
                             break;
 
                         default:
