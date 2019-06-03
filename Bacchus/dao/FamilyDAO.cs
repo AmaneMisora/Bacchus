@@ -262,6 +262,11 @@ namespace Bacchus.dao
             
         }
 
+        /// <summary>
+        /// Retourne toutes les sous-familles de la famille en entrée
+        /// </summary>
+        /// <param name="Family"></param>
+        /// <returns></returns>
         public static SubFamily[] GetAllSubFamilies(Family Family)
         {
             // DataTable récupérant les données de la requete
