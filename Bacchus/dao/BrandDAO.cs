@@ -9,12 +9,12 @@ namespace Bacchus.dao
     static class BrandDAO
     {
         /// <summary>
-        /// Add a new brand to the db
+        /// Ajoute la marque en entrée à la base de donnée
         /// </summary>
         /// <param name="BrandToAdd"></param>
         public static void AddBrand(Brand BrandToAdd)
         {
-            // Verifications
+            // Vérifications
             if (BrandToAdd.NameBrand.Equals("") || BrandToAdd.NameBrand == null)
             {
                 throw new ArgumentNullException("Brand Name");
@@ -24,23 +24,25 @@ namespace Bacchus.dao
                 throw new ArgumentException("La référence de la Marque ne doit pas être égale à -1");
             }
 
-            // Add to db
+            // Ajout à la base de donnée
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("INSERT INTO Marques VALUES (" + BrandToAdd.RefBrand + ", '" + BrandToAdd.NameBrand + "');"))
                     {
-                        // Execute query
+                        // Execution de la requete
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.ToString());
+                    MessageBox.Show("Marque " + BrandToAdd.NameBrand + " non créée\n" + ExceptionCaught.Message.ToString(), ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -70,9 +72,10 @@ namespace Bacchus.dao
                             MessageBox.Show("Il existe des articles utilisant cette marque. Il n'est pas possible de la supprimer");
                             return;
                         }
+
                         Connection.Close();
                     }
-                    catch (Exception)
+                    catch
                     {
                         Connection.Close();
                     }
@@ -95,50 +98,53 @@ namespace Bacchus.dao
                 }
                 catch (Exception ExceptionCaught)
                 {
+                    MessageBox.Show("La suppression de la marque " + BrandRef + " à échoué\n" + ExceptionCaught.Message.ToString(), ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
-                    MessageBox.Show("Marque " + BrandRef + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                 }
             }
 
         }
 
         /// <summary>
-        /// Change the name of a brand
+        /// Change le nom de la marque en paramètre
         /// </summary>
-        /// <param name="BrandRef"></param>
-        /// <param name="NewBrandName"></param>
+        /// <param name="BrandRef"> La marque à modifier </param>
+        /// <param name="NewBrandName"> Le nouveau nom </param>
         public static void EditBrand(int BrandRef, String NewBrandName)
         {
-            // Verifications
+            // Vérifications
             if (NewBrandName.Equals("") || NewBrandName == null)
             {
                 throw new ArgumentNullException("Brand Ref");
             }
 
-            // Add to db
+            // Ajout à la base de données
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
                 {
                     using (var Command = new SQLiteCommand("UPDATE Marques SET Nom = '" + NewBrandName + "' WHERE RefMarque = " + BrandRef + "; "))
                     {
-                        // Execute query
+                        // Execution de la requete
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
+                    MessageBox.Show("Echec de la modification de la marque " + BrandRef + " : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
-                    MessageBox.Show("Marque " + BrandRef + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                 }
             }
         }
 
         /// <summary>
-        /// Get all brands from db 
+        /// Retourne toutes les marques de la base de données
         /// </summary>
         /// <returns></returns>
         public static Brand[] GetAllBrands()
@@ -172,12 +178,16 @@ namespace Bacchus.dao
                             }
                         }
 
+                        Connection.Close();
+
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        Connection.Close();
-                        listToReturn = null;
                         MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        listToReturn = null;
+
+                        Connection.Close();
                     }
                 }
             }
@@ -186,9 +196,9 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Retourne toutes les maques de la base de données
+        /// Retourne la marque correspondante au nom en paramètre
         /// </summary>
-        /// <param name="BrandName"></param>
+        /// <param name="BrandName"> Le nom de la marque à retourner </param>
         /// <returns></returns>
         public static Brand GetBrandByName(String BrandName)
         {
@@ -200,21 +210,28 @@ namespace Bacchus.dao
                 {
                     try
                     {
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
+                            // Lecture de la ligne
                             Reader.Read();
 
+                            // Ajout des paramètres
                             BrandToReturn.RefBrand = (int)Reader[0];
                             BrandToReturn.NameBrand = Reader[1].ToString();
                         }
 
+                        Connection.Close();
+
                     }
                     catch
                     {
+                        // Retourne null en cas d'erreur
                         BrandToReturn = null;
+
                         Connection.Close();
                     }
                 }
@@ -251,10 +268,21 @@ namespace Bacchus.dao
                         }
 
                     }
-                    catch
+                    // Dans le cas où la marque n'existe pas
+                    catch(InvalidOperationException)
                     {
-                        Connection.Close();
                         BrandToReturn = null;
+
+                        Connection.Close();
+
+                    }
+                    catch(Exception ExceptionCaught)
+                    {
+                        MessageBox.Show("Echec de la récupération de la marque " + BrandRef + " \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        BrandToReturn = null;
+
+                        Connection.Close();
                     }
                 }
             }
@@ -263,14 +291,16 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Count the number of brands in the db
+        /// Compte le nombre de marques dans la base de données
         /// </summary>
         /// <returns></returns>
         public static int NbBrands()
         {
+            // Initialisation du résultat à retourner
             int Result = -1;
 
-            var DataTableToReturn = new DataTable();
+            // DataTable récupèrant les résultats de la requete
+            var DataTableToFill = new DataTable();
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -278,19 +308,24 @@ namespace Bacchus.dao
                 {
                     try
                     {
-                        //execute query
+                        // Connection
                         Command.Connection = Connection;
                         Command.Connection.Open();
+
+                        // Execution de la commande
                         SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
-                        adp.Fill(DataTableToReturn);
-                        Result = Convert.ToInt32(DataTableToReturn.Rows[0][0].ToString());
+
+                        // Récupération des données 
+                        adp.Fill(DataTableToFill);
+                        Result = Convert.ToInt32(DataTableToFill.Rows[0][0].ToString());
+
                         Connection.Close();
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        Connection.Close();
-                        MessageBox.Show("Echec" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        MessageBox.Show("Echec dans le comptage des marques \n " + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 
+                        Connection.Close();
                     }
                 }
             }
