@@ -208,10 +208,9 @@ namespace Bacchus.dao
                         }
 
                     }
-                    catch (Exception ExceptionCaught)
+                    catch
                     {
                         FamilyReturn = null;
-                        MessageBox.Show("Echec de la récupération de la Famille " + FamilyName +   "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                         Connection.Close();
                     }
                 }
@@ -249,11 +248,10 @@ namespace Bacchus.dao
                         }
 
                     }
-                    catch (Exception ExceptionCaught)
+                    catch
                     {
                         Connection.Close();
                         FamilyToReturn = null;
-                        //MessageBox.Show("Echec de la récupération de la Marque " + FamilyRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
@@ -286,7 +284,7 @@ namespace Bacchus.dao
                         adp.Fill(DataTableToFill);
                         Connection.Close();
                     }
-                    catch (Exception)
+                    catch
                     {
                         Connection.Close();
                     }
@@ -338,7 +336,7 @@ namespace Bacchus.dao
                         Result = Convert.ToInt32(DataTableToReturn.Rows[0][0].ToString());
                         Connection.Close();
                     }
-                    catch (Exception)
+                    catch
                     {
                         Connection.Close();
                     }

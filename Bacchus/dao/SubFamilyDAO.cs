@@ -247,7 +247,6 @@ namespace Bacchus.dao
                     {
                         // Retourne null en cas d'échec
                         SubFamilyToReturn = null;
-                        MessageBox.Show("Echec de la récupération de la SousFamille " + SubFamilyName + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                         Connection.Close();
                     }
                 }

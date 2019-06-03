@@ -1,11 +1,8 @@
 ﻿using Bacchus.model;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Bacchus.dao
@@ -215,11 +212,10 @@ namespace Bacchus.dao
                         }
 
                     }
-                    catch (Exception ExceptionCaught)
+                    catch
                     {
                         Connection.Close();
                         ArticleToReturn = null;
-                        // MessageBox.Show("Echec de la récupération de la Marque " + BrandRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
