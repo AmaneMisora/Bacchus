@@ -34,7 +34,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily + " , " + ArticleToAdd.RefBrand + " , " + ArticleToAdd.PriceHT + " , " + ArticleToAdd.Quantity + ") ;"))
+                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('"+ ArticleToAdd.RefArticle + "', '" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily.RefSubFamily + " , " + ArticleToAdd.RefBrand.RefBrand + " , " + ArticleToAdd.PriceHT + " , " + ArticleToAdd.Quantity + ") ;"))
                     {
                         // Execution de la requete
                         Command.Connection = Connection;
@@ -81,6 +81,15 @@ namespace Bacchus.dao
 
         }
 
+        /// <summary>
+        /// Modifie l'article passé en référence
+        /// </summary>
+        /// <param name="RefArticle"> La Référence de l'article à modifier </param>
+        /// <param name="NewDescription"> La nouvelle description de l'article </param>
+        /// <param name="NewRefSubFamily"> La nouvelle sous famille de l'article </param>
+        /// <param name="NewRefBrand"> La nouvelle marque de l'article </param>
+        /// <param name="NewPrice"> Le nouveau prix de l'article </param>
+        /// <param name="NewQuantity"> La nouvelle quantité </param>
         public static void EditArticle(String RefArticle, String NewDescription, SubFamily NewRefSubFamily, Brand NewRefBrand, float NewPrice, int NewQuantity)
         {
             // Vérification
@@ -140,18 +149,23 @@ namespace Bacchus.dao
                         {
                             for (int currentArticleIndex = 0; currentArticleIndex < nbArticle; currentArticleIndex++)
                             {
+                                // Lecture de la ligne
                                 Reader.Read();
 
+                                // Création d'un article 
                                 Article ArticleToAdd = new Article();
 
+                                // Ajout des paramètres
                                 ArticleToAdd.RefArticle = Reader[0].ToString();
                                 ArticleToAdd.Description = Reader[1].ToString();
                                 ArticleToAdd.RefSubFamily = SubFamilyDAO.GetSubFamilyById((int)Reader[2]);
                                 ArticleToAdd.RefBrand = BrandDAO.GetBrandById((int)Reader[3]);
-                                ArticleToAdd.PriceHT = (float)Reader[4];
+                                ArticleToAdd.PriceHT = float.Parse(Reader[4].ToString());
                                 ArticleToAdd.Quantity = (int)Reader[5];
 
+                                // Ajout de l'article à la liste à retourner
                                 listToReturn.SetValue(ArticleToAdd, currentArticleIndex);
+                                
                             }
                         }
 
@@ -161,7 +175,7 @@ namespace Bacchus.dao
                     {
                         Connection.Close();
                         listToReturn = null;
-                        MessageBox.Show("Echec de la récupération des données de la table SousFamille  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        MessageBox.Show("Echec de la récupération des données de la table Article \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
 
                 }
