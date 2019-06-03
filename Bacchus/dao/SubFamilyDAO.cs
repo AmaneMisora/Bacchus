@@ -98,7 +98,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("UPDATE SousFamilles SET RefFamille = " + FamilyRef.RefFamily + " Nom = '" + NewSubFamilyName + "' WHERE RefSousFamille = " + SubFamilyRef + "; "))
+                    using (var Command = new SQLiteCommand("UPDATE SousFamilles SET RefFamille = " + FamilyRef.RefFamily + ", Nom = '" + NewSubFamilyName + "' WHERE RefSousFamille = " + SubFamilyRef + "; "))
                     {
                         // Execution de la requete
                         Command.Connection = Connection;
