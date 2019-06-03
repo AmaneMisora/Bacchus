@@ -194,12 +194,6 @@ namespace Bacchus.dao
                         {
                             Reader.Read();
 
-                            try { MessageBox.Show(Reader[0].ToString());
-                                MessageBox.Show(Reader[1].ToString());
-                                MessageBox.Show(Reader[2].ToString());
-                            }
-                            catch { }
-
                             SubFamilyToReturn.RefSubFamily = (int)Reader[0];
                             SubFamilyToReturn.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
                             SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
