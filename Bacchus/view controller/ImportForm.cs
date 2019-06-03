@@ -182,20 +182,36 @@ namespace Bacchus
                     var line = reader.ReadLine();
                     var values = line.Split(';');
 
+                    // verification qui permet d'éviter la ligne titre
                     if(TitleLine == false)
                     {
-                        MessageBox.Show(values[0]);
-                        /*
-                        //ignorer la premeire ligne (le nom des colonnes)
+
+                        // verifie si la reference est valide 
                         if (ArticleDAO.VerifArticleRef(values[1]))
                         {
+
+                            // cherche la quantité, si elle existe, dans la premiere colonne
+                            var firstSpaceIndex = values[0].IndexOf(" ");
+                            var Quantity = values[0].Substring(0, firstSpaceIndex); // la quantite si elle existe
+                            var Description = values[0].Substring(firstSpaceIndex + 1); // la description si il y a un quantite
+                            int IntQuantity;
+                            if (int.TryParse(Quantity, out IntQuantity))
+                            {
+
+                            }
+                            else
+                            {
+                                Description = values[0];
+                                IntQuantity = 1;
+                            }
+
                             // si la famille existe la trouve sinon la creer 
                             Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
                             if (FamilyToAdd == null)
                             {
                                 FamilyToAdd = new Family(values[3]);
                             }
-
+                            /*
                             // si la sous famille existe la trouve sinon la creer
                             SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4]);
                             if (SubFamilyToAdd == null)
@@ -213,9 +229,9 @@ namespace Bacchus
 
                             //TODO couper values[0] en 2 pour avoir la quantite et la descritption
                             //TODO rajouter un constucteur de article avec quantite
-                            Article ArticleToAdd = new Article(values[1] ref, values[0] description, SubFamilyToAdd subfamily, FamilyToAdd family, BrandToAdd brand, values[5] PriceHT, values[0] Quantity);
-                        
-                        } */
+                            Article ArticleToAdd = new Article(values[1], Description description, SubFamilyToAdd subfamily, FamilyToAdd family, BrandToAdd brand, values[5] PriceHT, IntQuantity Quantity);
+                        */
+                        } 
                     }
                     else
                     {
