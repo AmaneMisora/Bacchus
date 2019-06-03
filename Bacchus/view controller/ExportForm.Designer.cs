@@ -48,6 +48,7 @@
             this.ExportProgressBar.Margin = new System.Windows.Forms.Padding(3, 30, 3, 30);
             this.ExportProgressBar.Name = "ExportProgressBar";
             this.ExportProgressBar.Size = new System.Drawing.Size(415, 23);
+            this.ExportProgressBar.Step = 1;
             this.ExportProgressBar.TabIndex = 6;
             this.ExportProgressBar.Tag = "";
             // 
@@ -118,6 +119,7 @@
             this.CSVButton.TabIndex = 1;
             this.CSVButton.Text = "...";
             this.CSVButton.UseVisualStyleBackColor = true;
+            this.CSVButton.Click += new System.EventHandler(this.CSVButton_Click);
             // 
             // CSVPathLabel
             // 
