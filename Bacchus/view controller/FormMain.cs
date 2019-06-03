@@ -434,7 +434,7 @@ namespace Bacchus
             switch (NodeName)
             {
                 case "Articles":
-                    ArticleDAO.DeleteArticle(SelectedItem.SubItems[2]);
+                    ArticleDAO.DeleteArticle(SelectedItem.SubItems[2].Text);
                     UpdateListView("Articles");
                     break;
 
