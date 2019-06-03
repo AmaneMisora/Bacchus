@@ -176,42 +176,53 @@ namespace Bacchus
             
             using (var reader = new StreamReader(@CSVNameTextBox.Text))
             {
+                bool TitleLine = true;
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(';');
-                    
 
-
-
-
-                    /*
-                    // si la famille existe la trouve sinon la creer 
-                    Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
-                    if (FamilyToAdd == null)
+                    if(TitleLine == false)
                     {
-                        FamilyToAdd = new Family(values[3]);
+                        MessageBox.Show(values[0]);
+                        /*
+                        //ignorer la premeire ligne (le nom des colonnes)
+                        if (ArticleDAO.VerifArticleRef(values[1]))
+                        {
+                            // si la famille existe la trouve sinon la creer 
+                            Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
+                            if (FamilyToAdd == null)
+                            {
+                                FamilyToAdd = new Family(values[3]);
+                            }
+
+                            // si la sous famille existe la trouve sinon la creer
+                            SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4]);
+                            if (SubFamilyToAdd == null)
+                            {
+                                SubFamilyToAdd = new SubFamily(values[4], FamilyToAdd);
+                            }
+
+                            // si la marque existe la trouve sinon la creer
+                            Brand BrandToAdd = BrandDAO.GetBrandByName(values[2]);
+                            if (BrandToAdd == null)
+                            {
+                                BrandToAdd = new Brand(values[2]);
+                            }
+
+
+                            //TODO couper values[0] en 2 pour avoir la quantite et la descritption
+                            //TODO rajouter un constucteur de article avec quantite
+                            Article ArticleToAdd = new Article(values[1] ref, values[0] description, SubFamilyToAdd subfamily, FamilyToAdd family, BrandToAdd brand, values[5] PriceHT, values[0] Quantity);
+                        
+                        } */
+                    }
+                    else
+                    {
+                        TitleLine = false;
                     }
 
-                    // si la sous famille existe la trouve sinon la creer
-                    SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4]);
-                    if (SubFamilyToAdd == null)
-                    {
-                        SubFamilyToAdd = new SubFamily(values[4], FamilyToAdd);
-                    }
 
-                    // si la marque existe la trouve sinon la creer
-                    Brand BrandToAdd = BrandDAO.GetBrandByName(values[2]); 
-                    if (BrandToAdd == null)
-                    {
-                        BrandToAdd = new Brand(values[2]);
-                    }
-
-
-                    //TODO couper values[0] en 2 pour avoir la quantite et la descritption
-                    //TODO rajouter un constucteur de article avec quantite
-                    Article ArticleToAdd = new Article(values[1] ref, values[0] description, SubFamilyToAdd subfamily, FamilyToAdd family, BrandToAdd brand, values[5] PriceHT, values[0] Quantity);
-                    */
                 }
             }
         }
