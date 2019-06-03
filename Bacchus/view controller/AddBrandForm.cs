@@ -30,14 +30,14 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void OkButton_Click(object Sender, EventArgs Event)
         {
-            int value;
-            if (int.TryParse(RefTextBox.Text, out value))
+            int IntRef;
+            if (int.TryParse(RefTextBox.Text, out IntRef))
             {
                 if(NameTextBox.Text != "")
                 { 
-                    if(BrandDAO.GetBrandById(value) == null)
+                    if(BrandDAO.GetBrandById(IntRef) == null)
                     {
-                        Brand NewBrand = new Brand(value, NameTextBox.Text);
+                        Brand NewBrand = new Brand(IntRef, NameTextBox.Text);
                         BrandDAO.AddBrand(NewBrand);
                         this.Close();
                     } else

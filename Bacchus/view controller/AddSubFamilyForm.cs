@@ -37,16 +37,16 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void OkButton_Click(object Sender, EventArgs Event)
         {
-            int value;
+            int IntRef;
             // vérifie si le contenue du champ reference est bien un nombre
-            if (int.TryParse(RefTextBox.Text, out value))
+            if (int.TryParse(RefTextBox.Text, out IntRef))
             {
                 // vérifie que le champ nom soit remplie
                 if (NameTextBox.Text != "" && FamilyComboBox.Text != "")
                 {
-                    if (SubFamilyDAO.GetFamilyById(value) == null)
+                    if (SubFamilyDAO.GetFamilyById(IntRef) == null)
                     {
-                        SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, (Family) FamilyComboBox.SelectedItem);
+                        SubFamily NewSubFamily = new SubFamily(IntRef, NameTextBox.Text, (Family) FamilyComboBox.SelectedItem);
                         SubFamilyDAO.AddSubFamily(NewSubFamily);
                         this.Close();
                     }
