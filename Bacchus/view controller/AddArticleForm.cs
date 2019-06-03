@@ -35,6 +35,8 @@ namespace Bacchus
             {
                 FamilyComboBox.Items.Add(F);
             }
+            
+
         }
 
         /// <summary>
@@ -91,11 +93,17 @@ namespace Bacchus
 
         private void FamilyComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (FamilyComboBox.SelectionLength > 0)
+            SubFamily[] AllLinkedSubFamilies = FamilyDAO.GetAllSubFamilies((Family)FamilyComboBox.SelectedItem);
+            foreach (SubFamily SF in AllLinkedSubFamilies)
             {
-                //FamilyComboBox.SelectedItem TODO
+                SubFamilyComboBox.Items.Add(SF);
             }
 
+        }
+
+        private void FamilyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show(((Family)FamilyComboBox.SelectedItem).ToString());
         }
     }
 }
