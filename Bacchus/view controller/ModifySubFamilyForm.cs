@@ -22,7 +22,7 @@ namespace Bacchus
         public ModifySubFamilyForm(ListViewItem SelectedItem)
         {
             InitializeComponent();
-
+            
 
             // rempli la combo box famille avec la liste des familles existante 
             int Index = 0;
@@ -43,11 +43,6 @@ namespace Bacchus
             NameTextBox.Text = SelectedItem.SubItems[0].Text;
         }
 
-        private void SubFamilyModifyForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Si les modifications sont valides change la sous famille concernée à l'appuie sur le bouton valider
         /// </summary>
@@ -55,6 +50,7 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void OkButton_Click(object Sender, EventArgs Event)
         {
+            // vérifie que les champs soient remplies
             if (NameTextBox.Text != "")
             {
                 SubFamilyDAO.EditSubFamily(int.Parse(SubFamilyNameLabel.Text), NameTextBox.Text , (Family) FamilyComboBox.SelectedItem);

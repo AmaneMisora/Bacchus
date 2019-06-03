@@ -115,7 +115,6 @@
             this.Name = "ModifySubFamilyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Modifier une sous famille";
-            this.Load += new System.EventHandler(this.SubFamilyModifyForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

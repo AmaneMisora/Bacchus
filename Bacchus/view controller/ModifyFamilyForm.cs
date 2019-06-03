@@ -25,11 +25,6 @@ namespace Bacchus
             NameTextBox.Text = SelectedItem.SubItems[0].Text;
         }
 
-        private void ModifyFamilyForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Si les modifications sont valides change la famille concernée à l'appuie sur le bouton valider
         /// </summary>
