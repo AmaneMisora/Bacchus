@@ -19,9 +19,56 @@ namespace Bacchus.dao
         /// <param name="ArticleToAdd"></param>
         public static void AddArticle(Article ArticleToAdd)
         {
+            // Vérification
+            if(VerifArticleRef(ArticleToAdd.RefArticle) == false)
+            {
+                throw new ArgumentException("La référence de l'article est invalide");
+            }
+            if(ArticleToAdd.Description.Equals("") || ArticleToAdd.Description == null)
+            {
+                throw new ArgumentNullException("Description");
+            }
+
+            // Ajout à la base de données
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    /*
+                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ;"))
+                    {
+                        // Execution de la requete
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                    */
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Article " + ArticleToAdd.RefArticle + " non créé\n" + ExceptionCaught.Message.ToString());
+                    Connection.Close();
+                }
+            }
+            
+        }
+
+
+        public static void DeleteArticle(int RefArticle)
+        {
 
         }
 
+        public static void EditArticle(String RefArticle, String NewDescription, SubFamily NewRefSubFamily, Brand NewRefBrand, float NewPrice, int NewQuantity)
+        {
+
+        }
+
+        /// <summary>
+        /// Retourne tous les articles de la base de données
+        /// </summary>
+        /// <returns></returns>
         public static Article[] GetAllArticles()
         {
             //Nombre d'articles dans la base de donnée
