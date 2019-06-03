@@ -37,12 +37,14 @@ namespace Bacchus.dao
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Article " + ArticleToAdd.RefArticle + " non créé\n" + ExceptionCaught.Message.ToString());
+
                     Connection.Close();
                 }
             }
@@ -66,12 +68,14 @@ namespace Bacchus.dao
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Article " + RefArticleToDelete + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -110,12 +114,14 @@ namespace Bacchus.dao
                         Command.Connection = Connection;
                         Command.Connection.Open();
                         Command.ExecuteNonQuery();
+
                         Connection.Close();
                     }
                 }
                 catch (Exception ExceptionCaught)
                 {
                     MessageBox.Show("Article " + RefArticle + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                     Connection.Close();
                 }
             }
@@ -128,8 +134,10 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static Article[] GetAllArticles()
         {
+
             //Nombre d'articles dans la base de donnée
             int nbArticle = ArticleDAO.NbArticles();
+
             //Tableau d'artiles à retourner
             Article[] listToReturn = new Article[nbArticle];
 
@@ -170,15 +178,19 @@ namespace Bacchus.dao
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        Connection.Close();
+                        //En cas d'erreur, retourne null
                         listToReturn = null;
+
                         MessageBox.Show("Echec de la récupération des données de la table Article \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
+                        Connection.Close();
                     }
 
                 }
 
             }
-                return listToReturn;
+
+            return listToReturn;
 
         }
 
@@ -202,10 +214,13 @@ namespace Bacchus.dao
                         
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
+                            // Lecture de la ligne
                             Reader.Read();
 
+                            // Creation de l'article à retourner
                             ArticleToReturn = new Article();
 
+                            // Ajout des paramètres
                             ArticleToReturn.RefArticle = Reader[0].ToString();
                             ArticleToReturn.Description = Reader[1].ToString();
                             ArticleToReturn.RefSubFamily = SubFamilyDAO.GetSubFamilyById((int)Reader[2]);
@@ -217,10 +232,17 @@ namespace Bacchus.dao
                         Connection.Close();
 
                     }
-                    catch
+                    // Dans le cas où l'article n'existe pas
+                    catch(InvalidOperationException)
                     {
                         Connection.Close();
-                        ArticleToReturn = null;
+                        return null;
+                    }
+                    // Dans le cas d'une erreur anormale
+                    catch(Exception ExceptionCaught)
+                    {
+                        MessageBox.Show("Echec de la récupération de l'article " + ArticleRef + " \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        Connection.Close();
                     }
                 }
             }
@@ -255,7 +277,7 @@ namespace Bacchus.dao
                     catch (Exception ExceptionCaught)
                     {
                         Connection.Close();
-                        MessageBox.Show("Echec" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        MessageBox.Show("Echec dans de décompte du nombre d'articles : \n " + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 
                     }
                 }
@@ -272,10 +294,13 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static Boolean VerifArticleRef(String ArticleRef)
         {
+            // Vérification de la taille
             if(ArticleRef.Length == 8)
             {
+                // Vérification du premier caractère
                 if (ArticleRef.ElementAt(0).Equals('F'))
                 {
+                    // Vérification des autres caractères
                     if (int.TryParse(ArticleRef.Substring(1),out int value))
                     {
                         return true;
