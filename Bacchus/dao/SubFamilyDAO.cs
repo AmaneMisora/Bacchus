@@ -83,6 +83,30 @@ namespace Bacchus.dao
                     }
                 }
             }
+
+            // Supression de la sous-famille dans la base de donnée
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    using (var Command = new SQLiteCommand("DELETE FROM SousFamilles WHERE RefSousFamille = " + SubFamilyRef + "; "))
+                    {
+                        // Execution de la requête
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Sous-famille " + SubFamilyRef + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    Connection.Close();
+                }
+            }
+
+
+
         }
 
         /// <summary>
