@@ -29,16 +29,16 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void OkButton_Click(object Sender, EventArgs Event)
         {
-            int value;
+            int IntRef;
             // vérifie si le contenue du champ reference est bien un nombre
-            if (int.TryParse(RefTextBox.Text, out value))
+            if (int.TryParse(RefTextBox.Text, out IntRef))
             {
                 // vérifie que le champ nom soit remplie
                 if (NameTextBox.Text != "")
                 {
-                    if (FamilyDAO.getFamilyById(value) == null)
+                    if (FamilyDAO.getFamilyById(IntRef) == null)
                     {
-                        Family NewFamily = new Family(value, NameTextBox.Text);
+                        Family NewFamily = new Family(IntRef, NameTextBox.Text);
                         FamilyDAO.AddFamily(NewFamily);
                         this.Close();
                     }

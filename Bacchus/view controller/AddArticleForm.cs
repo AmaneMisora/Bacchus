@@ -44,33 +44,51 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void OkButton_Click(object Sender, EventArgs Event)
         {
-            int value;
-            // vérifie si le contenue du champ reference est bien un nombre
-            if (int.TryParse(RefTextBox.Text, out value))
+            // vérifie si le contenue du champ reference une reference d'article valide
+            if (ArticleDAO.VerifArticleRef(RefTextBox.Text) == true)
             {
-                // vérifie que les champs soient remplie
-                if ( DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
+                // verifie que le prix et la quantité soient bien des nombres
+                //TODO 
+
+                double DoublePrice;
+                if (double.TryParse(PriceHTTextBox.Text, out DoublePrice))
                 {
-                    // faire une verif sur la ref TODO
-                    /*if (ArticleDAO.getArticleById(value) == null)
+                    int IntQuantity;
+                    if (int.TryParse(PriceHTTextBox.Text, out IntQuantity))
                     {
-                        //SubFamily NewSubFamily = new SubFamily(value, NameTextBox.Text, FamilyComboBox);
-                        //SubFamilyDAO.addSubFamily(NewSubFamily);
-                        this.Close();
+                        // vérifie que les champs soient remplie
+                        if (DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
+                        {
+                            // faire une verif sur la ref TODO
+                            if (ArticleDAO.GetArticleById(RefTextBox.Text) == null)
+                            {
+                                Article NewArticle = new Article(RefTextBox.Text, DescriptionTextBox.Text, (SubFamily)SubFamilyComboBox.SelectedItem, (Brand)BrandComboBox.SelectedItem, DoublePrice, IntQuantity);
+                                ArticleDAO.AddArticle(NewArticle);
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ref existe déjà", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Ref existe déjà", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }*/
+                        MessageBox.Show("La quantite doit etre un nombre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Le prix doit etre un nombre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            else
+                
+            } else
             {
-                MessageBox.Show("Référence doit etre un chiffre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Référence non valide, elle doit etre de cette forme : F0000000", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
