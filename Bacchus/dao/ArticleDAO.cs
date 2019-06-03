@@ -1,8 +1,11 @@
 ﻿using Bacchus.model;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Bacchus.dao
@@ -31,7 +34,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('"+ ArticleToAdd.RefArticle + "', '" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily.RefSubFamily + " , " + ArticleToAdd.RefBrand.RefBrand + " , '" + ArticleToAdd.PriceHT + "' , " + ArticleToAdd.Quantity + ") ;"))
+                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily + " , " + ArticleToAdd.RefBrand + " , " + ArticleToAdd.PriceHT + " , " + ArticleToAdd.Quantity + ") ;"))
                     {
                         // Execution de la requete
                         Command.Connection = Connection;
@@ -78,15 +81,6 @@ namespace Bacchus.dao
 
         }
 
-        /// <summary>
-        /// Modifie l'article passé en référence
-        /// </summary>
-        /// <param name="RefArticle"> La Référence de l'article à modifier </param>
-        /// <param name="NewDescription"> La nouvelle description de l'article </param>
-        /// <param name="NewRefSubFamily"> La nouvelle sous famille de l'article </param>
-        /// <param name="NewRefBrand"> La nouvelle marque de l'article </param>
-        /// <param name="NewPrice"> Le nouveau prix de l'article </param>
-        /// <param name="NewQuantity"> La nouvelle quantité </param>
         public static void EditArticle(String RefArticle, String NewDescription, SubFamily NewRefSubFamily, Brand NewRefBrand, float NewPrice, int NewQuantity)
         {
             // Vérification
@@ -146,23 +140,18 @@ namespace Bacchus.dao
                         {
                             for (int currentArticleIndex = 0; currentArticleIndex < nbArticle; currentArticleIndex++)
                             {
-                                // Lecture de la ligne
                                 Reader.Read();
 
-                                // Création d'un article 
                                 Article ArticleToAdd = new Article();
 
-                                // Ajout des paramètres
                                 ArticleToAdd.RefArticle = Reader[0].ToString();
                                 ArticleToAdd.Description = Reader[1].ToString();
                                 ArticleToAdd.RefSubFamily = SubFamilyDAO.GetSubFamilyById((int)Reader[2]);
                                 ArticleToAdd.RefBrand = BrandDAO.GetBrandById((int)Reader[3]);
-                                ArticleToAdd.PriceHT = float.Parse(Reader[4].ToString());
+                                ArticleToAdd.PriceHT = (float)Reader[4];
                                 ArticleToAdd.Quantity = (int)Reader[5];
 
-                                // Ajout de l'article à la liste à retourner
                                 listToReturn.SetValue(ArticleToAdd, currentArticleIndex);
-                                
                             }
                         }
 
@@ -172,7 +161,7 @@ namespace Bacchus.dao
                     {
                         Connection.Close();
                         listToReturn = null;
-                        MessageBox.Show("Echec de la récupération des données de la table Article \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        MessageBox.Show("Echec de la récupération des données de la table SousFamille  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
 
                 }
@@ -189,7 +178,7 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static Article GetArticleById(String ArticleRef)
         {
-            Article ArticleToReturn = null;
+            Article ArticleToReturn = new Article();
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -199,28 +188,24 @@ namespace Bacchus.dao
                     {
                         Command.Connection = Connection;
                         Command.Connection.Open();
-                        
+
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
                             Reader.Read();
-
-                            ArticleToReturn = new Article();
-
                             ArticleToReturn.RefArticle = Reader[0].ToString();
                             ArticleToReturn.Description = Reader[1].ToString();
                             ArticleToReturn.RefSubFamily = SubFamilyDAO.GetSubFamilyById((int)Reader[2]);
                             ArticleToReturn.RefBrand = BrandDAO.GetBrandById((int)Reader[3]);
-                            ArticleToReturn.PriceHT = float.Parse(Reader[4].ToString());
+                            ArticleToReturn.PriceHT = (float)Reader[4];
                             ArticleToReturn.Quantity = (int)Reader[5];
                         }
-                        
-                        Connection.Close();
 
                     }
-                    catch
+                    catch (Exception ExceptionCaught)
                     {
                         Connection.Close();
                         ArticleToReturn = null;
+                        // MessageBox.Show("Echec de la récupération de la Marque " + BrandRef + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
                 }
             }
@@ -276,6 +261,7 @@ namespace Bacchus.dao
             {
                 if (ArticleRef.ElementAt(0).Equals('F'))
                 {
+                    MessageBox.Show(ArticleRef.Length + "    " + ArticleRef.ElementAt(0));
                     if (int.TryParse(ArticleRef.Substring(1),out int value))
                     {
                         return true;
