@@ -35,7 +35,9 @@ namespace Bacchus
             {
                 FamilyComboBox.Items.Add(F);
             }
-            
+
+            //attend qu'une famille soit sélectionnée
+            SubFamilyComboBox.Items.Add("Selectionnez d'abord une famille");
 
         }
 
@@ -93,6 +95,7 @@ namespace Bacchus
 
         private void FamilyComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            SubFamilyComboBox.Items.Clear();
             SubFamily[] AllLinkedSubFamilies = FamilyDAO.GetAllSubFamilies((Family)FamilyComboBox.SelectedItem);
             foreach (SubFamily SF in AllLinkedSubFamilies)
             {
@@ -100,10 +103,6 @@ namespace Bacchus
             }
 
         }
-
-        private void FamilyComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show(((Family)FamilyComboBox.SelectedItem).ToString());
-        }
+        
     }
 }

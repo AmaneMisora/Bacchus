@@ -185,9 +185,8 @@ namespace Bacchus
                     // verification qui permet d'éviter la ligne titre
                     if(TitleLine == false)
                     {
-
                         // verifie si la reference est valide 
-                        if (ArticleDAO.VerifArticleRef(values[1]))
+                        if (ArticleDAO.VerifArticleRef(values[1]) == true)
                         {
 
                             // cherche la quantité, si elle existe, dans la premiere colonne
@@ -204,7 +203,8 @@ namespace Bacchus
                                 Description = values[0];
                                 IntQuantity = 1;
                             }
-                            /*
+
+
                             // si la famille existe la trouve sinon la creer 
                             Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
                             if (FamilyToAdd == null)
@@ -213,7 +213,7 @@ namespace Bacchus
                             }
                             
                             // si la sous famille existe la trouve sinon la creer
-                            SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4]);
+                            SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4], FamilyToAdd);
                             if (SubFamilyToAdd == null)
                             {
                                 SubFamilyToAdd = new SubFamily(values[4], FamilyToAdd);
@@ -226,11 +226,16 @@ namespace Bacchus
                                 BrandToAdd = new Brand(values[2]);
                             }
 
+                            // vérifie si le prix est bein un double
+                            double DoublePrice;
+                            if(double.TryParse(values[5], out DoublePrice))
+                            {
+                                //créer l'article et le rajoute à la bd
+                                Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, DoublePrice, IntQuantity);
+                                ArticleDAO.AddArticle(ArticleToAdd);
+                                this.Close();
+                            }
 
-                            //TODO couper values[0] en 2 pour avoir la quantite et la descritption
-                            //TODO rajouter un constucteur de article avec quantite
-                            Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, FamilyToAdd, BrandToAdd, values[5], IntQuantity);
-                        */
                         } 
                     }
                     else

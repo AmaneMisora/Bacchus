@@ -135,7 +135,6 @@
             this.FamilyComboBox.Name = "FamilyComboBox";
             this.FamilyComboBox.Size = new System.Drawing.Size(200, 21);
             this.FamilyComboBox.TabIndex = 20;
-            this.FamilyComboBox.SelectedIndexChanged += new System.EventHandler(this.FamilyComboBox_SelectedIndexChanged);
             this.FamilyComboBox.SelectionChangeCommitted += new System.EventHandler(this.FamilyComboBox_SelectionChangeCommitted);
             // 
             // QuantityTextBox

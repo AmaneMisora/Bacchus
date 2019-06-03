@@ -259,7 +259,7 @@ namespace Bacchus.dao
         {
             if(ArticleRef.Length == 8)
             {
-                if(ArticleRef.ElementAt(0).Equals("F"))
+                if (ArticleRef.ElementAt(0).Equals('F'))
                 {
                     if (int.TryParse(ArticleRef.Substring(1),out int value))
                     {

@@ -18,6 +18,15 @@ namespace Bacchus.model
         {
         }
         
+        /// <summary>
+        /// Constructeur d'article
+        /// </summary>
+        /// <param name="ParamRefArticle"></param>
+        /// <param name="ParamDescription"></param>
+        /// <param name="ParamRefSubFamily"></param>
+        /// <param name="ParamRefBrand"></param>
+        /// <param name="ParamPriceHT"></param>
+        /// <param name="ParamQuantity"></param>
         public Article(String ParamRefArticle, String ParamDescription, SubFamily ParamRefSubFamily, Brand ParamRefBrand, double ParamPriceHT, double ParamQuantity)
         {
             this.RefArticle = ParamRefArticle;

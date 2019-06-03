@@ -18,6 +18,30 @@ namespace Bacchus.model
         }
 
         /// <summary>
+        /// Créer une sous famille à partir de son nom et de sa famille
+        /// </summary>
+        /// <param name="NameSubFamilyToSet"></param>
+        /// <param name="FamilyToSet"></param>
+        public SubFamily(String NameSubFamilyToSet, Family FamilyToSet)
+        {
+            NameSubFamily = NameSubFamilyToSet;
+            RefFamily = FamilyToSet;
+            RefSubFamily = -1;
+
+            int TestRef = -1;
+
+            while (RefSubFamily == -1)
+            {
+                TestRef++;
+
+                if (SubFamilyDAO.GetSubFamilyById(TestRef) == null)
+                {
+                    RefSubFamily = TestRef;
+                }
+            }
+        }
+
+        /// <summary>
         /// Create a new SubFamily using the reference of the subFamily,
         /// the name of the family and name of the subFamily
         /// </summary>

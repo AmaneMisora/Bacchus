@@ -28,7 +28,7 @@ namespace Bacchus.model
         }
 
         /// <summary>
-        /// Create a new family using the reference and the name
+        /// Create a new family using the name
         /// </summary>
         /// <param name="NameFamilyToSet"></param>
         public Family(String NameFamilyToSet)
