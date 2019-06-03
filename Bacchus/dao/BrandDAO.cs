@@ -197,7 +197,7 @@ namespace Bacchus.dao
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
-                using (var Command = new SQLiteCommand("SELECT * FROM Marque WHERE Nom = '" + BrandName + "';"))
+                using (var Command = new SQLiteCommand("SELECT * FROM Marques WHERE Nom = '" + BrandName + "';"))
                 {
                     try
                     {
@@ -216,7 +216,7 @@ namespace Bacchus.dao
                     catch (Exception ExceptionCaught)
                     {
                         BrandToReturn = null;
-                        MessageBox.Show("Echec de la récupération de la Famille " + BrandName + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        MessageBox.Show("Echec de la récupération de la Marqe " + BrandName + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                         Connection.Close();
                     }
                 }
