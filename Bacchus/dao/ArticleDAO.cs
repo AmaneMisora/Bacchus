@@ -43,7 +43,7 @@ namespace Bacchus.dao
                 }
                 catch (Exception ExceptionCaught)
                 {
-                    MessageBox.Show("Article " + ArticleToAdd.RefArticle + " non créé\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    MessageBox.Show("Article " + ArticleToAdd.RefArticle + " non créé : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 
                     Connection.Close();
                 }

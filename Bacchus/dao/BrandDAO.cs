@@ -184,7 +184,7 @@ namespace Bacchus.dao
                     catch (Exception ExceptionCaught)
                     {
                         // Retourne null en cas d'erreur
-                        BrandToReturn = null;
+                        listToReturn = null;
 
                         MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 

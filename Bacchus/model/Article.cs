@@ -43,8 +43,18 @@ namespace Bacchus.model
         /// <returns></returns>
         public String GetPriceToString()
         {
+            String StringToReturn = "" ;
+
             String[] PriceStr = PriceHT.ToString().Split(',');
-            return PriceStr[0] + "." + PriceStr[1];
+
+            StringToReturn += PriceStr[0];
+
+            if(PriceStr.Length == 2)
+            {
+                StringToReturn += "." + PriceStr[1];
+            }
+    
+            return StringToReturn;
         }
 
     }
