@@ -15,26 +15,53 @@ namespace Bacchus
 {
     public partial class ExportForm : Form
     {
+        /// <summary>
+        /// Constructeur de la fenetre
+        /// </summary>
         public ExportForm()
         {
             InitializeComponent();
         }
 
-        private void ExportButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Lance l'exportation des données vers le path choisit, à l'appuie sur le bouton "Exporter"
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void ExportButton_Click(object Sender, EventArgs Event)
         {
             try
             {
+                // écrit les titres des colonnes en première ligne
                 var csv = new StringBuilder();
+                var TitleQuantityAndDescriptionRow = "Description";
+                var TitleRefRow = "Ref";
+                var TitleBrandRow = "Marque";
+                var TitleFamilyRow = "Famille";
+                var TitleSubFamilyRow = "Sous-Famille";
+                var TitlePriceRow = "Prix H.T.";
+
+                // formate cette ligne puis l'ajoute au csv
+                var TitleLine = string.Format("{0};{1};{2};{3};{4};{5}", TitleQuantityAndDescriptionRow, TitleRefRow, TitleBrandRow, TitleFamilyRow, TitleSubFamilyRow, TitlePriceRow);
+                csv.AppendLine(TitleLine);
+
+                // fait la meme chose pour tout les articles de la bd
                 Article[] AllArticle = ArticleDAO.GetAllArticles();
                 foreach (Article A in AllArticle)
                 {
-                    var first = A.ToString();
-                    var second = A.RefBrand.ToString();
+                    var QuantityAndDescriptionRow = A.Quantity + " " + A.Description;
+                    var RefRow = A.RefArticle;
+                    var BrandRow = A.RefBrand.ToString();
+                    var FamilyRow = A.RefSubFamily.RefFamily.ToString();
+                    var SubFamilyRow = A.RefSubFamily.ToString();
+                    var PriceRow = A.PriceHT.ToString();
                     //Suggestion made by KyleMit
-                    var newLine = string.Format("{0},{1}", first, second);
-                    csv.AppendLine(newLine);
+                    var NewLine = string.Format("{0};{1};{2};{3};{4};{5}", QuantityAndDescriptionRow, RefRow, BrandRow, FamilyRow, SubFamilyRow, PriceRow);
+                    csv.AppendLine(NewLine);
                 }
-                File.WriteAllText(CSVNameTextBox.Text, csv.ToString());
+
+                // ecrit les données dans le fichier au path choisit
+                File.WriteAllText(CSVNameTextBox.Text, csv.ToString()); //"E:\\Travail\\test.csv"
             }
             catch (Exception Excep)
             {
@@ -48,12 +75,11 @@ namespace Bacchus
             string dummyFileName = "Enregistrer ici";
 
             SaveFileDialog SaveFile = new SaveFileDialog();
-            SaveFile.FileName = dummyFileName;
+            SaveFile.Filter = "Fichiers CSV (*.csv)| *.csv";
 
-            if (SaveFile.ShowDialog() == DialogResult.OK)
-            {
-                CSVNameTextBox.Text = Path.GetDirectoryName(SaveFile.FileName);
-            }
+            SaveFile.ShowDialog();
+
+            CSVNameTextBox.Text = Path.GetDirectoryName(SaveFile.FileName);
         }
     }
 }
