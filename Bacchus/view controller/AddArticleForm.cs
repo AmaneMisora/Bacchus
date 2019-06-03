@@ -52,8 +52,8 @@ namespace Bacchus
             if (ArticleDAO.VerifArticleRef(RefTextBox.Text) == true)
             {
                 // verifie que le prix puis la quantité soient bien des nombres
-                float DoublePrice;
-                if (float.TryParse(PriceHTTextBox.Text, out DoublePrice))
+                float FloatPrice;
+                if (float.TryParse(PriceHTTextBox.Text, out FloatPrice))
                 {
                     int IntQuantity;
                     if (int.TryParse(PriceHTTextBox.Text, out IntQuantity))
@@ -63,7 +63,7 @@ namespace Bacchus
                         {
                             if (ArticleDAO.GetArticleById(RefTextBox.Text) == null)
                             {
-                                Article NewArticle = new Article(RefTextBox.Text, DescriptionTextBox.Text, (SubFamily)SubFamilyComboBox.SelectedItem, (Brand)BrandComboBox.SelectedItem, DoublePrice, IntQuantity);
+                                Article NewArticle = new Article(RefTextBox.Text, DescriptionTextBox.Text, (SubFamily)SubFamilyComboBox.SelectedItem, (Brand)BrandComboBox.SelectedItem, FloatPrice, IntQuantity);
                                 ArticleDAO.AddArticle(NewArticle);
                                 this.Close();
                             }
