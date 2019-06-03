@@ -10,18 +10,30 @@ namespace Bacchus
 {
     public partial class ImportForm : Form
     {
+
+        /// <summary>
+        /// Constructeur de la fenetre
+        /// </summary>
         public ImportForm()
         {
             InitializeComponent();
         }
 
-        private void CSVButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Ouvre le gestionnaire de fichier à l'appui sur le bouton "..."
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void CSVButton_Click(object Sender, EventArgs Event)
         {
+
+            // Ouvre le gestionnaire de fichier seulement pour les fichiers CSV
             OpenFileDialog folderBrowser = new OpenFileDialog();
             folderBrowser.Filter = "Fichiers CSV (*.csv)| *.csv";
             
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
+                // Puis ajoute le path du fichier CSV dans la textBox
                 string CVSPath = Path.GetFullPath(folderBrowser.FileName);
                 CSVNameTextBox.Clear();
                 CSVNameTextBox.AppendText(CVSPath);
@@ -166,86 +178,92 @@ namespace Bacchus
 
         }
 
-        private void CSVNameTextBox_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Déclenche l'import du fichier précédement séléctionné à l'appui sur le bouton "Importer et Ajouter"
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void AddButton_Click(object Sender, EventArgs Event)
         {
-
-        }
-
-        private void AddButton_Click(object sender, EventArgs e)
-        {
-            
-            using (var reader = new StreamReader(@CSVNameTextBox.Text))
+            try
             {
-                bool TitleLine = true;
-                while (!reader.EndOfStream)
+                using (var reader = new StreamReader(@CSVNameTextBox.Text))
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(';');
-
-                    // verification qui permet d'éviter la ligne titre
-                    if(TitleLine == false)
+                    bool TitleLine = true;
+                    while (!reader.EndOfStream)
                     {
-                        // verifie si la reference est valide 
-                        if (ArticleDAO.VerifArticleRef(values[1]) == true)
+                        var line = reader.ReadLine();
+                        var values = line.Split(';');
+
+                        // verification qui permet d'éviter la ligne titre
+                        if (TitleLine == false)
                         {
-
-                            // cherche la quantité, si elle existe, dans la premiere colonne
-                            var firstSpaceIndex = values[0].IndexOf(" ");
-                            var Quantity = values[0].Substring(0, firstSpaceIndex); // la quantite si elle existe
-                            var Description = values[0].Substring(firstSpaceIndex + 1); // la description si il y a un quantite
-                            int IntQuantity;
-                            if (int.TryParse(Quantity, out IntQuantity))
+                            // verifie si la reference est valide 
+                            if (ArticleDAO.VerifArticleRef(values[1]) == true)
                             {
 
-                            }
-                            else
-                            {
-                                Description = values[0];
-                                IntQuantity = 1;
-                            }
+                                // cherche la quantité, si elle existe, dans la premiere colonne
+                                var firstSpaceIndex = values[0].IndexOf(" ");
+                                var Quantity = values[0].Substring(0, firstSpaceIndex); // la quantite si elle existe
+                                var Description = values[0].Substring(firstSpaceIndex + 1); // la description si il y a un quantite
+                                int IntQuantity;
+                                if (int.TryParse(Quantity, out IntQuantity))
+                                {
+
+                                }
+                                else
+                                {
+                                    Description = values[0];
+                                    IntQuantity = 1;
+                                }
 
 
-                            // si la famille existe la trouve sinon la creer 
-                            Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
-                            if (FamilyToAdd == null)
-                            {
-                                FamilyToAdd = new Family(values[3]);
-                            }
-                            
-                            // si la sous famille existe la trouve sinon la creer
-                            SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4], FamilyToAdd);
-                            if (SubFamilyToAdd == null)
-                            {
-                                SubFamilyToAdd = new SubFamily(values[4], FamilyToAdd);
-                            }
+                                // si la famille existe la trouve sinon la creer 
+                                Family FamilyToAdd = FamilyDAO.GetFamilyByName(values[3]);
+                                if (FamilyToAdd == null)
+                                {
+                                    FamilyToAdd = new Family(values[3]);
+                                }
 
-                            // si la marque existe la trouve sinon la creer
-                            Brand BrandToAdd = BrandDAO.GetBrandByName(values[2]);
-                            if (BrandToAdd == null)
-                            {
-                                BrandToAdd = new Brand(values[2]);
-                            }
+                                // si la sous famille existe la trouve sinon la creer
+                                SubFamily SubFamilyToAdd = SubFamilyDAO.GetSubFamilyByName(values[4], FamilyToAdd);
+                                if (SubFamilyToAdd == null)
+                                {
+                                    SubFamilyToAdd = new SubFamily(values[4], FamilyToAdd);
+                                }
 
-                            // vérifie si le prix est bein un double
-                            double DoublePrice;
-                            if(double.TryParse(values[5], out DoublePrice))
-                            {
-                                //créer l'article et le rajoute à la bd
-                                Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, DoublePrice, IntQuantity);
-                                ArticleDAO.AddArticle(ArticleToAdd);
-                                this.Close();
-                            }
+                                // si la marque existe la trouve sinon la creer
+                                Brand BrandToAdd = BrandDAO.GetBrandByName(values[2]);
+                                if (BrandToAdd == null)
+                                {
+                                    BrandToAdd = new Brand(values[2]);
+                                }
 
-                        } 
+                                // vérifie si le prix est bein un double
+                                double DoublePrice;
+                                if (double.TryParse(values[5], out DoublePrice))
+                                {
+                                    //créer l'article et le rajoute à la bd
+                                    Article ArticleToAdd = new Article(values[1], Description, SubFamilyToAdd, BrandToAdd, DoublePrice, IntQuantity);
+                                    ArticleDAO.AddArticle(ArticleToAdd);
+                                    this.Close();
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            TitleLine = false;
+                        }
+
+
                     }
-                    else
-                    {
-                        TitleLine = false;
-                    }
-
-
                 }
+            } catch (System.Exception Excep)
+            {
+                MessageBox.Show(Excep.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
     }
 }
