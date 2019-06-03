@@ -189,7 +189,7 @@ namespace Bacchus.dao
         /// <returns></returns>
         public static Article GetArticleById(String ArticleRef)
         {
-            Article ArticleToReturn = new Article();
+            Article ArticleToReturn = null;
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -203,6 +203,9 @@ namespace Bacchus.dao
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
                             Reader.Read();
+
+                            ArticleToReturn = new Article();
+
                             ArticleToReturn.RefArticle = Reader[0].ToString();
                             ArticleToReturn.Description = Reader[1].ToString();
                             ArticleToReturn.RefSubFamily = SubFamilyDAO.GetSubFamilyById((int)Reader[2]);
