@@ -65,6 +65,11 @@ namespace Bacchus
             }
         }
 
+        /// <summary>
+        /// Ouvre le gestionnaire de fichier à l'appui sur le bouton "..."
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CSVButton_Click(object sender, EventArgs e)
         {
             // Nom de fichier par défault dans l'explorateur de fichier

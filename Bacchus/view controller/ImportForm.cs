@@ -27,21 +27,30 @@ namespace Bacchus
         private void CSVButton_Click(object Sender, EventArgs Event)
         {
 
-            // Ouvre le gestionnaire de fichier seulement pour les fichiers CSV
+            // Création de la fenetre de dialogue pour entrer le path
             OpenFileDialog folderBrowser = new OpenFileDialog();
-            folderBrowser.Filter = "Fichiers CSV (*.csv)| *.csv";
             
+            // Affiche uniquement les csv
+            folderBrowser.Filter = "Fichiers CSV (*.csv)| *.csv";
+
+            // Répertoire ouvert par défaut à l'ouverture de la SaveFileDialog
+            folderBrowser.InitialDirectory = CSVNameTextBox.Text;
+
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
-                // Puis ajoute le path du fichier CSV dans la textBox
+                // Récupère le path dans la OpenFileDialog
                 string CVSPath = Path.GetFullPath(folderBrowser.FileName);
+
+                // Efface la textBox si elle était pleine
                 CSVNameTextBox.Clear();
+
+                // Ajoute le path du fichier CSV dans la textBox
                 CSVNameTextBox.AppendText(CVSPath);
             }
         }
 
         /// <summary>
-        /// 
+        /// Lance l'import au clic sur "importer et Ecraser"
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="Event"></param>
@@ -121,7 +130,7 @@ namespace Bacchus
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        MessageBox.Show("Error while clearing db : " + ExceptionCaught);
+                        MessageBox.Show("Error while clearing db : " + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
                     }
 
                 
@@ -202,9 +211,9 @@ namespace Bacchus
                     this.Close();
                 }
             }
-            catch (System.Exception Excep)
+            catch (Exception ExceptionCaught)
             {
-                MessageBox.Show(Excep.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ExceptionCaught.Message, "Erreur : " + ExceptionCaught.GetType().ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
