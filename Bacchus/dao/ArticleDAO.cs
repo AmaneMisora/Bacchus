@@ -83,7 +83,37 @@ namespace Bacchus.dao
 
         public static void EditArticle(String RefArticle, String NewDescription, SubFamily NewRefSubFamily, Brand NewRefBrand, float NewPrice, int NewQuantity)
         {
+            // Vérification
+            if (VerifArticleRef(RefArticle) == false)
+            {
+                throw new ArgumentException("La référence de l'article est invalide");
+            }
+            if (NewDescription.Equals("") || NewDescription == null)
+            {
+                throw new ArgumentNullException("Description");
+            }
 
+            // Modification de la base de données
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    using (var Command = new SQLiteCommand("UPDATE Familles SET Description = '" + NewDescription + "', RefSousFamille = " + NewRefSubFamily.RefSubFamily + ", RefMarque = " + NewRefBrand.RefBrand + ", PrisHT = " + NewPrice + ", Quantité = " + NewQuantity + " WHERE RefArticle = " + RefArticle + "; "))
+                    {
+                        // Execution de la requete
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Article " + RefArticle + " non modifièe : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    Connection.Close();
+                }
+            }
+            
         }
 
         /// <summary>

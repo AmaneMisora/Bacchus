@@ -74,8 +74,7 @@ namespace Bacchus.dao
                     }
                 }
             }
-
-
+            
             // Supression de la famille dans la base de donnée
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
@@ -112,7 +111,7 @@ namespace Bacchus.dao
                 throw new ArgumentNullException("Famille Ref");
             }
 
-            // Ajout à la base de données
+            // Modification de la base de données
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
@@ -222,7 +221,7 @@ namespace Bacchus.dao
         }
 
         /// <summary>
-        /// Get the Family corresponding to the Ref FamilyRef
+        /// Retourne la famille correspondant à la ref en entrée
         /// </summary>
         /// <param name="FamilyRef"></param>
         /// <returns></returns>
@@ -241,8 +240,10 @@ namespace Bacchus.dao
 
                         using (SQLiteDataReader Reader = Command.ExecuteReader())
                         {
+                            // LEcture de a ligne
                             Reader.Read();
 
+                            // Ajout des paramètres
                             FamilyToReturn.RefFamily = (int)Reader[0];
                             FamilyToReturn.NameFamily = Reader[1].ToString();
                         }
@@ -258,19 +259,65 @@ namespace Bacchus.dao
             }
 
             return FamilyToReturn;
+            
+        }
 
+        public static SubFamily[] GetAllSubFamilies(Family Family)
+        {
+            // DataTable récupérant les données de la requete
+            DataTable DataTableToFill = new DataTable();
 
+            // Récupération des données
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM SousFamilles WHERE RefFamille = " + Family.RefFamily + ";"))
+                {
+                    try
+                    {
+                        // Execution de la requete
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        SQLiteDataAdapter adp = new SQLiteDataAdapter(Command);
+                        adp.Fill(DataTableToFill);
+                        Connection.Close();
+                    }
+                    catch (Exception)
+                    {
+                        Connection.Close();
+                    }
+                }
+            }
+
+            // Création de la liste à retourner (de la taille du résultat de la requete)
+            SubFamily[] SubFamilyTableToReturn = new SubFamily[DataTableToFill.Rows.Count];
+
+            // Création des SubFamilies à partir de la DataTable et ajout à la liste
+            for (int currentSubFamilyIndex = 0; currentSubFamilyIndex < DataTableToFill.Rows.Count; currentSubFamilyIndex++)
+            {
+                // Création d'une SousFamille vide
+                SubFamily TmpSubFamilyToAdd = new SubFamily();
+
+                // Ajout des paramètres de la SousFamille
+                TmpSubFamilyToAdd.RefSubFamily = (int)DataTableToFill.Rows[currentSubFamilyIndex][0];
+                TmpSubFamilyToAdd.RefFamily = FamilyDAO.getFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][1];
+                TmpSubFamilyToAdd.NameSubFamily = DataTableToFill.Rows[currentSubFamilyIndex][1].ToString();
+
+                // Ajout de la famille à la liste à retourner
+                SubFamilyTableToReturn.SetValue(TmpSubFamilyToAdd, currentSubFamilyIndex);
+            }
+            
+            return SubFamilyTableToReturn;
         }
 
         /// <summary>
-        /// Count the number of familys in the db
+        /// Compte le nombre de familles dans le base de données
         /// </summary>
         /// <returns></returns>
         public static int NbFamilies()
         {
             int Result = -1;
 
-            var DataTableToReturn = new DataTable();
+            DataTable DataTableToReturn = new DataTable();
 
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
