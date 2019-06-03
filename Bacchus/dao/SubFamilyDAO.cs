@@ -205,6 +205,50 @@ namespace Bacchus.dao
             return SubFamilyToReturn;
         }
 
+        /// <summary>
+        /// Récupère la sous-famille portant le nom en entrèe et appratenant à la famille en entrée
+        /// </summary>
+        /// <param name="SubFamilyName"> Le nom de la sous-famille à retourner</param>
+        /// <param name="RefFamily"> La famille à laquelle appartient la sous-famille </param>
+        /// <returns></returns>
+        public static SubFamily GetSubFamilyByName(String SubFamilyName, Family RefFamily)
+        {
+            SubFamily SubFamilyToReturn = new SubFamily();
+
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM SousFamilles WHERE Nom = '" + SubFamilyName + "' AND RefFamille = " + RefFamily.RefFamily + ";"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        // Execution de la commande
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            // Lecture de la ligne
+                            Reader.Read();
+
+                            // Ajout des paramètres
+                            SubFamilyToReturn.RefSubFamily = (int)Reader[0];
+                            SubFamilyToReturn.RefFamily = FamilyDAO.getFamilyById((int)Reader[1]);
+                            SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        // Retourne null en cas d'échec
+                        SubFamilyToReturn = null;
+                        MessageBox.Show("Echec de la récupération de la SousFamille " + SubFamilyName + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        Connection.Close();
+                    }
+                }
+            }
+
+            return SubFamilyToReturn;
+        }
 
         /// <summary>
         /// Retourne le nombre de sous familles de la base de donnée
