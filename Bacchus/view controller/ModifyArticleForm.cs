@@ -115,7 +115,7 @@ namespace Bacchus
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="Event"></param>
-        private void SubFamilyComboBox_SelectionChangeCommitted(object Sender, EventArgs Event)
+        private void FamilyComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             SubFamilyComboBox.Items.Clear();
             SubFamily[] AllLinkedSubFamilies = FamilyDAO.GetAllSubFamilies((Family)FamilyComboBox.SelectedItem);
