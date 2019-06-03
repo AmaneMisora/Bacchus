@@ -47,9 +47,7 @@ namespace Bacchus
             // vérifie si le contenue du champ reference une reference d'article valide
             if (ArticleDAO.VerifArticleRef(RefTextBox.Text) == true)
             {
-                // verifie que le prix et la quantité soient bien des nombres
-                //TODO 
-
+                // verifie que le prix puis la quantité soient bien des nombres
                 double DoublePrice;
                 if (double.TryParse(PriceHTTextBox.Text, out DoublePrice))
                 {
@@ -59,7 +57,6 @@ namespace Bacchus
                         // vérifie que les champs soient remplie
                         if (DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
                         {
-                            // faire une verif sur la ref TODO
                             if (ArticleDAO.GetArticleById(RefTextBox.Text) == null)
                             {
                                 Article NewArticle = new Article(RefTextBox.Text, DescriptionTextBox.Text, (SubFamily)SubFamilyComboBox.SelectedItem, (Brand)BrandComboBox.SelectedItem, DoublePrice, IntQuantity);

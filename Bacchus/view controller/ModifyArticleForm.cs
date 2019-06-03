@@ -66,12 +66,33 @@ namespace Bacchus
         /// <param name="Event"></param>
         private void OkButton_Click(object Sender, EventArgs Event)
         {
-            //TODO verifier si l'un des champs est vide
-            //Article ModifiedArticle = new Article();
-            // appeler save du dao de article
-            // qui va chercher un article avec cette ref et appliquer les modif si il y en a 
-
-            this.Close();
+            // verifie que le prix puis la quantité soient bien des nombres
+            double DoublePrice;
+            if (double.TryParse(PriceHTTextBox.Text, out DoublePrice))
+            {
+                int IntQuantity;
+                if (int.TryParse(PriceHTTextBox.Text, out IntQuantity))
+                {
+                    // vérifie que les champs soient remplie
+                    if (DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
+                    {
+                        ArticleDAO.EditArticle(ArticleNameLabel.Text, DescriptionTextBox.Text, (SubFamily) SubFamilyComboBox.SelectedItem, (Brand) BrandComboBox.SelectedItem, (float)DoublePrice, IntQuantity);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Les champs doivent etre remplient", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La quantite doit etre un nombre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Le prix doit etre un nombre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
     }
 }
