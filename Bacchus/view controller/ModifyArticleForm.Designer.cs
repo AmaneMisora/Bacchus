@@ -142,6 +142,7 @@ namespace Bacchus
             this.SubFamilyComboBox.Name = "SubFamilyComboBox";
             this.SubFamilyComboBox.Size = new System.Drawing.Size(200, 21);
             this.SubFamilyComboBox.TabIndex = 10;
+            this.SubFamilyComboBox.SelectionChangeCommitted += new System.EventHandler(this.SubFamilyComboBox_SelectionChangeCommitted);
             // 
             // BrandComboBox
             // 

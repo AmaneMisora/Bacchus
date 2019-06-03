@@ -51,6 +51,21 @@ namespace Bacchus
 
             FamilyComboBox.SelectedIndex = IndexFamily;
 
+            // rempli la combo box sous famille avec la liste des sous familles appartenant à la famille selectionnée
+            Index = 0;
+            int IndexSubFamily = 0;
+            SubFamilyComboBox.Items.Clear();
+            SubFamily[] AllLinkedSubFamilies = FamilyDAO.GetAllSubFamilies((Family)FamilyComboBox.SelectedItem);
+            foreach (SubFamily SF in AllLinkedSubFamilies)
+            {
+                SubFamilyComboBox.Items.Add(SF);
+                if (SF.ToString() == SelectedItem.SubItems[4].Text)
+                    IndexSubFamily = Index;
+                Index++;
+            }
+
+            SubFamilyComboBox.SelectedIndex = IndexSubFamily;
+
             // initialise les champs avec les données de l'article modifié 
             ArticleNameLabel.Text = SelectedItem.SubItems[2].Text;
             DescriptionTextBox.Text = SelectedItem.SubItems[1].Text;
@@ -71,7 +86,7 @@ namespace Bacchus
             if (double.TryParse(PriceHTTextBox.Text, out DoublePrice))
             {
                 int IntQuantity;
-                if (int.TryParse(PriceHTTextBox.Text, out IntQuantity))
+                if (int.TryParse(QuantityTextBox.Text, out IntQuantity))
                 {
                     // vérifie que les champs soient remplie
                     if (DescriptionTextBox.Text != "" && PriceHTTextBox.Text != "" && QuantityTextBox.Text != "" && BrandComboBox.Text != "" && FamilyComboBox.Text != "" && SubFamilyComboBox.Text != "")
@@ -93,6 +108,21 @@ namespace Bacchus
             {
                 MessageBox.Show("Le prix doit etre un nombre", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }            
+        }
+
+        /// <summary>
+        /// Remplie la combobox sous famille à chaque changement de la combobox famille
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Event"></param>
+        private void SubFamilyComboBox_SelectionChangeCommitted(object Sender, EventArgs Event)
+        {
+            SubFamilyComboBox.Items.Clear();
+            SubFamily[] AllLinkedSubFamilies = FamilyDAO.GetAllSubFamilies((Family)FamilyComboBox.SelectedItem);
+            foreach (SubFamily SF in AllLinkedSubFamilies)
+            {
+                SubFamilyComboBox.Items.Add(SF);
+            }
         }
     }
 }
