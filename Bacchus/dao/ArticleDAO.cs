@@ -31,7 +31,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('"+ ArticleToAdd.RefArticle + "', '" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily.RefSubFamily + " , " + ArticleToAdd.RefBrand.RefBrand + " , '" + ArticleToAdd.PriceHT + "' , " + ArticleToAdd.Quantity + ") ;"))
+                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('"+ ArticleToAdd.RefArticle + "', '" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily.RefSubFamily + " , " + ArticleToAdd.RefBrand.RefBrand + " , '" + ArticleToAdd.GetPriceToString() + "' , " + ArticleToAdd.Quantity + ") ;"))
                     {
                         // Execution de la requete
                         Command.Connection = Connection;

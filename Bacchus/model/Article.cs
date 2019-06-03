@@ -37,6 +37,11 @@ namespace Bacchus.model
             this.Quantity = ParamQuantity;
         }
 
+        public String GetPriceToString()
+        {
+            String[] PriceStr = PriceHT.ToString().Split(',');
+            return PriceStr[0] + "." + PriceStr[1];
+        }
 
     }
 }
