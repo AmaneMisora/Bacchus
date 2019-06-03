@@ -47,7 +47,7 @@
             this.ExportProgressBar.Location = new System.Drawing.Point(10, 115);
             this.ExportProgressBar.Margin = new System.Windows.Forms.Padding(3, 30, 3, 30);
             this.ExportProgressBar.Name = "ExportProgressBar";
-            this.ExportProgressBar.Size = new System.Drawing.Size(415, 23);
+            this.ExportProgressBar.Size = new System.Drawing.Size(399, 23);
             this.ExportProgressBar.Step = 1;
             this.ExportProgressBar.TabIndex = 6;
             this.ExportProgressBar.Tag = "";
@@ -59,7 +59,7 @@
             this.ExportGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExportGroupBox.Location = new System.Drawing.Point(10, 10);
             this.ExportGroupBox.Name = "ExportGroupBox";
-            this.ExportGroupBox.Size = new System.Drawing.Size(415, 95);
+            this.ExportGroupBox.Size = new System.Drawing.Size(399, 95);
             this.ExportGroupBox.TabIndex = 7;
             this.ExportGroupBox.TabStop = false;
             this.ExportGroupBox.Text = "Paramètres d\'exportation";
@@ -76,16 +76,16 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(409, 43);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(393, 43);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // ExportButton
             // 
             this.ExportButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ExportButton.Location = new System.Drawing.Point(10, 10);
-            this.ExportButton.Margin = new System.Windows.Forms.Padding(10);
+            this.ExportButton.Location = new System.Drawing.Point(50, 10);
+            this.ExportButton.Margin = new System.Windows.Forms.Padding(50, 10, 30, 10);
             this.ExportButton.Name = "ExportButton";
-            this.ExportButton.Size = new System.Drawing.Size(389, 23);
+            this.ExportButton.Size = new System.Drawing.Size(313, 23);
             this.ExportButton.TabIndex = 2;
             this.ExportButton.Text = "Exporter";
             this.ExportButton.UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(409, 38);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(393, 38);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // CSVButton
@@ -115,7 +115,7 @@
             this.CSVButton.Location = new System.Drawing.Point(356, 7);
             this.CSVButton.Margin = new System.Windows.Forms.Padding(0, 7, 8, 8);
             this.CSVButton.Name = "CSVButton";
-            this.CSVButton.Size = new System.Drawing.Size(45, 23);
+            this.CSVButton.Size = new System.Drawing.Size(30, 23);
             this.CSVButton.TabIndex = 1;
             this.CSVButton.Text = "...";
             this.CSVButton.UseVisualStyleBackColor = true;
@@ -145,7 +145,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 148);
+            this.ClientSize = new System.Drawing.Size(419, 148);
             this.Controls.Add(this.ExportProgressBar);
             this.Controls.Add(this.ExportGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -1,14 +1,8 @@
 ﻿using Bacchus.dao;
 using Bacchus.model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Bacchus
@@ -62,24 +56,43 @@ namespace Bacchus
 
                 // ecrit les données dans le fichier au path choisit
                 File.WriteAllText(CSVNameTextBox.Text, csv.ToString()); //"E:\\Travail\\test.csv"
+
+                MessageBox.Show("Export réussi");
             }
-            catch (Exception Excep)
+            catch (Exception ExceptionCaught)
             {
-                MessageBox.Show(Excep.Message);
+                MessageBox.Show("L'export à échoué \n" + ExceptionCaught.Message.ToString(), ExceptionCaught.GetType().ToString());
             }
         }
 
         private void CSVButton_Click(object sender, EventArgs e)
         {
-            // String qui vont apparaitre dans le nom de fichier dans l'explorateur de fichier
-            string dummyFileName = "Enregistrer ici";
+            // Nom de fichier par défault dans l'explorateur de fichier
+            string FileName = "BacchusExport.csv";
 
+            // Création de la fenetre de dialogue pour entrer le path
             SaveFileDialog SaveFile = new SaveFileDialog();
+
+            // Affiche uniquement les csv
             SaveFile.Filter = "Fichiers CSV (*.csv)| *.csv";
 
-            SaveFile.ShowDialog();
+            // Nom du fichier par défaut à l'ouverture de la SaveFileDialog
+            SaveFile.FileName = FileName;
 
-            CSVNameTextBox.Text = Path.GetDirectoryName(SaveFile.FileName);
+            // Répertoire ouvert par défaut à l'ouverture de la SaveFileDialog
+            SaveFile.InitialDirectory = CSVNameTextBox.Text;
+
+            if (SaveFile.ShowDialog() == DialogResult.OK)
+            {
+                // Récupère le path dans la OpenFileDialog
+                string CVSPath = Path.GetFullPath(SaveFile.FileName);
+
+                // Efface la textBox si elle était pleine
+                CSVNameTextBox.Clear();
+
+                // Ajoute le path du fichier CSV dans la textBox
+                CSVNameTextBox.AppendText(CVSPath);
+            }
         }
     }
 }
