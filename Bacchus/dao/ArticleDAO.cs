@@ -34,8 +34,7 @@ namespace Bacchus.dao
             {
                 try
                 {
-                    /*
-                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ;"))
+                    using (var Command = new SQLiteCommand("INSERT INTO Articles VALUES ('" + ArticleToAdd.Description + "', " + ArticleToAdd.RefSubFamily + " , " + ArticleToAdd.RefBrand + " , " + ArticleToAdd.PriceHT + " , " + ArticleToAdd.Quantity + ") ;"))
                     {
                         // Execution de la requete
                         Command.Connection = Connection;
@@ -43,7 +42,6 @@ namespace Bacchus.dao
                         Command.ExecuteNonQuery();
                         Connection.Close();
                     }
-                    */
                 }
                 catch (Exception ExceptionCaught)
                 {
@@ -54,9 +52,32 @@ namespace Bacchus.dao
             
         }
 
-
-        public static void DeleteArticle(int RefArticle)
+        /// <summary>
+        /// Supprime l'article correspondant à la ref en entrée
+        /// </summary>
+        /// <param name="RefArticleToDelete"></param>
+        public static void DeleteArticle(String RefArticleToDelete)
         {
+            // Supression de l'article dans la base de donnée
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                try
+                {
+                    using (var Command = new SQLiteCommand("DELETE FROM Articles WHERE RefArticle = '" + RefArticleToDelete + "'; "))
+                    {
+                        // Execution de la requête
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+                        Command.ExecuteNonQuery();
+                        Connection.Close();
+                    }
+                }
+                catch (Exception ExceptionCaught)
+                {
+                    MessageBox.Show("Article " + RefArticleToDelete + " non supprimée : \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                    Connection.Close();
+                }
+            }
 
         }
 

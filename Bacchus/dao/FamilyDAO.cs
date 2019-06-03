@@ -76,7 +76,7 @@ namespace Bacchus.dao
             }
 
 
-            // Supression de la base de donnée
+            // Supression de la famille dans la base de donnée
             using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
             {
                 try
