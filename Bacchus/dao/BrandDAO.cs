@@ -186,7 +186,40 @@ namespace Bacchus.dao
             return listToReturn;
         }
 
+        public static Brand GetBrandByName(String BrandName)
+        {
+            Brand BrandToReturn = new Brand();
 
+            using (var Connection = new SQLiteConnection("Data Source = Bacchus.SQLite ;Version=3;New=False;Compress=True;"))
+            {
+                using (var Command = new SQLiteCommand("SELECT * FROM Marque WHERE Nom = '" + BrandName + "';"))
+                {
+                    try
+                    {
+                        Command.Connection = Connection;
+                        Command.Connection.Open();
+
+                        using (SQLiteDataReader Reader = Command.ExecuteReader())
+                        {
+                            Reader.Read();
+
+                            BrandToReturn.RefBrand = (int)Reader[0];
+                            BrandToReturn.NameBrand = Reader[1].ToString();
+                        }
+
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        BrandToReturn = null;
+                        MessageBox.Show("Echec de la récupération de la Famille " + BrandName + "\n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        Connection.Close();
+                    }
+                }
+            }
+
+            return BrandToReturn;
+
+        }
 
         /// <summary>
         /// Get the Brand corresponding to the Ref BrandRef

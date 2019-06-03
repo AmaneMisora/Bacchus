@@ -299,7 +299,7 @@ namespace Bacchus.dao
 
                 // Ajout des paramètres de la SousFamille
                 TmpSubFamilyToAdd.RefSubFamily = (int)DataTableToFill.Rows[currentSubFamilyIndex][0];
-                TmpSubFamilyToAdd.RefFamily = FamilyDAO.getFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][1];
+                TmpSubFamilyToAdd.RefFamily = FamilyDAO.getFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][1]);
                 TmpSubFamilyToAdd.NameSubFamily = DataTableToFill.Rows[currentSubFamilyIndex][1].ToString();
 
                 // Ajout de la famille à la liste à retourner
