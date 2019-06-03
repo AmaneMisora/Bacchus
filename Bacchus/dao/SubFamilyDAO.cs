@@ -268,7 +268,7 @@ namespace Bacchus.dao
                     {
                         // Retourne null en cas d'erreur
                         SubFamilyToReturn = null;
-
+                        MessageBox.Show("Oui comme un con je suis passé là");
                         MessageBox.Show("Echec de la récupération de la SousFamille " + SubFamilyRef + " \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 
                         Connection.Close();
@@ -313,6 +313,13 @@ namespace Bacchus.dao
 
                         Connection.Close();
 
+                    }
+                    // dans le cas où il n'existe pas de sous familles avec cet id
+                    catch (InvalidOperationException)
+                    {
+                        SubFamilyToReturn = null;
+
+                        Connection.Close();
                     }
                     catch (Exception ExceptionCaught)
                     {

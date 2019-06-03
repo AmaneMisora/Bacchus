@@ -235,13 +235,16 @@ namespace Bacchus.dao
                     // Dans le cas où l'article n'existe pas
                     catch(InvalidOperationException)
                     {
+                        ArticleToReturn = null;
+
                         Connection.Close();
-                        return null;
                     }
-                    // Dans le cas d'une erreur anormale
                     catch(Exception ExceptionCaught)
                     {
+                        ArticleToReturn = null;
+
                         MessageBox.Show("Echec de la récupération de l'article " + ArticleRef + " \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+
                         Connection.Close();
                     }
                 }

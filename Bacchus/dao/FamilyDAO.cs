@@ -242,10 +242,19 @@ namespace Bacchus.dao
                         Connection.Close();
 
                     }
-                    catch
+                    // Dans le cas où il n'y a pas de famille avec cet id
+                    catch (InvalidOperationException)
                     {
-                        // Renvoie null en cas d'erreur
                         FamilyReturn = null;
+
+                        Connection.Close();
+                    }
+                    catch (Exception ExceptionCaught)
+                    {
+                        // Retourne null en cas d'erreur 
+                        FamilyReturn = null;
+
+                        MessageBox.Show("Echec de la récupération de la famille" + FamilyName + "  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 
                         Connection.Close();
                     }

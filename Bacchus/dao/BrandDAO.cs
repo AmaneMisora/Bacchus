@@ -183,9 +183,10 @@ namespace Bacchus.dao
                     }
                     catch (Exception ExceptionCaught)
                     {
-                        MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        // Retourne null en cas d'erreur
+                        BrandToReturn = null;
 
-                        listToReturn = null;
+                        MessageBox.Show("Echec de la récupération des données de la table Marques  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
 
                         Connection.Close();
                     }
@@ -227,11 +228,21 @@ namespace Bacchus.dao
                         Connection.Close();
 
                     }
-                    catch
+                    // Dans le cas où la marque n'existe pas
+                    catch (InvalidOperationException)
+                    {
+                        BrandToReturn = null;
+
+                        Connection.Close();
+
+                    }
+                    catch (Exception ExceptionCaught)
                     {
                         // Retourne null en cas d'erreur
                         BrandToReturn = null;
 
+                        MessageBox.Show("Echec de la récupération de la marque " + BrandName + "  \n" + ExceptionCaught.Message, ExceptionCaught.GetType().ToString());
+                        
                         Connection.Close();
                     }
                 }
