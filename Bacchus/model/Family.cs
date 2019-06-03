@@ -42,7 +42,7 @@ namespace Bacchus.model
             {
                 TestRef++;
                 
-                if (FamilyDAO.getFamilyById(TestRef) == null)
+                if (FamilyDAO.GetFamilyById(TestRef) == null)
                 {
                     RefFamily = TestRef;
                 }

@@ -225,7 +225,7 @@ namespace Bacchus.dao
         /// </summary>
         /// <param name="FamilyRef"></param>
         /// <returns></returns>
-        public static Family getFamilyById(int FamilyRef)
+        public static Family GetFamilyById(int FamilyRef)
         {
             Family FamilyToReturn = new Family();
 
@@ -299,7 +299,7 @@ namespace Bacchus.dao
 
                 // Ajout des paramètres de la SousFamille
                 TmpSubFamilyToAdd.RefSubFamily = (int)DataTableToFill.Rows[currentSubFamilyIndex][0];
-                TmpSubFamilyToAdd.RefFamily = FamilyDAO.getFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][1]);
+                TmpSubFamilyToAdd.RefFamily = FamilyDAO.GetFamilyById((int)DataTableToFill.Rows[currentSubFamilyIndex][1]);
                 TmpSubFamilyToAdd.NameSubFamily = DataTableToFill.Rows[currentSubFamilyIndex][1].ToString();
 
                 // Ajout de la famille à la liste à retourner

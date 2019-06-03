@@ -144,7 +144,7 @@ namespace Bacchus.dao
                                 SubFamily SubFamilyToAdd = new SubFamily();
 
                                 SubFamilyToAdd.RefSubFamily = (int)Reader[0];
-                                SubFamilyToAdd.RefFamily = FamilyDAO.getFamilyById((int)Reader[1]);
+                                SubFamilyToAdd.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
                                 SubFamilyToAdd.NameSubFamily = Reader[2].ToString();
 
                                 listToReturn.SetValue(SubFamilyToAdd, currentSubFamilyIndex);
@@ -189,7 +189,7 @@ namespace Bacchus.dao
                             Reader.Read();
 
                             SubFamilyToReturn.RefSubFamily = (int)Reader[0];
-                            SubFamilyToReturn.RefFamily = FamilyDAO.getFamilyById((int)Reader[1]);
+                            SubFamilyToReturn.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
                             SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
                         }
 
@@ -232,7 +232,7 @@ namespace Bacchus.dao
 
                             // Ajout des paramètres
                             SubFamilyToReturn.RefSubFamily = (int)Reader[0];
-                            SubFamilyToReturn.RefFamily = FamilyDAO.getFamilyById((int)Reader[1]);
+                            SubFamilyToReturn.RefFamily = FamilyDAO.GetFamilyById((int)Reader[1]);
                             SubFamilyToReturn.NameSubFamily = Reader[2].ToString();
                         }
 
